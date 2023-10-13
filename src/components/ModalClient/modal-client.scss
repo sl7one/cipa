@@ -1,0 +1,43 @@
+.client-modal-form {
+  padding: 15px;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100vw;
+  height: 100vh;
+
+  z-index: 1;
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.client-modal-form .form__input-wrapper input,
+.client-modal-form .form__input-wrapper textarea {
+  text-align: left;
+}
+
+.client-modal-form p {
+  margin-bottom: 20px;
+}
+
+.client-modal-form label {
+  font-size: 18px;
+  color: red;
+
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.submit-btn {
+  width: 100vw;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  padding: 10px;
+  background: var(--orange-gradient);
+  text-transform: uppercase;
+}

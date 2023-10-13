@@ -1,0 +1,44 @@
+.form .form__summary {
+  white-space: nowrap;
+
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 11px;
+
+  background-color: orange;
+  border-radius: 50px;
+  padding-left: 15px;
+
+  position: relative;
+  left: calc(-100% - 20px);
+}
+
+.form .form__summary span {
+  padding: 15px;
+  border-radius: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+}
+
+.form .form__summary .count {
+  background-color: yellow;
+  padding-right: 60px;
+
+  position: absolute;
+  right: 50px;
+}
+
+.form .form__summary .summ {
+  background-color: greenyellow;
+  position: relative;
+  padding-right: 31px;
+}

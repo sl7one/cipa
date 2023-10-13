@@ -1,0 +1,45 @@
+.menu-backdrop {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background-color: transparent;
+
+  visibility: hidden;
+  opacity: 0;
+
+  top: 0;
+  right: 0;
+}
+
+.menu-backdrop .menu-modal {
+  min-width: 160px;
+
+  position: absolute;
+  right: 0;
+  top: 43px;
+
+  background-color: white;
+}
+
+.menu-backdrop .menu-modal li {
+  position: relative;
+  padding: 15px;
+  font-size: 10px;
+  width: 100%;
+  text-align: left;
+}
+
+.menu-backdrop .menu-modal li::after {
+  content: "";
+  display: block;
+  width: 90%;
+  height: 1px;
+  background-color: rgb(224, 224, 224);
+
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+
+  transform: translateX(-50%);
+}

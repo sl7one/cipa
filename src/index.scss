@@ -1,0 +1,84 @@
+@import-normalize;
+@import "reset-css";
+
+:root {
+  --orange-gradient: linear-gradient(
+    to bottom,
+    #fceabb 0%,
+    #fccd4d 50%,
+    #f8b500 51%,
+    #fbdf93 100%
+  );
+  --green-gradient: linear-gradient(
+    to bottom,
+    #e6f0a3 0%,
+    #d2e638 50%,
+    #c3d825 51%,
+    #dbf043 100%
+  );
+  --gray-gradient: linear-gradient(
+    to bottom,
+    #f2f6f8 0%,
+    #d8e1e7 50%,
+    #cbd7de 51%,
+    #e0eff9 100%
+  );
+
+  --gray-bg: rgb(240, 240, 240);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  overflow: hidden;
+  background-color: var(--gray-bg);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button,
+a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

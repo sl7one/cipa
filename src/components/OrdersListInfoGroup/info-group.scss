@@ -1,0 +1,36 @@
+.orders-item__info-group {
+  display: grid;
+  grid-template-columns: 30px 1fr 1fr 30px;
+  align-items: center;
+  justify-items: center;
+  gap: 5px;
+
+  position: relative;
+  left: 0;
+}
+
+.orders-item__info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.orders-item__info-name {
+  text-transform: capitalize;
+}
+
+.orders-item__info-phone {
+  font-weight: 600;
+}
+
+.orders-item__total {
+  font-weight: 600;
+}
+
+.orders-item__menu-btn {
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+  background: var(--green-gradient);
+}

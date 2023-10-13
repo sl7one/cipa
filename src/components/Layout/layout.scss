@@ -1,0 +1,43 @@
+.layout {
+  display: flex;
+  align-items: center;
+
+  -webkit-box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.75);
+
+  height: 42px;
+}
+
+.layout nav {
+  width: 100%;
+}
+
+.layout nav ul {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+}
+
+.layout nav ul li {
+  flex: 1;
+}
+
+.layout nav ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+
+  font-size: 12px;
+
+  transition: height 350ms ease-in-out, background-color 350ms ease-in-out;
+}
+
+.layout nav ul li a {
+  background: var(--gray-gradient);
+}
+
+.layout nav ul li a.active {
+  background: var(--orange-gradient);
+}
