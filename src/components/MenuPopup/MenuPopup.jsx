@@ -7,6 +7,7 @@ import {
 } from "../../store/formDataSlice";
 import { setSelectedProducts } from "../../store/productsSlice";
 import { animationsHelper } from "../../utils/animationsHelper";
+import { deleteOrder } from "../../store/ordersActions";
 
 const MenuPopup = ({ pathname }) => {
   const dispatch = useDispatch();
@@ -59,7 +60,12 @@ const MenuPopup = ({ pathname }) => {
   };
 
   const onClickDeleteManyOrders = () => {
-    console.log("object");
+    const arr = orders
+      .filter(({ isChecked }) => isChecked)
+      .map(({ _id }) => _id)
+      .join(",");
+
+    dispatch(deleteOrder({ id: arr, success: () => {}, failed: () => {} }));
   };
 
   const onClickAddManyOrders = () => {
@@ -90,7 +96,7 @@ const MenuPopup = ({ pathname }) => {
             {counter ? (
               <span className="menu-list-counter">{counter}</span>
             ) : null}
-            Добавить в базу
+            Продать
           </p>
         ),
         fn: onClickAddManyOrders,

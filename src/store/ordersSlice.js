@@ -46,9 +46,14 @@ export const ordersSlice = createSlice({
       state.orders = [...state.orders];
       state.isLoading = false;
     });
-    builder.addCase(deleteOrder.fulfilled, (state, { payload: { _id } }) => {
-      const idx = state.orders.findIndex((el) => el._id === _id);
-      state.orders.splice(idx, 1);
+    builder.addCase(deleteOrder.fulfilled, (state, { payload }) => {
+      const idx = payload.id.reduce((acc, id) => {
+        const idx = state.orders.findIndex(({ _id }) => _id === id);
+        acc.push(idx);
+        return acc;
+      }, []);
+
+      idx.forEach((id) => state.orders.splice(idx, 1));
       state.orders = [...state.orders];
       state.isLoading = false;
     });
