@@ -4,7 +4,6 @@ import { animationsHelper } from "../../utils/animationsHelper";
 import "./info-group.scss";
 import moment from "moment/moment";
 import { useDispatch, useSelector } from "react-redux";
-import { isItemSelectedHelper } from "../../utils/isItemSelected";
 import { setChecked, unsetChecked } from "../../store/ordersSlice";
 
 export default function OrdersListInfoGroup({ total, client, id, date }) {

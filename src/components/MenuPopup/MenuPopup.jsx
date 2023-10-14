@@ -110,8 +110,8 @@ const MenuPopup = ({ pathname }) => {
     <div className="menu-backdrop" onClick={onClickBackDrop}>
       <ul className="menu-modal">
         {menuList[pathname] ? (
-          menuList[pathname].map(({ title, fn }) => (
-            <li key={title} onClick={fn}>
+          menuList[pathname].map(({ title, fn }, idx) => (
+            <li key={idx} onClick={fn}>
               {title}
             </li>
           ))

@@ -103,9 +103,7 @@ export const formDataSlice = createSlice({
       };
     },
     resetFormData: (state) => {
-      state.formData = {};
-      state.clientData = {};
-      // state = initialState;
+      state = initialState;
     },
     setClientData: (state, { payload }) => {
       state.clientData = { ...state.clientData, ...payload };

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import OrderForm from "../components/ModalOrder/ModalOrder";
+import OrderForm from "../components/OrderForm/OrderForm";
 import ModalProduct from "../components/ModalProduct/ModalProduct";
 import ModalClient from "../components/ModalClient/ModalClient";
 import Loader from "../components/Loader/Loader";

@@ -21,7 +21,10 @@ export default function Summary({ category, title }) {
   }, [totalOrder, totalSumm, summaryAnimations, category]);
 
   return (
-    <p className="form__summary" id={category ? category : "total"}>
+    <p
+      className="form__summary"
+      id={category ? "summary-" + category : "summary-total"}
+    >
       {title}
       {category ? <span className="count">{totalOrder + " шт"}</span> : null}
       <span className="summ"> {totalSumm + " грн"}</span>

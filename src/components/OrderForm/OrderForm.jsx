@@ -38,33 +38,6 @@ export default function ModalOrder() {
   const [priceHitory, setPriceHistory] = useHistoryPriceBtns();
   const { historyButtons } = animationsHelper;
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    const orders = Object.entries(formData).map(([key, { order, price }]) => ({
-      product: key,
-      order: Number(order),
-      price: Number(price),
-    }));
-
-    const order = {
-      date: startDate.toISOString(),
-      client: clientData,
-      order: orders,
-    };
-
-    dispatch(
-      postOrder({
-        order,
-        success: () => {
-          dispatch(resetFormData());
-          dispatch(resetProducts());
-        },
-        failed: () => console.log("failed clg"),
-      })
-    );
-  };
-
   useEffect(() => {
     dispatch(initFormData({ productsSelected }));
   }, [productsSelected, dispatch]);
@@ -151,6 +124,33 @@ export default function ModalOrder() {
     return isDataOrderTruthy && isDataPriceTruthy && isDataClientTruthy;
   };
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const orders = Object.entries(formData).map(([key, { order, price }]) => ({
+      product: key,
+      order: Number(order),
+      price: Number(price),
+    }));
+
+    const order = {
+      date: startDate.toISOString(),
+      client: clientData,
+      order: orders,
+    };
+
+    dispatch(
+      postOrder({
+        order,
+        success: () => {
+          dispatch(resetFormData());
+          dispatch(resetProducts());
+        },
+        failed: () => console.log("failed clg"),
+      })
+    );
+  };
+
   return (
     <>
       <form onSubmit={onSubmit} className="form">
@@ -190,9 +190,6 @@ export default function ModalOrder() {
                     onBlurPrice={onBlurPrice}
                   />
                 )}
-                renderSummary={(category) => (
-                  <Summary category={category} title="Итого по птице:" />
-                )}
               />
               <Inputs
                 category="food"
@@ -200,21 +197,12 @@ export default function ModalOrder() {
                 renderProducts={({ _id, title, img }) => (
                   <OrderFormGroup key={_id} id={_id} title={title} img={img} />
                 )}
-                renderSummary={(category) => (
-                  <Summary category={category} title="Итого по корму:" />
-                )}
               />
               <Inputs
                 category="other"
                 list={productsSelected}
                 renderProducts={({ _id, title, img }) => (
                   <OrderFormGroup key={_id} id={_id} title={title} img={img} />
-                )}
-                renderSummary={(category) => (
-                  <Summary
-                    category={category}
-                    title="Итого по доп. категории:"
-                  />
                 )}
               />
 

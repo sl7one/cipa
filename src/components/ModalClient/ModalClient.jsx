@@ -1,5 +1,5 @@
 import React from "react";
-import "../ModalOrder/order-form.scss";
+import "../OrderForm/order-form.scss";
 import "./modal-client.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setClientData } from "../../store/formDataSlice";

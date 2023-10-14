@@ -88,8 +88,16 @@ export const animationsHelper = {
   },
 
   summary: {
-    show: (id) => gsap.to(`#${id}`, { left: 0 }),
-    hide: (id) => gsap.to(`#${id}`, { left: "calc(-100% - 15px)" }),
+    show: (id) => {
+      gsap.to(`#summary-${id}`, {
+        opacity: 1,
+      });
+    },
+    hide: (id) => {
+      gsap.to(`#summary-${id}`, {
+        opacity: 0,
+      });
+    },
   },
 
   loader: {

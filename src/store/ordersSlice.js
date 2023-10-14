@@ -42,7 +42,8 @@ export const ordersSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(postOrder.fulfilled, (state, { payload }) => {
-      state.orders = payload;
+      state.orders.unshift({ ...payload, isChecked: false });
+      state.orders = [...state.orders];
       state.isLoading = false;
     });
     builder.addCase(deleteOrder.fulfilled, (state, { payload: { _id } }) => {
