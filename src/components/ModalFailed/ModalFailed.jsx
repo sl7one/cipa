@@ -29,7 +29,7 @@ const ModalFailed = () => {
         x
       </button>
 
-      <h2>{error.statusCode + " " + error}</h2>
+      <h2>{error.statusCode + " " + error.error}</h2>
       <ol>
         {Array.isArray(error.message)
           ? error.message.map((el) => <li key={el}>{el}</li>)

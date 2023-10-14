@@ -3,7 +3,7 @@ import Icons from "../Icons/Icons";
 import "./buttons-group.scss";
 import { animationsHelper } from "../../utils/animationsHelper";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteOrder } from "../../store/ordersActions";
+import { deleteOrder, updateOrder } from "../../store/ordersActions";
 import ModalFailed from "../ModalFailed/ModalFailed";
 
 export default function OrdersListButtonsGroup({ id }) {
@@ -24,10 +24,24 @@ export default function OrdersListButtonsGroup({ id }) {
           // orderModal.infoGroup.show("i" + id);
           // orderModal.buttonsGroup.hide("b" + id);
         },
-        failed: () => console.log("failed clg"),
+        failed: () => {},
       })
     );
   };
+
+  const onClickSalle = () => {
+    dispatch(
+      updateOrder({
+        id,
+        success: () => {
+          // orderModal.infoGroup.show("i" + id);
+          // orderModal.buttonsGroup.hide("b" + id);
+        },
+        failed: () => {},
+      })
+    );
+  };
+
   return (
     <>
       <div className="orders-item__buttons-group" id={"b" + id}>
@@ -48,7 +62,11 @@ export default function OrdersListButtonsGroup({ id }) {
         <button className="orders-item__buttons-btn" type="button">
           <Icons name="edit" />
         </button>
-        <button className="orders-item__buttons-btn" type="button">
+        <button
+          className="orders-item__buttons-btn"
+          type="button"
+          onClick={onClickSalle}
+        >
           <Icons name="hand" />
         </button>
       </div>

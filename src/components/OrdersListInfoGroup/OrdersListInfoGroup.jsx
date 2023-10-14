@@ -30,7 +30,7 @@ export default function OrdersListInfoGroup({ total, client, id, date }) {
           id={id}
           onChange={() => onChange(id)}
         />
-        <div className="mark-wrapper" id={"m" + id}>
+        <div className="mark-wrapper" id={"mark" + id}>
           <Icons name="mark" />
         </div>
       </label>

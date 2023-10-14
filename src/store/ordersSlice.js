@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { deleteOrder, getAllOrders, postOrder } from "./ordersActions";
+import {
+  deleteOrder,
+  getAllOrders,
+  postOrder,
+  updateOrder,
+} from "./ordersActions";
 
 const initialState = {
   orders: [],
@@ -57,12 +62,26 @@ export const ordersSlice = createSlice({
       state.orders = [...state.orders];
       state.isLoading = false;
     });
+    builder.addCase(updateOrder.fulfilled, (state, { payload }) => {
+      const idx = payload.id.reduce((acc, id) => {
+        const idx = state.orders.findIndex(({ _id }) => _id === id);
+        acc.push(idx);
+        return acc;
+      }, []);
+
+      idx.forEach((idx) => (state.orders[idx].isActive = false));
+      state.orders = [...state.orders];
+      state.isLoading = false;
+    });
 
     builder.addCase(getAllOrders.pending, pending);
     builder.addCase(getAllOrders.rejected, rejected);
 
     builder.addCase(postOrder.pending, pending);
     builder.addCase(postOrder.rejected, rejected);
+
+    builder.addCase(updateOrder.pending, pending);
+    builder.addCase(updateOrder.rejected, rejected);
 
     builder.addCase(deleteOrder.pending, pending);
     builder.addCase(deleteOrder.rejected, rejected);

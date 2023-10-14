@@ -7,7 +7,7 @@ import {
 } from "../../store/formDataSlice";
 import { setSelectedProducts } from "../../store/productsSlice";
 import { animationsHelper } from "../../utils/animationsHelper";
-import { deleteOrder } from "../../store/ordersActions";
+import { deleteOrder, updateOrder } from "../../store/ordersActions";
 
 const MenuPopup = ({ pathname }) => {
   const dispatch = useDispatch();
@@ -69,7 +69,12 @@ const MenuPopup = ({ pathname }) => {
   };
 
   const onClickAddManyOrders = () => {
-    console.log("object");
+    const arr = orders
+      .filter(({ isChecked }) => isChecked)
+      .map(({ _id }) => _id)
+      .join(",");
+
+    dispatch(updateOrder({ id: arr, success: () => {}, failed: () => {} }));
   };
 
   const counter = useMemo(
