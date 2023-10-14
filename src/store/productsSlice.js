@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { images } from "../utils/products";
+import { productsImages } from "../utils/productsImages";
 import { getAllProducts } from "./productsActions";
 
 const initialState = {
@@ -8,7 +8,7 @@ const initialState = {
   error: "",
 };
 
-const pending = (state, { payload }) => {
+const pending = (state) => {
   state.isLoading = true;
 };
 
@@ -43,7 +43,9 @@ export const productsSlice = createSlice({
       state.products = payload.map((el) => ({
         ...el,
         isSelected: false,
-        img: images[el.id] ? images[el.id] : images["korm"],
+        img: productsImages[el.id]
+          ? productsImages[el.id]
+          : productsImages["korm"],
       }));
       state.isLoading = false;
     });

@@ -10,6 +10,7 @@ import PurchasesPage from "../../Pages/PurchasesPage";
 import { getAllOrders } from "../../store/ordersActions";
 import Loader from "../Loader/Loader";
 import NewOrderPage from "../../Pages/NewOrderPage";
+import EditOrderPage from "../../Pages/EditOrderPage";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -22,25 +23,20 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route
-          path="orders"
-          index
-          element={
-            <>
-              {isLoadingOrders || isLoadingProducts ? (
-                <Loader isVisible={isLoadingOrders || isLoadingProducts} />
-              ) : (
-                <OrdersPage />
-              )}
-            </>
-          }
-        />
-        <Route path="orders/new" element={<NewOrderPage />} />
-        <Route path="salles" element={<SallesPage />} />
-        <Route path="purchases" element={<PurchasesPage />} />
-      </Route>
-    </Routes>
+    <>
+      {isLoadingOrders || isLoadingProducts ? (
+        <Loader isVisible={isLoadingOrders || isLoadingProducts} />
+      ) : (
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="orders" index element={<OrdersPage />} />
+            <Route path="orders/new" element={<NewOrderPage />} />
+            <Route path="orders/edit/:id" element={<EditOrderPage />} />
+            <Route path="salles" element={<SallesPage />} />
+            <Route path="purchases" element={<PurchasesPage />} />
+          </Route>
+        </Routes>
+      )}
+    </>
   );
 }

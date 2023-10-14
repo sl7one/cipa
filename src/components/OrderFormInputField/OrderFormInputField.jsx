@@ -13,6 +13,8 @@ export default function OrderFormInputField({
   const formData = useSelector((state) => state.form.formData);
   const dispatch = useDispatch();
 
+  console.log(formData);
+
   return (
     <div className="form__input-wrapper">
       <input

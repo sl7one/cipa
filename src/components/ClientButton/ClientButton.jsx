@@ -11,8 +11,8 @@ export default function ClientButton() {
     <button className="client-btn" type="button" onClick={clientModal.show}>
       {clientData.name && clientData.phone ? (
         <>
-          <span>{clientData.name}</span>
-          <span style={{ fontWeight: 600 }}>{clientData.phone}</span>
+          <span className="client-btn__name">{clientData.name}</span>
+          <span className="client-btn__phone">{clientData.phone}</span>
         </>
       ) : (
         <>

@@ -5,6 +5,7 @@ import { animationsHelper } from "../../utils/animationsHelper";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteOrder, updateOrder } from "../../store/ordersActions";
 import ModalFailed from "../ModalFailed/ModalFailed";
+import { Link } from "react-router-dom";
 
 export default function OrdersListButtonsGroup({ id }) {
   const { orderModal } = animationsHelper;
@@ -33,10 +34,7 @@ export default function OrdersListButtonsGroup({ id }) {
     dispatch(
       updateOrder({
         id,
-        success: () => {
-          // orderModal.infoGroup.show("i" + id);
-          // orderModal.buttonsGroup.hide("b" + id);
-        },
+        success: () => {},
         failed: () => {},
       })
     );
@@ -52,15 +50,17 @@ export default function OrdersListButtonsGroup({ id }) {
         >
           <Icons name="back" />
         </button>
+
+        <Link className="orders-item__buttons-btn" to={`edit/${id}`}>
+          <Icons name="edit" />
+        </Link>
+
         <button
           className="orders-item__buttons-btn"
           type="button"
           onClick={onClickDelete}
         >
           <Icons name="remove" />
-        </button>
-        <button className="orders-item__buttons-btn" type="button">
-          <Icons name="edit" />
         </button>
         <button
           className="orders-item__buttons-btn"

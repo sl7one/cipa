@@ -103,10 +103,15 @@ export const formDataSlice = createSlice({
       };
     },
     resetFormData: (state) => {
-      state = initialState;
+      state.formData = initialState.formData;
+      state.clientData = initialState.clientData;
     },
     setClientData: (state, { payload }) => {
       state.clientData = { ...state.clientData, ...payload };
+    },
+    setOrder: (state, { payload: { formData, clientData } }) => {
+      state.clientData = { ...clientData };
+      state.formData = { ...formData };
     },
   },
 });
@@ -120,6 +125,7 @@ export const {
   calculateMedicine,
   setClientData,
   resetFormData,
+  setOrder,
 } = formDataSlice.actions;
 
 export default formDataSlice.reducer;

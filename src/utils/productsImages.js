@@ -15,7 +15,7 @@ import big6 from "../assets/images/big6.jpg";
 import hybrid from "../assets/images/hybrid.jpg";
 import dominant from "../assets/images/dominant.jpg";
 
-export const images = {
+export const productsImages = {
   aptechka,
   cobb,
   ross,
