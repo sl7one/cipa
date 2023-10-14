@@ -21,6 +21,16 @@ export const ordersSlice = createSlice({
   initialState,
 
   reducers: {
+    setChecked: (state, { payload }) => {
+      state.orders = state.orders.map((el) =>
+        el._id === payload ? { ...el, isChecked: true } : el
+      );
+    },
+    unsetChecked: (state, { payload }) => {
+      state.orders = state.orders.map((el) =>
+        el._id === payload ? { ...el, isChecked: false } : el
+      );
+    },
     resetOrderErrors: (state) => {
       state.error = "";
     },
@@ -28,7 +38,7 @@ export const ordersSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(getAllOrders.fulfilled, (state, { payload }) => {
-      state.orders = payload;
+      state.orders = payload.map((el) => ({ ...el, isChecked: false }));
       state.isLoading = false;
     });
     builder.addCase(postOrder.fulfilled, (state, { payload }) => {
@@ -53,6 +63,7 @@ export const ordersSlice = createSlice({
   },
 });
 
-export const { resetOrderErrors } = ordersSlice.actions;
+export const { resetOrderErrors, setChecked, unsetChecked } =
+  ordersSlice.actions;
 
 export default ordersSlice.reducer;

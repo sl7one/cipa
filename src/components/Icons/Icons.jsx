@@ -1,7 +1,7 @@
 import React from "react";
 import { CiEdit, CiTrash } from "react-icons/ci";
 import { TbPhone } from "react-icons/tb";
-import { GiReceiveMoney } from "react-icons/gi";
+import { GiReceiveMoney, GiCheckMark } from "react-icons/gi";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { MdKeyboardBackspace } from "react-icons/md";
 
@@ -16,6 +16,7 @@ export default function Icons({ name }) {
     hand: <GiReceiveMoney color="green" size={size} />,
     dots: <BiDotsVerticalRounded color="black" size={size} />,
     back: <MdKeyboardBackspace color="black" size={size} />,
+    mark: <GiCheckMark color="yellowgreen" size={size} />,
   };
 
   return <span className="icon-wrapper">{iconsSet[name]}</span>;

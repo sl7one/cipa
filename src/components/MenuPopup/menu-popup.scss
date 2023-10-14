@@ -43,3 +43,22 @@
 
   transform: translateX(-50%);
 }
+
+.menu-list-item-sub {
+  display: flex;
+  align-items: center;
+}
+
+.menu-list-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+
+  border-radius: 50%;
+  background-color: red;
+
+  margin-right: 5px;
+  color: white;
+}

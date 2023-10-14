@@ -67,6 +67,11 @@ export const animationsHelper = {
     infoGroup: {
       show: (id) => gsap.to(`#${id}`, { left: 0 }),
       hide: (id) => gsap.to(`#${id}`, { left: "-100%" }),
+
+      mark: {
+        show: (id) => gsap.to(`#${id}`, { top: 0, opacity: 1 }),
+        hide: (id) => gsap.to(`#${id}`, { top: "-100%", opacity: 0 }),
+      },
     },
   },
 

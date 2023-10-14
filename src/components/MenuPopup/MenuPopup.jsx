@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import "./menu-popup.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -11,6 +11,7 @@ import { animationsHelper } from "../../utils/animationsHelper";
 const MenuPopup = ({ pathname }) => {
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.form.formData);
+  const orders = useSelector((state) => state.orders.orders);
   const { menu, productModal, clientModal } = animationsHelper;
 
   const onClickAddProduct = () => {
@@ -57,15 +58,42 @@ const MenuPopup = ({ pathname }) => {
     menu.hide();
   };
 
-  const onClickDelete = () => {
+  const onClickDeleteManyOrders = () => {
     console.log("object");
   };
+
+  const onClickAddManyOrders = () => {
+    console.log("object");
+  };
+
+  const counter = useMemo(
+    () => orders.filter(({ isChecked }) => isChecked).length,
+    [orders]
+  );
 
   const menuList = {
     "/orders": [
       {
-        title: "Удалить",
-        fn: onClickDelete,
+        title: (
+          <p className="menu-list-item-sub">
+            {counter ? (
+              <span className="menu-list-counter">{counter}</span>
+            ) : null}
+            Удалить
+          </p>
+        ),
+        fn: onClickDeleteManyOrders,
+      },
+      {
+        title: (
+          <p className="menu-list-item-sub">
+            {counter ? (
+              <span className="menu-list-counter">{counter}</span>
+            ) : null}
+            Добавить в базу
+          </p>
+        ),
+        fn: onClickAddManyOrders,
       },
     ],
     "/orders/new": [
