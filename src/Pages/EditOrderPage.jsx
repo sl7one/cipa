@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ModalProduct from "../components/ModalProduct/ModalProduct";
 import ModalClient from "../components/ModalClient/ModalClient";
@@ -14,9 +14,8 @@ export default function EditOrderPage() {
   const dispatch = useDispatch();
   const productsObject = useProducts();
 
-  const [client] = useMemo(
-    () => orders.filter((el) => el._id === id),
-    [orders, id]
+  const [client = { order: [], client: {} }] = orders.filter(
+    (el) => el._id === id
   );
   const { order, client: clientData } = client;
 
@@ -44,7 +43,12 @@ export default function EditOrderPage() {
     <div>
       <ModalProduct />
       <ModalClient />
-      <OrderForm />
+      <OrderForm
+        productsSelected={order.map((el) => ({
+          ...el,
+          ...productsObject[el.product],
+        }))}
+      />
     </div>
   );
 }

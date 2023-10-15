@@ -5,10 +5,13 @@ import ModalClient from "../components/ModalClient/ModalClient";
 import Loader from "../components/Loader/Loader";
 import { useSelector } from "react-redux";
 import { animationsHelper } from "../utils/animationsHelper";
+import useSelectedProducts from "../hooks/useSelectedProducts";
 
 export default function NewOrderPage() {
   const isLoading = useSelector((state) => state.products.isLoading);
   const { productModal } = animationsHelper;
+  const products = useSelector((state) => state.products.products);
+  const productsSelected = useSelectedProducts(products);
 
   useEffect(() => {
     productModal.show();
@@ -22,7 +25,7 @@ export default function NewOrderPage() {
         <>
           <ModalProduct />
           <ModalClient />
-          <OrderForm />
+          <OrderForm productsSelected={productsSelected} />
         </>
       )}
     </>

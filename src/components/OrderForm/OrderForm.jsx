@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./order-form.scss";
 import { useDispatch, useSelector } from "react-redux";
-import useSelectedProducts from "../../hooks/useSelectedProducts";
 import { isDataTruthyHelper } from "../../utils/isDataTruthy";
 import {
   initFormData,
@@ -22,21 +21,21 @@ import ModalFailed from "../ModalFailed/ModalFailed";
 import { animationsHelper } from "../../utils/animationsHelper";
 import OrderFormButtonsGroup from "../OrderFormButtonsGroup/OrderFormButtonsGroup";
 
-export default function ModalOrder() {
+export default function ModalOrder({ productsSelected }) {
   const [historyButtonOrder, setHistoryButtonOrder] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
 
-  const products = useSelector((state) => state.products.products);
   const isLoading = useSelector((state) => state.orders.isLoading);
   const error = useSelector((state) => state.orders.error);
   const formData = useSelector((state) => state.form.formData);
   const clientData = useSelector((state) => state.form.clientData);
 
   const dispatch = useDispatch();
-  const productsSelected = useSelectedProducts(products);
 
   const [priceHitory, setPriceHistory] = useHistoryPriceBtns();
   const { historyButtons } = animationsHelper;
+
+  console.log(productsSelected);
 
   useEffect(() => {
     dispatch(initFormData({ productsSelected }));
@@ -170,7 +169,7 @@ export default function ModalOrder() {
           </button>
         </div>
 
-        {productsSelected.length === 0 ? (
+        {Object.entries(formData).length === 0 ? (
           <OrderFormButtonsGroup />
         ) : (
           <>
