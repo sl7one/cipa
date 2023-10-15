@@ -8,12 +8,16 @@ import {
 import { setSelectedProducts } from "../../store/productsSlice";
 import { animationsHelper } from "../../utils/animationsHelper";
 import { deleteOrder, updateOrder } from "../../store/ordersActions";
+import useIdsToString from "../../hooks/useIdsToString";
+import { useLocation } from "react-router-dom";
 
-const MenuPopup = ({ pathname }) => {
+const MenuPopup = () => {
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.form.formData);
   const orders = useSelector((state) => state.orders.orders);
   const { menu, productModal, clientModal } = animationsHelper;
+  const ids = useIdsToString();
+  const { pathname } = useLocation();
 
   const onClickAddProduct = () => {
     productModal.show();
@@ -60,21 +64,13 @@ const MenuPopup = ({ pathname }) => {
   };
 
   const onClickDeleteManyOrders = () => {
-    const arr = orders
-      .filter(({ isChecked }) => isChecked)
-      .map(({ _id }) => _id)
-      .join(",");
-
-    dispatch(deleteOrder({ id: arr, success: () => {}, failed: () => {} }));
+    if (!ids.length) return;
+    dispatch(deleteOrder({ id: ids, success: () => {}, failed: () => {} }));
   };
 
   const onClickAddManyOrders = () => {
-    const arr = orders
-      .filter(({ isChecked }) => isChecked)
-      .map(({ _id }) => _id)
-      .join(",");
-
-    dispatch(updateOrder({ id: arr, success: () => {}, failed: () => {} }));
+    if (!ids.length) return;
+    dispatch(updateOrder({ id: ids, success: () => {}, failed: () => {} }));
   };
 
   const counter = useMemo(
@@ -82,53 +78,61 @@ const MenuPopup = ({ pathname }) => {
     [orders]
   );
 
-  const menuList = {
-    "/orders": [
-      {
-        title: (
-          <p className="menu-list-item-sub">
-            {counter ? (
-              <span className="menu-list-counter">{counter}</span>
-            ) : null}
-            Удалить
-          </p>
-        ),
-        fn: onClickDeleteManyOrders,
-      },
-      {
-        title: (
-          <p className="menu-list-item-sub">
-            {counter ? (
-              <span className="menu-list-counter">{counter}</span>
-            ) : null}
-            Продать
-          </p>
-        ),
-        fn: onClickAddManyOrders,
-      },
-    ],
-    "/orders/new": [
-      { title: "Добавить товар", fn: onClickAddProduct },
-      { title: "Добавить данные клиента", fn: onClickAddClient },
-      { title: "Расчитать корм Бройлерам", fn: onClickCalculateBroilerFood },
-      { title: "Расчитать выпойку", fn: onClickCalculateMedicine },
-    ],
-    "/salles": [],
-    "/purchases": [],
+  const menuList = (pathname) => {
+    switch (pathname) {
+      case "/orders":
+        return [
+          {
+            title: (
+              <p className="menu-list-item-sub">
+                {counter ? (
+                  <span className="menu-list-counter">{counter}</span>
+                ) : null}
+                Удалить
+              </p>
+            ),
+            fn: onClickDeleteManyOrders,
+          },
+          {
+            title: (
+              <p className="menu-list-item-sub">
+                {counter ? (
+                  <span className="menu-list-counter">{counter}</span>
+                ) : null}
+                Продать
+              </p>
+            ),
+            fn: onClickAddManyOrders,
+          },
+        ];
+      case pathname.includes("/orders/new") ||
+        pathname.includes("/orders/edit"):
+        return [
+          { title: "Добавить товар", fn: onClickAddProduct },
+          { title: "Добавить данные клиента", fn: onClickAddClient },
+          {
+            title: "Расчитать корм Бройлерам",
+            fn: onClickCalculateBroilerFood,
+          },
+          { title: "Расчитать выпойку", fn: onClickCalculateMedicine },
+        ];
+      case "/salles":
+        return [{ title: "Нет доступных опций", fn: () => {} }];
+      case "/purchases":
+        return [{ title: "Нет доступных опций", fn: () => {} }];
+      default:
+        return [{ title: "Нет доступных опций", fn: () => {} }];
+    }
   };
 
   return (
     <div className="menu-backdrop" onClick={onClickBackDrop}>
       <ul className="menu-modal">
-        {menuList[pathname] ? (
-          menuList[pathname].map(({ title, fn }, idx) => (
-            <li key={idx} onClick={fn}>
-              {title}
-            </li>
-          ))
-        ) : (
-          <li key={1}>Нет доступных опций</li>
-        )}
+        {menuList(pathname).map(({ title, fn }, idx) => (
+          <li key={idx} onClick={fn}>
+            {title}
+          </li>
+        ))}
       </ul>
     </div>
   );

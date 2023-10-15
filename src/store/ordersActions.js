@@ -5,12 +5,13 @@ axios.defaults.baseURL = "http://localhost:3000/api";
 
 export const getAllOrders = createAsyncThunk(
   "orders/getAllOrders",
-  async (_, { rejectWithValue }) => {
+  async ({ success, failed }, { rejectWithValue }) => {
     try {
       const { data } = await axios.get("/orders");
       return data;
     } catch (error) {
-      rejectWithValue(error.message);
+      failed();
+      return rejectWithValue(error.response.data);
     }
   }
 );

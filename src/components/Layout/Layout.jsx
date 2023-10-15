@@ -1,18 +1,13 @@
-import React from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import React, { useContext } from "react";
+import { Outlet } from "react-router-dom";
 import "./layout.scss";
-import { animationsHelper } from "../../utils/animationsHelper";
 import MenuPopup from "../MenuPopup/MenuPopup";
 import MenuButton from "../MenuButton/MenuButton";
 import Routes from "../Routes/Routes";
+import { Toast } from "../../context/toast-context";
 
 export default function Layout() {
-  const { pathname } = useLocation();
-  const { menu } = animationsHelper;
-
-  const onClickMenu = () => {
-    menu.show();
-  };
+  const toast = useContext(Toast);
 
   return (
     <>
@@ -20,9 +15,13 @@ export default function Layout() {
         <nav>
           <Routes />
         </nav>
-        <MenuButton onClickMenu={onClickMenu} />
-        <MenuPopup pathname={pathname} />
+        <MenuButton />
+        <MenuPopup />
       </div>
+
+      <button onClick={() => toast.error("Hello")}>ERROR</button>
+      <button onClick={() => toast.success("Hello")}>SUCCESS</button>
+
       <Outlet />
     </>
   );

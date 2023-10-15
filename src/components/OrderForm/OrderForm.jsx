@@ -35,8 +35,6 @@ export default function ModalOrder({ productsSelected }) {
   const [priceHitory, setPriceHistory] = useHistoryPriceBtns();
   const { historyButtons } = animationsHelper;
 
-  console.log(productsSelected);
-
   useEffect(() => {
     dispatch(initFormData({ productsSelected }));
   }, [productsSelected, dispatch]);
