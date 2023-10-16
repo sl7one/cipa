@@ -24,6 +24,7 @@ export default function Layout() {
       try {
         await dispatch(getAllProducts());
         await dispatch(getAllOrders());
+        navigate("orders");
       } catch (error) {
         toast.error("Не удалось загрузить данные с сервера");
         navigate("error");

@@ -21,7 +21,7 @@ export default function App() {
     <Toast.Provider value={useToastContext()}>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="orders" index element={<OrdersPage />} />
+          <Route path="orders" element={<OrdersPage />} />
           <Route path="orders/new" element={<NewOrderPage />} />
           <Route path="orders/edit/:id" element={<EditOrderPage />} />
           <Route path="salles" element={<SallesPage />} />
