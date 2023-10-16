@@ -34,7 +34,9 @@ export default function OrdersListInfoGroup({ total, client, id, date }) {
           <Icons name="mark" />
         </div>
       </label>
-      <span>{moment(date).format("DD.MM.YY")}</span>
+      <span className="orders-item__date">
+        {moment(date).format("DD.MM.YY")}
+      </span>
       <div className="orders-item__info">
         <span className="orders-item__info-name">{client.name}</span>
         <span className="orders-item__info-phone">{client.phone}</span>

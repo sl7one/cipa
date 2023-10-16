@@ -1,6 +1,6 @@
 .orders-item__info-group {
   display: grid;
-  grid-template-columns: 30px 50px 1fr 1fr 30px;
+  grid-template-columns: 20px 50px 1fr 75px 30px;
   align-items: center;
   justify-items: center;
   gap: 5px;
@@ -52,6 +52,10 @@
 
 .checkbox {
   display: none;
+}
+
+.orders-item__date {
+  font-size: 11px;
 }
 
 .orders-item__info-name {

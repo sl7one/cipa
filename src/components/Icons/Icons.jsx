@@ -1,9 +1,10 @@
 import React from "react";
 import { CiEdit, CiTrash } from "react-icons/ci";
-import { TbPhone } from "react-icons/tb";
+import { TbPhone, TbArrowsSort } from "react-icons/tb";
 import { GiReceiveMoney, GiCheckMark } from "react-icons/gi";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { MdKeyboardBackspace } from "react-icons/md";
+import { CgSearchLoading } from "react-icons/cg";
 
 import "./icons.scss";
 
@@ -17,6 +18,8 @@ export default function Icons({ name }) {
     dots: <BiDotsVerticalRounded color="black" size={size} />,
     back: <MdKeyboardBackspace color="black" size={size} />,
     mark: <GiCheckMark color="yellowgreen" size={size} />,
+    sort: <TbArrowsSort color="blue" size={size} />,
+    search: <CgSearchLoading color="blue" size={size} />,
   };
 
   return <span className="icon-wrapper">{iconsSet[name]}</span>;
