@@ -1,14 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import OrdersPage from "../../Pages/OrdersPage";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../../store/productsActions";
 import { Route, Routes } from "react-router-dom";
 import Layout from "../Layout/Layout";
 
 import SallesPage from "../../Pages/SallesPage";
 import PurchasesPage from "../../Pages/PurchasesPage";
-import { getAllOrders } from "../../store/ordersActions";
-import Loader from "../Loader/Loader";
 import NewOrderPage from "../../Pages/NewOrderPage";
 import EditOrderPage from "../../Pages/EditOrderPage";
 import ToastContainer from "../ToastContainer/ToastContainer";

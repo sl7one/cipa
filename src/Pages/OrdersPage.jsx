@@ -9,7 +9,7 @@ export default function OrdersPage() {
       <div className="add-new-order-btn">
         <Link to="/orders/new">Новый заказ</Link>
       </div>
-      <OrdersList type="orders" />
+      <OrdersList />
     </div>
   );
 }

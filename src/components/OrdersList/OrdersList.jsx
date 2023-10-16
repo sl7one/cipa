@@ -4,17 +4,19 @@ import "./orders-list.scss";
 import OrdersListButtonsGroup from "../OrdersListButtonsGroup/OrdersListButtonsGroup";
 import OrdersListInfoGroup from "../OrdersListInfoGroup/OrdersListInfoGroup";
 import { animationsHelper } from "../../utils/animationsHelper";
+import { useLocation } from "react-router-dom";
 
-export default function OrdersList({ type }) {
+export default function OrdersList() {
   const orders = useSelector((state) => state.orders.orders);
   const { orderModal } = animationsHelper;
+  const { pathname } = useLocation();
 
   const items = useMemo(
     () =>
       orders.filter(({ isActive }) =>
-        type === "orders" ? isActive : !isActive
+        pathname.includes("orders") ? isActive : !isActive
       ),
-    [orders, type]
+    [orders, pathname]
   );
 
   useEffect(() => {
