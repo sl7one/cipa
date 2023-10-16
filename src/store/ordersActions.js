@@ -10,8 +10,9 @@ export const getAllOrders = createAsyncThunk(
       const { data } = await axios.get("/orders");
       return data;
     } catch (error) {
-      failed();
-      return rejectWithValue(error.response.data);
+      // failed();
+      // return rejectWithValue(error.response.data);
+      throw error;
     }
   }
 );

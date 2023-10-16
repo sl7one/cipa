@@ -10,8 +10,9 @@ export const getAllProducts = createAsyncThunk(
       const { data } = await axios.get("/products");
       return data;
     } catch (error) {
-      failed();
-      return rejectWithValue(error.response.data);
+      // failed();
+      throw error;
+      // return rejectWithValue(error.response.data);
     }
   }
 );
