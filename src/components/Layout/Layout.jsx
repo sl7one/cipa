@@ -10,6 +10,9 @@ import { getAllOrders } from "../../store/ordersActions";
 import { useDispatch } from "react-redux";
 import Loader from "../Loader/Loader";
 import ErrorPage from "../../Pages/ErrorPage";
+import { getAllClients } from "../../store/clientsActions";
+import { getAllLocations } from "../../store/locationsActions";
+import TestComponent from "../TestComponent";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -24,6 +27,9 @@ export default function Layout() {
       try {
         await dispatch(getAllProducts());
         await dispatch(getAllOrders());
+        await dispatch(getAllClients());
+        await dispatch(getAllLocations());
+
         navigate("orders");
       } catch (error) {
         toast.error("Не удалось загрузить данные с сервера");
@@ -44,6 +50,8 @@ export default function Layout() {
         <ErrorPage />
       ) : (
         <>
+          <TestComponent />
+
           <div className="layout">
             <nav>
               <Routes />

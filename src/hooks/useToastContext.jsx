@@ -1,34 +1,35 @@
 import gsap from "gsap";
 import { useRef, useState } from "react";
+import ToastSuccess from "../components/ToastSuccess/ToastSuccess";
+import ToastError from "../components/ToastError/ToastError";
 
 export const useToastContext = () => {
-  const [message, setMessage] = useState("");
-  const [type, setType] = useState("default");
+  const [markup, setMarkup] = useState(<div>Toast</div>);
 
   const timer = useRef(null);
 
   const toastHide = () => {
     gsap.to("#toast", { bottom: "-100%" });
-    setMessage("");
   };
 
   const toastShow = () => {
     gsap.to("#toast", { bottom: 0 });
-    timer.current = setTimeout(toastHide, 1500);
+  };
+
+  const toastShowWithTimer = () => {
+    gsap.to("#toast", { bottom: 0 });
+    timer.current = setTimeout(toastHide, 2000);
   };
 
   return {
     error: (message) => {
-      setMessage(message);
-      setType("error");
+      setMarkup(<ToastError message={message} closeToast={toastHide} />);
       toastShow();
     },
     success: (message) => {
-      setMessage(message);
-      setType("success");
-      toastShow();
+      setMarkup(<ToastSuccess message={message} />);
+      toastShowWithTimer();
     },
-    message,
-    type,
+    markup,
   };
 };

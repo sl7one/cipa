@@ -2,14 +2,12 @@ import React from "react";
 import Icons from "../Icons/Icons";
 import "./buttons-group.scss";
 import { animationsHelper } from "../../utils/animationsHelper";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { deleteOrder, updateOrder } from "../../store/ordersActions";
-import ModalFailed from "../ModalFailed/ModalFailed";
 import { Link } from "react-router-dom";
 
 export default function OrdersListButtonsGroup({ id }) {
   const { orderModal } = animationsHelper;
-  const error = useSelector((state) => state.orders.error);
   const dispatch = useDispatch();
 
   const onClickHide = () => {
@@ -70,8 +68,6 @@ export default function OrdersListButtonsGroup({ id }) {
           <Icons name="hand" />
         </button>
       </div>
-
-      <ModalFailed errorObj={error} />
     </>
   );
 }

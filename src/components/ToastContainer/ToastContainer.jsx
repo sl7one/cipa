@@ -5,13 +5,10 @@ import "./toast.scss";
 import { Toast } from "../../context/toast-context";
 
 export default function ToastContainer() {
-  const { message, type } = useContext(Toast);
+  const { markup } = useContext(Toast);
 
   return createPortal(
-    <div className={`toast ${type}`}>
-      <span className="loader"></span>
-      {message}
-    </div>,
+    <div className="toast">{markup}</div>,
     document.querySelector("#toast")
   );
 }

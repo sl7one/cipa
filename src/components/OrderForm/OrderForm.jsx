@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./order-form.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { isDataTruthyHelper } from "../../utils/isDataTruthy";
@@ -17,16 +17,16 @@ import { resetProducts } from "../../store/productsSlice";
 import HistoryButtons from "../HistoryButtons/HistoryButtons";
 import { postOrder } from "../../store/ordersActions";
 import Loader from "../Loader/Loader";
-import ModalFailed from "../ModalFailed/ModalFailed";
 import { animationsHelper } from "../../utils/animationsHelper";
 import OrderFormButtonsGroup from "../OrderFormButtonsGroup/OrderFormButtonsGroup";
+import { Toast } from "../../context/toast-context";
 
 export default function ModalOrder({ productsSelected }) {
+  const toast = useContext(Toast);
   const [historyButtonOrder, setHistoryButtonOrder] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
 
   const isLoading = useSelector((state) => state.orders.isLoading);
-  const error = useSelector((state) => state.orders.error);
   const formData = useSelector((state) => state.form.formData);
   const clientData = useSelector((state) => state.form.clientData);
 
@@ -123,6 +123,7 @@ export default function ModalOrder({ productsSelected }) {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    const { name, phone, location, message } = clientData;
 
     const orders = Object.entries(formData).map(([key, { order, price }]) => ({
       product: key,
@@ -132,8 +133,10 @@ export default function ModalOrder({ productsSelected }) {
 
     const order = {
       date: startDate.toISOString(),
-      client: clientData,
+      client: { name, phone },
       order: orders,
+      location,
+      message,
     };
 
     dispatch(
@@ -143,7 +146,7 @@ export default function ModalOrder({ productsSelected }) {
           dispatch(resetFormData());
           dispatch(resetProducts());
         },
-        failed: () => console.log("failed clg"),
+        failed: (message) => toast.error(message),
       })
     );
   };
@@ -216,7 +219,6 @@ export default function ModalOrder({ productsSelected }) {
         )}
       </form>
       {isLoading && <Loader isVisible={isLoading} />}
-      <ModalFailed errorObj={error} />
     </>
   );
 }

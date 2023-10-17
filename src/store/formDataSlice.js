@@ -4,7 +4,9 @@ import { medicineCalculator } from "../utils/medicineCalculator";
 
 const initialState = {
   formData: {},
-  clientData: { name: "", phone: "", location: "", message: "" },
+  clientData: { name: "", phone: "" },
+  location: "",
+  message: "",
 };
 
 export const formDataSlice = createSlice({
@@ -109,6 +111,12 @@ export const formDataSlice = createSlice({
     setClientData: (state, { payload }) => {
       state.clientData = { ...state.clientData, ...payload };
     },
+    setLocation: (state, { payload }) => {
+      state.clientData = { ...state.clientData, ...payload };
+    },
+    setMessage: (state, { payload }) => {
+      state.clientData = { ...state.clientData, ...payload };
+    },
     setOrder: (state, { payload: { formData, clientData } }) => {
       state.clientData = { ...clientData };
       state.formData = { ...formData };
@@ -124,6 +132,8 @@ export const {
   calculateBroilerFood,
   calculateMedicine,
   setClientData,
+  setLocation,
+  setMessage,
   resetFormData,
   setOrder,
 } = formDataSlice.actions;
