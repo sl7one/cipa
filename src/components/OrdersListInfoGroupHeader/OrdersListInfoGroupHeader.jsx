@@ -36,7 +36,10 @@ export default function OrdersListInfoGroupHeader({
       <div className="orders-item-header">
         <div className="orders-item__info-group">
           <div className="checkbox-label">
-            <label className={marks && "checked"} htmlFor="marks"></label>
+            <label
+              className={marks === "init" ? null : marks ? "checked" : null}
+              htmlFor="marks"
+            ></label>
             <input
               className="checkbox"
               type="checkbox"
