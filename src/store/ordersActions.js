@@ -1,13 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-axios.defaults.baseURL = "http://localhost:3000/api";
+import { cipa } from "./axiosBase";
 
 export const getAllOrders = createAsyncThunk(
   "orders/getAllOrders",
   async () => {
     try {
-      const { data } = await axios.get("/orders");
+      const { data } = await cipa.get("/orders");
       return data;
     } catch (error) {
       throw error;
@@ -19,7 +17,7 @@ export const postOrder = createAsyncThunk(
   "orders/postOrder",
   async ({ order, success, failed }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post("/orders", order);
+      const { data } = await cipa.post("/orders", order);
       success();
       return data;
     } catch (error) {
@@ -33,7 +31,7 @@ export const updateOrder = createAsyncThunk(
   "orders/updateOrder",
   async ({ id, success, failed }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.patch(`/orders/${id}`);
+      const { data } = await cipa.patch(`/orders/${id}`);
       success();
       return data;
     } catch (error) {
@@ -47,7 +45,7 @@ export const deleteOrder = createAsyncThunk(
   "orders/deleteOrder",
   async ({ id, success, failed }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete(`/orders/${id}`);
+      const { data } = await cipa.delete(`/orders/${id}`);
       success();
       return data;
     } catch (error) {

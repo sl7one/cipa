@@ -32,7 +32,11 @@ export default function Layout() {
 
         navigate("orders");
       } catch (error) {
-        toast.error("Не удалось загрузить данные с сервера");
+        toast.error({
+          message: "Не удалось загруить данные с сервера",
+          error: "Сервер не отвечает",
+          statusCode: 404,
+        });
         navigate("error");
         setIsLoading(false);
         setIsError(true);

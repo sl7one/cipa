@@ -1,13 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-axios.defaults.baseURL = "http://localhost:3000/api";
+import { cipa } from "./axiosBase";
 
 export const getAllLocations = createAsyncThunk(
   "locations/getAllLocations",
   async () => {
     try {
-      const { data } = await axios.get("/locations");
+      const { data } = await cipa.get("/locations");
       return data;
     } catch (error) {
       throw error;

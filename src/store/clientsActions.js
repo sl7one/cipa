@@ -1,13 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-axios.defaults.baseURL = "http://localhost:3000/api";
+import { cipa } from "./axiosBase";
 
 export const getAllClients = createAsyncThunk(
   "clients/getAllClients",
   async () => {
     try {
-      const { data } = await axios.get("/clients");
+      const { data } = await cipa.get("/clients");
       return data;
     } catch (error) {
       throw error;
@@ -19,7 +17,7 @@ export const addNewClient = createAsyncThunk(
   "clients/addNewClient",
   async ({ data: clientData, success, failed }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post("/clients", clientData);
+      const { data } = await cipa.post("/clients", clientData);
       success();
       return data;
     } catch (error) {

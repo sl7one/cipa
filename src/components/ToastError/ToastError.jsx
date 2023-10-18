@@ -2,8 +2,6 @@ import React from "react";
 import "./toast-error.scss";
 
 export default function ToastError({ message, closeToast }) {
-  console.log(closeToast);
-
   return (
     <div className="toast-error">
       <div className="egg"></div>
