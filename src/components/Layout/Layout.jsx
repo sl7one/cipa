@@ -3,7 +3,6 @@ import { Outlet, useNavigate } from "react-router-dom";
 import "./layout.scss";
 import MenuPopup from "../MenuPopup/MenuPopup";
 import MenuButton from "../MenuButton/MenuButton";
-import Routes from "../Routes/Routes";
 import { Toast } from "../../context/toast-context";
 import { getAllProducts } from "../../store/productsActions";
 import { getAllOrders } from "../../store/ordersActions";
@@ -13,6 +12,8 @@ import ErrorPage from "../../Pages/ErrorPage";
 import { getAllClients } from "../../store/clientsActions";
 import { getAllLocations } from "../../store/locationsActions";
 import TestComponent from "../TestComponent";
+import RoutesMain from "../RoutesMain/RoutesMain";
+import RoutesService from "../RoutesService/RoutesService";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ export default function Layout() {
           error: "Сервер не отвечает",
           statusCode: 404,
         });
-        navigate("error");
+        navigate("bad-connection");
         setIsLoading(false);
         setIsError(true);
       } finally {
@@ -54,11 +55,16 @@ export default function Layout() {
         <ErrorPage />
       ) : (
         <>
-          <TestComponent />
+          {/* <TestComponent /> */}
+          <div className="layout">
+            <nav>
+              <RoutesService />
+            </nav>
+          </div>
 
           <div className="layout">
             <nav>
-              <Routes />
+              <RoutesMain />
             </nav>
             <MenuButton />
             <MenuPopup />

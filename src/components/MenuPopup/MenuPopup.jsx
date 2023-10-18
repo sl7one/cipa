@@ -9,7 +9,8 @@ import { setSelectedProducts } from "../../store/productsSlice";
 import { animationsHelper } from "../../utils/animationsHelper";
 import { deleteOrder, updateOrder } from "../../store/ordersActions";
 import useIdsToString from "../../hooks/useIdsToString";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import Icons from "../Icons/Icons";
 
 const MenuPopup = () => {
   const dispatch = useDispatch();
@@ -103,6 +104,15 @@ const MenuPopup = () => {
               </p>
             ),
             fn: onClickAddManyOrders,
+          },
+          {
+            title: (
+              <NavLink className="service-link" to="/service">
+                <Icons name="back" />
+                Админка
+              </NavLink>
+            ),
+            fn: () => {},
           },
         ];
       case pathname.includes("/orders/new") ||

@@ -3,6 +3,7 @@
 
   height: calc(100vh - 42px);
   width: 100%;
+  overflow-x: hidden;
 
   background-color: var(--gray-bg);
 }

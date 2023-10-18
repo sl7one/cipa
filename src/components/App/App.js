@@ -11,6 +11,9 @@ import ToastContainer from "../ToastContainer/ToastContainer";
 import { Toast } from "../../context/toast-context";
 import { useToastContext } from "../../hooks/useToastContext";
 import ErrorPage from "../../Pages/ErrorPage";
+import BadConnectionPage from "../../Pages/BadConnectionPage";
+import ClientsPage from "../../Pages/ClientsPage";
+import ProductsPage from "../../Pages/ProductsPage";
 
 export default function App() {
   return (
@@ -22,6 +25,9 @@ export default function App() {
           <Route path="orders/edit/:id" element={<EditOrderPage />} />
           <Route path="salles" element={<SallesPage />} />
           <Route path="purchases" element={<PurchasesPage />} />
+          <Route path="clients" element={<ClientsPage />} />
+          <Route path="products" element={<ProductsPage />} />
+          <Route path="bad-connection" element={<BadConnectionPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>

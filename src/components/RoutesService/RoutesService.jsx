@@ -1,11 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-export default function Routes() {
+export default function RoutesService() {
   const routes = [
-    { title: "Заказы", path: "/orders" },
-    { title: "Продажи", path: "/salles" },
     { title: "Закупки", path: "/purchases" },
+    { title: "Клиенты", path: "/clients" },
+    { title: "Продукты", path: "/products" },
   ];
 
   return (
