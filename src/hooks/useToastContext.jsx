@@ -4,12 +4,13 @@ import ToastSuccess from "../components/ToastSuccess/ToastSuccess";
 import ToastError from "../components/ToastError/ToastError";
 
 export const useToastContext = () => {
-  const [markup, setMarkup] = useState(<div>Toast</div>);
+  const [markup, setMarkup] = useState([]);
 
   const timer = useRef(null);
 
   const toastHide = () => {
-    gsap.to("#toast", { bottom: "-100%" });
+    gsap.to("#toast", { bottom: "-100%", onComplete: () => setMarkup([]) });
+    // setMarkup([]);
   };
 
   const toastShow = () => {
@@ -23,11 +24,23 @@ export const useToastContext = () => {
 
   return {
     error: (message) => {
-      setMarkup(<ToastError message={message} closeToast={toastHide} />);
+      setMarkup((prev) => {
+        prev.push(
+          <ToastError
+            key={prev.length++}
+            message={message}
+            closeToast={toastHide}
+          />
+        );
+        return [...prev];
+      });
       toastShow();
     },
     success: (message) => {
-      setMarkup(<ToastSuccess message={message} />);
+      setMarkup((prev) => {
+        prev.push(<ToastSuccess key={prev.length++} message={message} />);
+        return [...prev];
+      });
       toastShowWithTimer();
     },
     markup,

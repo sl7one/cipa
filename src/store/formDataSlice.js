@@ -112,10 +112,10 @@ export const formDataSlice = createSlice({
       state.clientData = { ...state.clientData, ...payload };
     },
     setLocation: (state, { payload }) => {
-      state.clientData = { ...state.clientData, ...payload };
+      state.location = payload;
     },
     setMessage: (state, { payload }) => {
-      state.clientData = { ...state.clientData, ...payload };
+      state.message = payload;
     },
     setOrder: (state, { payload: { formData, clientData } }) => {
       state.clientData = { ...clientData };

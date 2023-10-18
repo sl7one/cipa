@@ -74,19 +74,7 @@ export default function SelectComponent({
       options={options ? options : false}
       placeholder={placeholder}
       styles={selectStyles()}
-      onChange={(e) => {
-        if (!e) {
-          onChange({ id, name: "", phone: "" });
-          return;
-        }
-
-        if (e.__isNew__) {
-          onChange({ id, name: e.value, phone: "" });
-          return;
-        }
-
-        onChange({ id, name: e.value.name, phone: e.value.phone });
-      }}
+      onChange={onChange}
     />
   );
 }

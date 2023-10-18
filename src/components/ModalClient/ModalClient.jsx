@@ -9,46 +9,96 @@ import {
 } from "../../store/formDataSlice";
 import { animationsHelper } from "../../utils/animationsHelper";
 import { addNewClient } from "../../store/clientsActions";
+import { addNewLocation } from "../../store/locationsActions";
+
 import { Toast } from "../../context/toast-context";
 import SelectComponent from "../SelectComponent/SelectComponent";
 
 const ModalClient = () => {
   const dispatch = useDispatch();
   const clients = useSelector((state) => state.clients.clients);
+  const locations = useSelector((state) => state.locations.locations);
 
   const clientData = useSelector((state) => state.form.clientData);
-  const location = useSelector((state) => state.form.location);
+  const locationData = useSelector((state) => state.form.location);
   const message = useSelector((state) => state.form.message);
   const toast = useContext(Toast);
 
   const { clientModal } = animationsHelper;
 
-  const onChangeName = ({ id, name, phone }) => {
-    dispatch(setClientData({ name, phone }));
+  const onChangeName = (e) => {
+    if (!e) {
+      dispatch(setClientData({ name: "", phone: "" }));
+      return;
+    }
+
+    if (e.__isNew__) {
+      dispatch(setClientData({ name: e.value, phone: "" }));
+      return;
+    }
+
+    dispatch(setClientData({ name: e.value.name, phone: e.value.phone }));
   };
 
-  const onSubmit = (e) => {
+  const onChangeLocation = (e) => {
+    if (!e) {
+      dispatch(setLocation(""));
+      return;
+    }
+
+    if (e.__isNew__) {
+      dispatch(setLocation(e.value));
+      return;
+    }
+
+    dispatch(setLocation(e.value.location));
+  };
+
+  const onSubmit = async (e) => {
     e.preventDefault();
+    const results = [];
 
     const isClientExist = clients.find(({ name }) => clientData.name === name);
-
     if (!isClientExist) {
-      dispatch(
+      const res = await dispatch(
         addNewClient({
           data: clientData,
           success: () => {
             toast.success("Добавлен новый контакт");
-            clientModal.hide();
           },
           failed: (error) => {
             toast.error(error);
           },
         })
       );
-      return;
+
+      results.push(res);
     }
 
-    clientModal.hide();
+    const isLocationExist = locations.find(
+      ({ location }) => location === locationData
+    );
+    if (locationData && !isLocationExist) {
+      const res = await dispatch(
+        addNewLocation({
+          data: { location: locationData },
+          success: () => {
+            toast.success("Добавлена новая локация");
+          },
+          failed: (error) => {
+            toast.error(error);
+          },
+        })
+      );
+
+      results.push(res);
+    }
+
+    const isSuccess = results.every(
+      ({ meta: { requestStatus } }) => requestStatus === "fulfilled"
+    );
+
+    if (isSuccess) clientModal.hide();
   };
 
   return (
@@ -82,14 +132,16 @@ const ModalClient = () => {
         />
       </div>
       <div className="form__input-wrapper">
-        <input
-          type="text"
-          name="location"
-          value={location}
-          placeholder="Локация отгрузки"
-          onChange={({ target: { name, value } }) =>
-            dispatch(setLocation({ [name]: value }))
-          }
+        <SelectComponent
+          id="location"
+          onChange={onChangeLocation}
+          placeholder="Локация"
+          options={locations.map((el) => ({
+            label: (
+              <span style={{ textTransform: "capitalize" }}>{el.location}</span>
+            ),
+            value: el.location,
+          }))}
         />
       </div>
       <div className="form__input-wrapper">

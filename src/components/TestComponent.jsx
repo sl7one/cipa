@@ -8,13 +8,9 @@ export default function TestComponent() {
       <h1>TEST COMPONENT </h1>
 
       <button
-        onClick={() =>
-          toast.error({
-            message: "error message",
-            statusCode: 444,
-            error: "ERRORR ERRORR",
-          })
-        }
+        onClick={() => {
+          toast.success("Success");
+        }}
       >
         BUTTON
       </button>
