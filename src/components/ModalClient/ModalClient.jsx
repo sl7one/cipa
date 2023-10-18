@@ -39,14 +39,13 @@ const ModalClient = () => {
           success: () => {
             toast.success("Добавлен новый контакт");
             clientModal.hide();
-            return;
           },
           failed: (error) => {
             toast.error(error);
-            return;
           },
         })
       );
+      return;
     }
 
     clientModal.hide();
