@@ -21,7 +21,7 @@ export const postOrder = createAsyncThunk(
       success();
       return data;
     } catch (error) {
-      failed();
+      failed(error.response.data);
       return rejectWithValue(error.response.data);
     }
   }

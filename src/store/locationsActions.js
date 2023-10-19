@@ -18,7 +18,7 @@ export const addNewLocation = createAsyncThunk(
   async ({ data: obj, success, failed }, { rejectWithValue }) => {
     try {
       const { data } = await cipa.post("/locations", obj);
-      success();
+      success(data);
       return data;
     } catch (error) {
       failed(error.response.data);

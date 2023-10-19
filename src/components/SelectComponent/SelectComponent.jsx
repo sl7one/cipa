@@ -61,12 +61,7 @@ const selectStyles = () => ({
   container: (base) => ({ ...base, flex: 1 }),
 });
 
-export default function SelectComponent({
-  placeholder,
-  onChange,
-  id,
-  options,
-}) {
+export default function SelectComponent({ placeholder, onChange, options }) {
   return (
     <CreatableSelect
       isClearable

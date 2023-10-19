@@ -13,4 +13,11 @@ export const store = configureStore({
     locations: locationsSlice,
     form: formDataSlice,
   },
+
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredPaths: ["form.date"],
+      },
+    }),
 });

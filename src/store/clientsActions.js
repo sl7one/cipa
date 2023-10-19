@@ -18,7 +18,7 @@ export const addNewClient = createAsyncThunk(
   async ({ data: clientData, success, failed }, { rejectWithValue }) => {
     try {
       const { data } = await cipa.post("/clients", clientData);
-      success();
+      success(data);
       return data;
     } catch (error) {
       failed(error.response.data);

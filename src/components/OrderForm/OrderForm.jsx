@@ -24,11 +24,13 @@ import { Toast } from "../../context/toast-context";
 export default function ModalOrder({ productsSelected }) {
   const toast = useContext(Toast);
   const [historyButtonOrder, setHistoryButtonOrder] = useState(null);
-  const [startDate, setStartDate] = useState(new Date());
 
   const isLoading = useSelector((state) => state.orders.isLoading);
   const formData = useSelector((state) => state.form.formData);
   const clientData = useSelector((state) => state.form.clientData);
+  const dateData = useSelector((state) => state.form.date);
+  const locationData = useSelector((state) => state.form.location);
+  const messageData = useSelector((state) => state.form.message);
 
   const dispatch = useDispatch();
 
@@ -123,26 +125,26 @@ export default function ModalOrder({ productsSelected }) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const { name, phone, location, message } = clientData;
 
     const orders = Object.entries(formData).map(([key, { order, price }]) => ({
-      product: key,
+      _id: key,
       order: Number(order),
       price: Number(price),
     }));
 
     const order = {
-      date: startDate.toISOString(),
-      client: { name, phone },
+      date: dateData.toISOString(),
+      client: clientData._id,
       order: orders,
-      location,
-      message,
+      location: locationData._id,
+      message: messageData,
     };
 
     dispatch(
       postOrder({
         order,
         success: () => {
+          toast.success("Товар успешно добавлен");
           dispatch(resetFormData());
           dispatch(resetProducts());
         },
@@ -156,10 +158,7 @@ export default function ModalOrder({ productsSelected }) {
       <form onSubmit={onSubmit} className="form">
         <div className="form-header">
           <ClientButton />
-          <DatePickerComponent
-            startDate={startDate}
-            setStartDate={setStartDate}
-          />
+          <DatePickerComponent />
 
           <button
             type="submit"

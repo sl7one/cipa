@@ -37,34 +37,41 @@ const ModalClient = () => {
       return;
     }
 
-    dispatch(setClientData({ name: e.value.name, phone: e.value.phone }));
+    dispatch(
+      setClientData({
+        _id: e.value._id,
+        name: e.value.name,
+        phone: e.value.phone,
+      })
+    );
   };
 
   const onChangeLocation = (e) => {
     if (!e) {
-      dispatch(setLocation(""));
+      dispatch(setLocation({ location: "" }));
       return;
     }
 
     if (e.__isNew__) {
-      dispatch(setLocation(e.value));
+      dispatch(setLocation({ location: e.value }));
       return;
     }
 
-    dispatch(setLocation(e.value.location));
+    dispatch(setLocation(e.value));
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const results = [];
 
-    const isClientExist = clients.find(({ name }) => clientData.name === name);
+    const isClientExist = clients.find(({ _id }) => _id === clientData._id);
     if (!isClientExist) {
       const res = await dispatch(
         addNewClient({
           data: clientData,
-          success: () => {
+          success: (data) => {
             toast.success("Добавлен новый контакт");
+            dispatch(setClientData(data));
           },
           failed: (error) => {
             toast.error(error);
@@ -76,14 +83,15 @@ const ModalClient = () => {
     }
 
     const isLocationExist = locations.find(
-      ({ location }) => location === locationData
+      ({ _id }) => _id === locationData._id
     );
     if (locationData && !isLocationExist) {
       const res = await dispatch(
         addNewLocation({
           data: { location: locationData },
-          success: () => {
+          success: (data) => {
             toast.success("Добавлена новая локация");
+            dispatch(setLocation(data));
           },
           failed: (error) => {
             toast.error(error);
@@ -107,7 +115,6 @@ const ModalClient = () => {
       <div className="form__input-wrapper">
         <label htmlFor="name">*</label>
         <SelectComponent
-          id="name"
           onChange={onChangeName}
           placeholder="Имя"
           options={clients.map((el) => ({
@@ -133,14 +140,13 @@ const ModalClient = () => {
       </div>
       <div className="form__input-wrapper">
         <SelectComponent
-          id="location"
           onChange={onChangeLocation}
           placeholder="Локация"
           options={locations.map((el) => ({
             label: (
               <span style={{ textTransform: "capitalize" }}>{el.location}</span>
             ),
-            value: el.location,
+            value: el,
           }))}
         />
       </div>

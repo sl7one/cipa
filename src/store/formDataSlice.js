@@ -3,6 +3,7 @@ import { foodCalculator } from "../utils/foodCalculator";
 import { medicineCalculator } from "../utils/medicineCalculator";
 
 const initialState = {
+  date: new Date(),
   formData: {},
   clientData: { name: "", phone: "" },
   location: "",
@@ -105,8 +106,10 @@ export const formDataSlice = createSlice({
       };
     },
     resetFormData: (state) => {
-      state.formData = initialState.formData;
+      state.formData = {};
       state.clientData = initialState.clientData;
+      state.location = "";
+      state.message = "";
     },
     setClientData: (state, { payload }) => {
       state.clientData = { ...state.clientData, ...payload };
@@ -120,6 +123,9 @@ export const formDataSlice = createSlice({
     setOrder: (state, { payload: { formData, clientData } }) => {
       state.clientData = { ...clientData };
       state.formData = { ...formData };
+    },
+    setDate: (state, { payload }) => {
+      state.date = payload;
     },
   },
 });
@@ -136,6 +142,7 @@ export const {
   setMessage,
   resetFormData,
   setOrder,
+  setDate,
 } = formDataSlice.actions;
 
 export default formDataSlice.reducer;
