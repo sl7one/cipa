@@ -29,9 +29,9 @@ export const addNewClient = createAsyncThunk(
 
 export const updateClient = createAsyncThunk(
   "clients/updateClient",
-  async ({ data: { _id, ...rest }, success, failed }, { rejectWithValue }) => {
+  async ({ data: clientData, success, failed }, { rejectWithValue }) => {
     try {
-      const { data } = await cipa.patch(`/clients/${_id}`, rest);
+      const { data } = await cipa.patch("/clients", clientData);
       success();
       return data;
     } catch (error) {

@@ -32,7 +32,9 @@ export const clientsSlice = createSlice({
     });
 
     builder.addCase(updateClient.fulfilled, (state, { payload }) => {
-      state.clients.push(payload);
+      console.log(payload);
+      const idx = state.clients.findIndex(({ _id }) => _id === payload._id);
+      state.clients.splice(idx, 1, payload);
       state.isLoading = false;
     });
 

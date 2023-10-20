@@ -144,7 +144,7 @@ export default function ModalOrder({ productsSelected }) {
       postOrder({
         order,
         success: () => {
-          toast.success("Товар успешно добавлен");
+          toast.success("Заказ успешно добавлен");
           dispatch(resetFormData());
           dispatch(resetProducts());
         },

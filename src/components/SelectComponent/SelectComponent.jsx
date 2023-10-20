@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import CreatableSelect from "react-select/creatable";
 
 const selectStyles = () => ({
@@ -61,15 +61,20 @@ const selectStyles = () => ({
   container: (base) => ({ ...base, flex: 1 }),
 });
 
-export default function SelectComponent({ placeholder, onChange, options }) {
-  return (
-    <CreatableSelect
-      isClearable
-      isSearchable
-      options={options ? options : false}
-      placeholder={placeholder}
-      styles={selectStyles()}
-      onChange={onChange}
-    />
-  );
-}
+const SelectComponent = forwardRef(
+  ({ placeholder, onChange, options }, ref) => {
+    return (
+      <CreatableSelect
+        ref={ref}
+        isClearable
+        isSearchable
+        options={options ? options : false}
+        placeholder={placeholder}
+        styles={selectStyles()}
+        onChange={onChange}
+      />
+    );
+  }
+);
+
+export default SelectComponent;

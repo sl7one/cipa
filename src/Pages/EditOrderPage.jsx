@@ -14,10 +14,9 @@ export default function EditOrderPage() {
   const dispatch = useDispatch();
   const productsObject = useProducts();
 
-  const [client = { order: [], client: {} }] = orders.filter(
-    (el) => el._id === id
-  );
-  const { order, client: clientData } = client;
+  const orderData = orders.find((el) => el._id === id);
+
+  const { order, client: clientData } = orderData;
 
   useEffect(() => {
     if (!clientData) return;

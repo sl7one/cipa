@@ -3,6 +3,7 @@ import "../OrderForm/order-form.scss";
 import "./modal-client.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  resetClienData,
   setClientData,
   setLocation,
   setMessage,
@@ -15,10 +16,11 @@ import { Toast } from "../../context/toast-context";
 import SelectComponent from "../SelectComponent/SelectComponent";
 
 const ModalClient = () => {
+  // const refSelectName = useRef({});
+  // const refSelectLocation = useRef({});
   const dispatch = useDispatch();
   const clients = useSelector((state) => state.clients.clients);
   const locations = useSelector((state) => state.locations.locations);
-
   const clientData = useSelector((state) => state.form.clientData);
   const locationData = useSelector((state) => state.form.location);
   const message = useSelector((state) => state.form.message);
@@ -106,7 +108,9 @@ const ModalClient = () => {
       ({ meta: { requestStatus } }) => requestStatus === "fulfilled"
     );
 
-    if (isSuccess) clientModal.hide();
+    if (isSuccess) {
+      clientModal.hide();
+    }
   };
 
   return (
@@ -115,6 +119,7 @@ const ModalClient = () => {
       <div className="form__input-wrapper">
         <label htmlFor="name">*</label>
         <SelectComponent
+          // ref={refSelectName.current}
           onChange={onChangeName}
           placeholder="Имя"
           options={clients.map((el) => ({
@@ -140,6 +145,7 @@ const ModalClient = () => {
       </div>
       <div className="form__input-wrapper">
         <SelectComponent
+          // ref={refSelectLocation.current}
           onChange={onChangeLocation}
           placeholder="Локация"
           options={locations.map((el) => ({

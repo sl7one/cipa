@@ -1,28 +1,21 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./clients-list.scss";
 import Icons from "../Icons/Icons";
-import { updateClient } from "../../store/clientsActions";
-import { Toast } from "../../context/toast-context";
+import { animationsHelper } from "../../utils/animationsHelper";
+import { setClientData } from "../../store/formDataSlice";
 
 export default function ClientsList() {
-  const toast = useContext(Toast);
-  const dispatch = useDispatch();
   const clientsData = useSelector((state) => state.clients.clients);
+  const dispatch = useDispatch();
 
-  const onClickEdit = (_id) => {
-    // dispatch(
-    //   updateClient({
-    //     data: "",
-    //     success: () => {
-    //       toast.success("Контакт успешно изменен");
-    //     },
-    //     failed: (message) => {
-    //       toast.error(message);
-    //     },
-    //   })
-    // );
+  const { editClient } = animationsHelper;
+
+  const onClickEdit = ({ _id, name, phone }) => {
+    editClient.show();
+    dispatch(setClientData({ _id, name, phone }));
   };
+
   return (
     <ul className="clients-list">
       {clientsData.map(({ _id, name, phone }, idx) => (
@@ -30,7 +23,10 @@ export default function ClientsList() {
           <span className="clients-item__number">{++idx + "."}</span>
           <span>{name}</span>
           <span>{phone}</span>
-          <button type="button" onClick={() => onClickEdit(_id)}>
+          <button
+            type="button"
+            onClick={() => onClickEdit({ _id, name, phone })}
+          >
             <Icons name="edit" />
           </button>
         </li>

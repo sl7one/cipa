@@ -43,8 +43,8 @@ export const productsSlice = createSlice({
       state.products = payload.map((el) => ({
         ...el,
         isSelected: false,
-        img: productsImages[el.id]
-          ? productsImages[el.id]
+        img: productsImages[el.img]
+          ? productsImages[el.img]
           : productsImages["korm"],
       }));
       state.isLoading = false;

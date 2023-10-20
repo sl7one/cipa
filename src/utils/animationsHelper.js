@@ -114,4 +114,15 @@ export const animationsHelper = {
         visibility: "hidden",
       }),
   },
+
+  editClient: {
+    show: () =>
+      gsap.to(".update-client-backdrop", {
+        bottom: 0,
+      }),
+    hide: () =>
+      gsap.to(".update-client-backdrop", {
+        bottom: "-100%",
+      }),
+  },
 };
