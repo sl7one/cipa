@@ -12,3 +12,17 @@ export const getAllProducts = createAsyncThunk(
     }
   }
 );
+
+export const updateProduct = createAsyncThunk(
+  "products/updateProduct",
+  async ({ data: { _id, ...rest }, success, failed }, { rejectWithValue }) => {
+    try {
+      const { data } = await cipa.patch(`/products/${_id}`, rest);
+      success(data);
+      return data;
+    } catch (error) {
+      failed(error.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);

@@ -15,9 +15,9 @@ export const store = configureStore({
     clients: clientsSlice,
     locations: locationsSlice,
     form: formDataSlice,
-    category: categoriesSlice,
-    subCategory: subCategoriesSlice,
-    subCategory2: sub2CategoriesSlice,
+    categories: categoriesSlice,
+    subCategories: subCategoriesSlice,
+    sub2categories: sub2CategoriesSlice,
   },
 
   middleware: (getDefaultMiddleware) =>

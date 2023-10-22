@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { productsImages } from "../utils/productsImages";
-import { getAllProducts } from "./productsActions";
+import { getAllProducts, updateProduct } from "./productsActions";
 
 const initialState = {
   products: [],
@@ -40,17 +39,24 @@ export const productsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getAllProducts.fulfilled, (state, { payload }) => {
-      state.products = payload.map((el) => ({
-        ...el,
-        isSelected: false,
-        img: productsImages[el.img]
-          ? productsImages[el.img]
-          : productsImages["korm"],
-      }));
+      state.products = payload;
       state.isLoading = false;
     });
+
+    builder.addCase(
+      updateProduct.fulfilled,
+      (state, { payload: { _id, ...rest } }) => {
+        const idx = state.products.findIndex((el) => el._id === _id);
+        state.products.splice(idx, { _id, ...rest });
+        state.isLoading = false;
+      }
+    );
+
     builder.addCase(getAllProducts.pending, pending);
     builder.addCase(getAllProducts.rejected, rejected);
+
+    builder.addCase(updateProduct.pending, pending);
+    builder.addCase(updateProduct.rejected, rejected);
   },
 });
 

@@ -1,21 +1,12 @@
 export const selectStyles = () => ({
   control: (base, state) => ({
     ...base,
-    // width: '100%',
-    // minWidth: `${width}px`,
-    // backgroundColor: ,
-    // borderRadius: "10px",
-    // height: "40px",
     border: "unset",
     borderBottom: "1px solid gray",
     borderRadius: "unset",
     transition: "border-color 350ms ease-in-out",
     boxShadow: state.isFocused ? "unset" : "unset",
-    // borderColor: "white",
     fontSize: "14px",
-    // ":hover": {
-    //   borderColor: "#ff868e",
-    // },
   }),
   menu: (base, state) => ({
     ...base,
@@ -32,16 +23,6 @@ export const selectStyles = () => ({
     fontSize: "12px",
     zIndex: 2,
     backgroundColor: "rgb(240, 240, 240)",
-    "::-webkit-scrollbar": {
-      width: "10px",
-    },
-    "::-webkit-scrollbar-thumb": {
-      backgroundColor: "#ff868e",
-      borderRadius: "5px",
-    },
-    "::-webkit-scrollbar-track": {
-      backgroundColor: "transparent",
-    },
   }),
   option: (base, state) => ({
     ...base,

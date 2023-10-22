@@ -11,9 +11,11 @@ import Loader from "../Loader/Loader";
 import ErrorPage from "../../Pages/ErrorPage";
 import { getAllClients } from "../../store/clientsActions";
 import { getAllLocations } from "../../store/locationsActions";
-import TestComponent from "../TestComponent";
 import RoutesMain from "../RoutesMain/RoutesMain";
 import RoutesService from "../RoutesService/RoutesService";
+import { getAllCategories } from "../../store/categoriesActions";
+import { getAllSubCategories } from "../../store/subCategoriesActions";
+import { getAllSub2Categories } from "../../store/sub2CategoriesActions";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -30,13 +32,16 @@ export default function Layout() {
         await dispatch(getAllOrders());
         await dispatch(getAllClients());
         await dispatch(getAllLocations());
+        await dispatch(getAllCategories());
+        await dispatch(getAllSubCategories());
+        await dispatch(getAllSub2Categories());
 
         navigate("orders");
       } catch (error) {
         toast.error({
           message: "Не удалось загруить данные с сервера",
           error: "Сервер не отвечает",
-          statusCode: 404,
+          statusCode: 500,
         });
         navigate("bad-connection");
         setIsLoading(false);
@@ -55,7 +60,6 @@ export default function Layout() {
         <ErrorPage />
       ) : (
         <>
-          {/* <TestComponent /> */}
           <div className="layout">
             <nav>
               <RoutesService />

@@ -1,10 +1,23 @@
 import { useState } from "react";
 
 export default function useSelectContext() {
-  const [ref, setRef] = useState();
+  const [ref, setRef] = useState([]);
+  console.log(ref);
   return {
     setRef,
-    resetSelectNameValue: () => ref.refName.current.clearValue(),
-    resetSelectLoactionValue: () => ref.refLocation.current.clearValue(),
+    resetSelect: (idx) => {
+      if (!idx) {
+        ref.forEach((refItem) => {
+          refItem.current.clearValue();
+        });
+        return;
+      }
+
+      ref[idx].current.clearValue();
+    },
+    setValue: ({ idx, value }) => {
+      console.log(ref);
+      ref[idx].current.setValue({ label: value, value });
+    },
   };
 }

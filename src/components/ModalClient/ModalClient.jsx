@@ -18,7 +18,7 @@ import { Select } from "../../context/select-context";
 
 const ModalClient = () => {
   const refSelectName = useRef(null);
-  const refSelectLocation = useRef({});
+  const refSelectLocation = useRef(null);
   const dispatch = useDispatch();
   const clients = useSelector((state) => state.clients.clients);
   const locations = useSelector((state) => state.locations.locations);
@@ -29,8 +29,10 @@ const ModalClient = () => {
   const { setRef } = useContext(Select);
 
   useEffect(() => {
-    setRef({ refName: refSelectName, refLocation: refSelectLocation });
-  }, [refSelectName, refSelectLocation, setRef]);
+    if (!refSelectName && !refSelectLocation) return;
+    setRef([refSelectName, refSelectLocation]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refSelectName, refSelectLocation]);
 
   const { clientModal } = animationsHelper;
 

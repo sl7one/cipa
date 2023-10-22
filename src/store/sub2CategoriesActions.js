@@ -13,16 +13,16 @@ export const getAllSub2Categories = createAsyncThunk(
   }
 );
 
-// export const addNewLocation = createAsyncThunk(
-//   "locations/addNewLocation",
-//   async ({ data: obj, success, failed }, { rejectWithValue }) => {
-//     try {
-//       const { data } = await cipa.post("/locations", obj);
-//       success(data);
-//       return data;
-//     } catch (error) {
-//       failed(error.response.data);
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
+export const addNewSub2Category = createAsyncThunk(
+  "categories/addNewSub2Category",
+  async ({ data: obj, success, failed }, { rejectWithValue }) => {
+    try {
+      const { data } = await cipa.post("/sub-2-categories", obj);
+      success(data);
+      return data;
+    } catch (error) {
+      failed(error.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);

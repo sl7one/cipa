@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllCategories } from "./categoriesActions";
+import { addNewCategory, getAllCategories } from "./categoriesActions";
 
 const initialState = {
   categories: [],
@@ -26,16 +26,16 @@ export const categoriesSlice = createSlice({
       state.isLoading = false;
     });
 
-    // builder.addCase(addNewLocation.fulfilled, (state, { payload }) => {
-    //   state.categories.push(payload);
-    //   state.isLoading = false;
-    // });
+    builder.addCase(addNewCategory.fulfilled, (state, { payload }) => {
+      state.categories.push(payload);
+      state.isLoading = false;
+    });
 
     builder.addCase(getAllCategories.pending, pending);
     builder.addCase(getAllCategories.rejected, rejected);
 
-    // builder.addCase(addNewLocation.pending, pending);
-    // builder.addCase(addNewLocation.rejected, rejected);
+    builder.addCase(addNewCategory.pending, pending);
+    builder.addCase(addNewCategory.rejected, rejected);
   },
 });
 

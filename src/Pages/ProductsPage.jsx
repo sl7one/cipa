@@ -4,12 +4,16 @@ import "./products-page.scss";
 import ModalUpdateProduct from "../components/ModalUpdateProduct/ModalUpdateProduct";
 import { Product } from "../context/products-context";
 import useProductContext from "../hooks/useProductContext";
+import useSelectContext from "../hooks/useSelectContext";
+import { Select } from "../context/select-context";
 
 export default function ProductsPage() {
   return (
     <Product.Provider value={useProductContext()}>
-      <ProductsList />
-      <ModalUpdateProduct />
+      <Select.Provider value={useSelectContext()}>
+        <ProductsList />
+        <ModalUpdateProduct />
+      </Select.Provider>
     </Product.Provider>
   );
 }
