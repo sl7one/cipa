@@ -1,12 +1,12 @@
-.clients-list {
-  padding: 5px;
-
+.products-list {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  font-size: 12px;
+  padding: 5px;
 }
 
-.clients-item {
+.products-item {
   background-color: white;
   border-radius: 10px;
   box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.25);
@@ -14,19 +14,19 @@
   position: relative;
   overflow-x: hidden;
 
-  font-size: 12px;
-
   display: grid;
-  grid-template-columns: 25px 1fr 1fr 30px;
+  grid-template-columns: 30px 50px 1fr 30px;
   align-items: center;
-  justify-items: center;
 }
 
-.clients-item span {
-  text-transform: capitalize;
-  justify-self: flex-start;
+.products-item .thumb {
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+
+  border-radius: 50%;
 }
 
-.clients-item__number {
+.products-item__number {
   margin-left: 5px;
 }

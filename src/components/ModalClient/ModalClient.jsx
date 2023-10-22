@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import "../OrderForm/order-form.scss";
 import "./modal-client.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  resetClienData,
   setClientData,
   setLocation,
   setMessage,
@@ -11,13 +10,15 @@ import {
 import { animationsHelper } from "../../utils/animationsHelper";
 import { addNewClient } from "../../store/clientsActions";
 import { addNewLocation } from "../../store/locationsActions";
-
+import CreatableSelect from "react-select/creatable";
 import { Toast } from "../../context/toast-context";
 import SelectComponent from "../SelectComponent/SelectComponent";
+import { selectStyles } from "../../utils/selectStyles";
+import { Select } from "../../context/select-context";
 
 const ModalClient = () => {
-  // const refSelectName = useRef({});
-  // const refSelectLocation = useRef({});
+  const refSelectName = useRef(null);
+  const refSelectLocation = useRef({});
   const dispatch = useDispatch();
   const clients = useSelector((state) => state.clients.clients);
   const locations = useSelector((state) => state.locations.locations);
@@ -25,6 +26,11 @@ const ModalClient = () => {
   const locationData = useSelector((state) => state.form.location);
   const message = useSelector((state) => state.form.message);
   const toast = useContext(Toast);
+  const { setRef } = useContext(Select);
+
+  useEffect(() => {
+    setRef({ refName: refSelectName, refLocation: refSelectLocation });
+  }, [refSelectName, refSelectLocation, setRef]);
 
   const { clientModal } = animationsHelper;
 
@@ -118,16 +124,19 @@ const ModalClient = () => {
       <p>Информация о клиенте</p>
       <div className="form__input-wrapper">
         <label htmlFor="name">*</label>
-        <SelectComponent
-          // ref={refSelectName.current}
-          onChange={onChangeName}
-          placeholder="Имя"
+        <CreatableSelect
+          ref={refSelectName}
+          isClearable
+          isSearchable
           options={clients.map((el) => ({
             label: (
               <span style={{ textTransform: "capitalize" }}>{el.name}</span>
             ),
             value: el,
           }))}
+          placeholder="Имя"
+          styles={selectStyles()}
+          onChange={onChangeName}
         />
       </div>
       <div className="form__input-wrapper">
@@ -145,7 +154,7 @@ const ModalClient = () => {
       </div>
       <div className="form__input-wrapper">
         <SelectComponent
-          // ref={refSelectLocation.current}
+          ref={refSelectLocation}
           onChange={onChangeLocation}
           placeholder="Локация"
           options={locations.map((el) => ({

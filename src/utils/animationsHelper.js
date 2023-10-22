@@ -125,4 +125,15 @@ export const animationsHelper = {
         bottom: "-100%",
       }),
   },
+
+  editProduct: {
+    show: () =>
+      gsap.to(".update-product-backdrop", {
+        bottom: 0,
+      }),
+    hide: () =>
+      gsap.to(".update-product-backdrop", {
+        bottom: "-100%",
+      }),
+  },
 };

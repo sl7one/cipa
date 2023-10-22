@@ -20,9 +20,11 @@ import Loader from "../Loader/Loader";
 import { animationsHelper } from "../../utils/animationsHelper";
 import OrderFormButtonsGroup from "../OrderFormButtonsGroup/OrderFormButtonsGroup";
 import { Toast } from "../../context/toast-context";
+import { Select } from "../../context/select-context";
 
 export default function ModalOrder({ productsSelected }) {
   const toast = useContext(Toast);
+  const { resetSelectNameValue, resetSelectLoactionValue } = useContext(Select);
   const [historyButtonOrder, setHistoryButtonOrder] = useState(null);
 
   const isLoading = useSelector((state) => state.orders.isLoading);
@@ -147,6 +149,8 @@ export default function ModalOrder({ productsSelected }) {
           toast.success("Заказ успешно добавлен");
           dispatch(resetFormData());
           dispatch(resetProducts());
+          resetSelectNameValue();
+          resetSelectLoactionValue();
         },
         failed: (message) => toast.error(message),
       })

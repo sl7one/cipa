@@ -1,7 +1,4 @@
-import React, { forwardRef } from "react";
-import CreatableSelect from "react-select/creatable";
-
-const selectStyles = () => ({
+export const selectStyles = () => ({
   control: (base, state) => ({
     ...base,
     // width: '100%',
@@ -57,21 +54,3 @@ const selectStyles = () => ({
   indicatorSeparator: (base, state) => ({ ...base, display: "none" }),
   container: (base) => ({ ...base, flex: 1 }),
 });
-
-const SelectComponent = forwardRef(
-  ({ placeholder, onChange, options }, ref) => {
-    return (
-      <CreatableSelect
-        ref={ref}
-        isClearable
-        isSearchable
-        options={options ? options : false}
-        placeholder={placeholder}
-        styles={selectStyles()}
-        onChange={onChange}
-      />
-    );
-  }
-);
-
-export default SelectComponent;

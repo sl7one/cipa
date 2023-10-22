@@ -6,6 +6,8 @@ import Loader from "../components/Loader/Loader";
 import { useSelector } from "react-redux";
 import { animationsHelper } from "../utils/animationsHelper";
 import useSelectedProducts from "../hooks/useSelectedProducts";
+import useSelectContext from "../hooks/useSelectContext";
+import { Select } from "../context/select-context";
 
 export default function NewOrderPage() {
   const isLoading = useSelector((state) => state.products.isLoading);
@@ -18,7 +20,7 @@ export default function NewOrderPage() {
   }, [productModal]);
 
   return (
-    <>
+    <Select.Provider value={useSelectContext()}>
       {isLoading ? (
         <Loader />
       ) : (
@@ -28,6 +30,6 @@ export default function NewOrderPage() {
           <OrderForm productsSelected={productsSelected} />
         </>
       )}
-    </>
+    </Select.Provider>
   );
 }
