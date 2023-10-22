@@ -4,6 +4,9 @@ import formDataSlice from "./formDataSlice";
 import ordersSlice from "./ordersSlice";
 import locationsSlice from "./locationsSlice";
 import clientsSlice from "./clientsSlice";
+import categoriesSlice from "./categoriesSlice";
+import subCategoriesSlice from "./subCategoriesSlice";
+import sub2CategoriesSlice from "./sub2CategoriesSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +15,9 @@ export const store = configureStore({
     clients: clientsSlice,
     locations: locationsSlice,
     form: formDataSlice,
+    category: categoriesSlice,
+    subCategory: subCategoriesSlice,
+    subCategory2: sub2CategoriesSlice,
   },
 
   middleware: (getDefaultMiddleware) =>
