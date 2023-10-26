@@ -14,6 +14,8 @@ import ErrorPage from "../../Pages/ErrorPage";
 import BadConnectionPage from "../../Pages/BadConnectionPage";
 import ClientsPage from "../../Pages/ClientsPage";
 import ProductsPage from "../../Pages/ProductsPage";
+import NewProductPage from "../../Pages/NewProductPage";
+import EditProductPage from "../../Pages/EditProductPage";
 
 export default function App() {
   return (
@@ -27,6 +29,8 @@ export default function App() {
           <Route path="purchases" element={<PurchasesPage />} />
           <Route path="clients" element={<ClientsPage />} />
           <Route path="products" element={<ProductsPage />} />
+          <Route path="products/new" element={<NewProductPage />} />
+          <Route path="products/edit/:id" element={<EditProductPage />} />
           <Route path="bad-connection" element={<BadConnectionPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>

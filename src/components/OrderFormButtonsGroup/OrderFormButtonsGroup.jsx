@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import Icons from "../Icons/Icons";
 import { animationsHelper } from "../../utils/animationsHelper";
 import gsap from "gsap";
 import "./order-form-btns-group.scss";
+import BackBtn from "../BackBtn/BackBtn";
 
 export default function OrderFormButtonsGroup() {
   const { productModal } = animationsHelper;
@@ -21,7 +20,7 @@ export default function OrderFormButtonsGroup() {
       }
     );
     gsap.fromTo(
-      ".link-to-orders",
+      ".back-link",
       {
         opacity: 0,
         right: "-100%",
@@ -38,9 +37,7 @@ export default function OrderFormButtonsGroup() {
       <button className="add-product" type="button" onClick={productModal.show}>
         Добавить товары
       </button>
-      <Link className="link-to-orders" to="/orders">
-        <Icons name="back" />
-      </Link>
+      <BackBtn path="/orders" />
     </>
   );
 }

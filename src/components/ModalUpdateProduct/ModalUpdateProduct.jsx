@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useRef } from "react";
-import "./update-product.scss";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Loader/Loader";
-import { Product } from "../../context/products-context";
 import { animationsHelper } from "../../utils/animationsHelper";
 import { selectStyles } from "../../utils/selectStyles";
 import CreatableSelect from "react-select/creatable";
@@ -11,14 +9,19 @@ import { Toast } from "../../context/toast-context";
 import { addNewSubCategory } from "../../store/subCategoriesActions";
 import { addNewSub2Category } from "../../store/sub2CategoriesActions";
 import { updateProduct } from "../../store/productsActions";
-import useSelectContext from "../../hooks/useSelectContext";
+import { setProductForm } from "../../store/productsSlice";
+import { Select } from "../../context/select-context";
 
 export default function ModalUpdateProduct() {
   const toast = useContext(Toast);
+  const { setRef } = useContext(Select);
   const refCategory = useRef(null);
   const refSubCategory = useRef(null);
   const refSub2Category = useRef(null);
-  const { setRef } = useSelectContext();
+
+  useEffect(() => {
+    setRef([refCategory, refSubCategory, refSub2Category]);
+  }, [refCategory, refSubCategory, refSub2Category, setRef]);
 
   const categories = useSelector((state) => state.categories.categories);
   const subCategories = useSelector(
@@ -29,18 +32,12 @@ export default function ModalUpdateProduct() {
   );
   const dispatch = useDispatch();
   const { editProduct } = animationsHelper;
-  const { product, setProduct } = useContext(Product);
-
+  const productForm = useSelector((state) => state.products.productForm);
   const isLoading = useSelector((state) => state.products.isLoading);
-
-  useEffect(() => {
-    setRef([refCategory, refSubCategory, refSub2Category]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refCategory, refSubCategory, refSub2Category]);
 
   const onChangeCategory = (e) => {
     if (!e) {
-      setProduct({ category: "" });
+      dispatch(setProductForm({ category: "" }));
       return;
     }
 
@@ -50,7 +47,7 @@ export default function ModalUpdateProduct() {
           data: { name: e.value },
           success: (newCategory) => {
             toast.success("Добавлена новая категория");
-            setProduct({ category: newCategory._id });
+            dispatch(setProductForm({ category: newCategory._id }));
           },
           failed: (message) => toast.error(message),
         })
@@ -59,14 +56,16 @@ export default function ModalUpdateProduct() {
       return;
     }
 
-    setProduct({
-      category: e.value._id,
-    });
+    dispatch(
+      setProductForm({
+        category: e.value._id,
+      })
+    );
   };
 
   const onChangeSubCategory = (e) => {
     if (!e) {
-      setProduct({ subCategory: "" });
+      dispatch(setProductForm({ subCategory: "" }));
       return;
     }
 
@@ -76,7 +75,7 @@ export default function ModalUpdateProduct() {
           data: { name: e.value },
           success: (newCategory) => {
             toast.success("Добавлена новая подкатегория");
-            setProduct({ subCategory: newCategory._id });
+            dispatch(setProductForm({ subCategory: newCategory._id }));
           },
           failed: (message) => toast.error(message),
         })
@@ -85,14 +84,16 @@ export default function ModalUpdateProduct() {
       return;
     }
 
-    setProduct({
-      subCategory: e.value._id,
-    });
+    dispatch(
+      setProductForm({
+        subCategory: e.value._id,
+      })
+    );
   };
 
   const onChangeSub2Category = (e) => {
     if (!e) {
-      setProduct({ sub2Category: "" });
+      dispatch(setProductForm({ sub2Category: "" }));
       return;
     }
 
@@ -102,7 +103,7 @@ export default function ModalUpdateProduct() {
           data: { name: e.value },
           success: (newCategory) => {
             toast.success("Добавлена новая подкатегория");
-            setProduct({ sub2Category: newCategory._id });
+            dispatch(setProductForm({ sub2Category: newCategory._id }));
           },
           failed: (message) => toast.error(message),
         })
@@ -111,17 +112,18 @@ export default function ModalUpdateProduct() {
       return;
     }
 
-    setProduct({
-      sub2Category: e.value._id,
-    });
+    dispatch(
+      setProductForm({
+        sub2Category: e.value._id,
+      })
+    );
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(product);
     dispatch(
       updateProduct({
-        data: product,
+        data: productForm,
         success: () => {
           toast.success("Продукт успешно изменен");
           editProduct.hide();
@@ -160,8 +162,8 @@ export default function ModalUpdateProduct() {
                 isClearable
                 isSearchable
                 defaultValue={{
-                  label: product.subCategory,
-                  value: product.subCategory,
+                  label: productForm.subCategory,
+                  value: productForm.subCategory,
                 }}
                 options={subCategories.map((el) => ({
                   label: (
@@ -180,8 +182,8 @@ export default function ModalUpdateProduct() {
                 isClearable
                 isSearchable
                 defaultValue={{
-                  label: product?.sub2Category || null,
-                  value: product?.sub2Category || null,
+                  label: productForm?.sub2Category || null,
+                  value: productForm?.sub2Category || null,
                 }}
                 options={sub2categories.map((el) => ({
                   label: (
@@ -203,10 +205,10 @@ export default function ModalUpdateProduct() {
                   id="title"
                   type="text"
                   name="title"
-                  value={product?.title || ""}
+                  value={productForm?.title || ""}
                   placeholder="Название продукта"
                   onChange={({ target: { name, value } }) =>
-                    setProduct({ [name]: value })
+                    setProductForm({ [name]: value })
                   }
                 />
               </div>
@@ -216,10 +218,10 @@ export default function ModalUpdateProduct() {
                   id="img"
                   type="text"
                   name="img"
-                  value={product?.img || ""}
+                  value={productForm?.img || ""}
                   placeholder="URL картинки"
                   onChange={({ target: { name, value } }) =>
-                    setProduct({ [name]: value })
+                    setProductForm({ [name]: value })
                   }
                 />
               </div>
@@ -230,17 +232,19 @@ export default function ModalUpdateProduct() {
                   type="number"
                   name="price"
                   value={
-                    product?.category === "Птица" ? "" : product?.price || ""
+                    productForm?.category === "Птица"
+                      ? ""
+                      : productForm?.price || ""
                   }
                   placeholder={
-                    product?.category === "Птица"
+                    productForm?.category === "Птица"
                       ? "Не активно"
                       : "Цена продукта"
                   }
                   onChange={({ target: { name, value } }) =>
-                    setProduct({ [name]: Number(value) })
+                    setProductForm({ [name]: Number(value) })
                   }
-                  disabled={product?.category === "Птица"}
+                  disabled={productForm?.category === "Птица"}
                 />
               </div>
             </div>

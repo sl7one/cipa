@@ -5,6 +5,7 @@ const initialState = {
   products: [],
   isLoading: false,
   error: "",
+  productForm: {},
 };
 
 const pending = (state) => {
@@ -36,6 +37,12 @@ export const productsSlice = createSlice({
         isSelected: false,
       }));
     },
+    setProductForm: (state, { payload }) => {
+      state.productForm = { ...state.productForm, ...payload };
+    },
+    resetProductForm: (state) => {
+      state.productForm = {};
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getAllProducts.fulfilled, (state, { payload }) => {
@@ -43,14 +50,14 @@ export const productsSlice = createSlice({
       state.isLoading = false;
     });
 
-    builder.addCase(
-      updateProduct.fulfilled,
-      (state, { payload: { _id, ...rest } }) => {
-        const idx = state.products.findIndex((el) => el._id === _id);
-        state.products.splice(idx, { _id, ...rest });
-        state.isLoading = false;
-      }
-    );
+    builder.addCase(updateProduct.fulfilled, (state, { payload }) => {
+      const idx = state.products.findIndex((el) => el._id === payload._id);
+      state.products.splice(idx, payload);
+      console.log({ payload });
+
+      state.products = [...state.products];
+      state.isLoading = false;
+    });
 
     builder.addCase(getAllProducts.pending, pending);
     builder.addCase(getAllProducts.rejected, rejected);
@@ -60,7 +67,12 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { setSelectedProducts, unsetSelectedProducts, resetProducts } =
-  productsSlice.actions;
+export const {
+  setSelectedProducts,
+  unsetSelectedProducts,
+  resetProducts,
+  setProductForm,
+  resetProductForm,
+} = productsSlice.actions;
 
 export default productsSlice.reducer;
