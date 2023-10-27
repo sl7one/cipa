@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addNewClient, getAllClients, updateClient } from "./clientsActions";
+import {
+  addNewClient,
+  deleteClient,
+  getAllClients,
+  updateClient,
+} from "./clientsActions";
 
 const initialState = {
   clients: [],
@@ -32,9 +37,14 @@ export const clientsSlice = createSlice({
     });
 
     builder.addCase(updateClient.fulfilled, (state, { payload }) => {
-      console.log(payload);
       const idx = state.clients.findIndex(({ _id }) => _id === payload._id);
       state.clients.splice(idx, 1, payload);
+      state.isLoading = false;
+    });
+
+    builder.addCase(deleteClient.fulfilled, (state, { payload }) => {
+      const idx = state.clients.findIndex(({ _id }) => _id === payload._id);
+      state.clients.splice(idx, 1);
       state.isLoading = false;
     });
 

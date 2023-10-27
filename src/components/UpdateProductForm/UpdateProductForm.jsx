@@ -32,7 +32,6 @@ export default function UpdateProductForm() {
   );
 
   useEffect(() => {
-    console.log(product);
     const { category, subCategory, sub2Category, ...rest } = product;
     dispatch(
       setProductForm({

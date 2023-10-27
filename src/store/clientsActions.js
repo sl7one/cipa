@@ -40,3 +40,17 @@ export const updateClient = createAsyncThunk(
     }
   }
 );
+
+export const deleteClient = createAsyncThunk(
+  "clients/deleteClient",
+  async ({ data: id, success, failed }, { rejectWithValue }) => {
+    try {
+      const { data } = await cipa.delete(`/clients/${id}`);
+      success();
+      return data;
+    } catch (error) {
+      failed(error.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);

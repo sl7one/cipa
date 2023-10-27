@@ -17,12 +17,16 @@
   position: relative;
 
   display: grid;
-  grid-template-columns: 30px 50px 1fr 30px;
+  grid-template-columns: 30px 50px 1fr 1fr 30px;
   align-items: center;
 }
 
-.products-item span {
+.products-item .products-item__title {
   text-transform: capitalize;
+}
+
+.products-item .products--item__price {
+  justify-self: center;
 }
 
 .products-item .thumb {
