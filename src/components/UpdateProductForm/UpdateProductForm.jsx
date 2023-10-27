@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo } from "react";
 import CreatableSelect from "react-select/creatable";
-import { useParams } from "react-router-dom";
-import { setProductForm } from "../../store/productsSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import { resetProductForm, setProductForm } from "../../store/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Toast } from "../../context/toast-context";
 import { addNewSubCategory } from "../../store/subCategoriesActions";
@@ -12,6 +12,7 @@ import { addNewCategory } from "../../store/categoriesActions";
 import "./update-product.scss";
 
 export default function UpdateProductForm() {
+  const navigate = useNavigate();
   const toast = useContext(Toast);
   const productsData = useSelector((state) => state.products.products);
   const productForm = useSelector((state) => state.products.productForm);
@@ -31,6 +32,7 @@ export default function UpdateProductForm() {
   );
 
   useEffect(() => {
+    console.log(product);
     const { category, subCategory, sub2Category, ...rest } = product;
     dispatch(
       setProductForm({
@@ -139,6 +141,8 @@ export default function UpdateProductForm() {
         data: productForm,
         success: () => {
           toast.success("Продукт успешно изменен");
+          navigate("/products");
+          dispatch(resetProductForm());
         },
         failed: (message) => toast.error(message),
       })

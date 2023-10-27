@@ -52,10 +52,7 @@ export const productsSlice = createSlice({
 
     builder.addCase(updateProduct.fulfilled, (state, { payload }) => {
       const idx = state.products.findIndex((el) => el._id === payload._id);
-      state.products.splice(idx, payload);
-      console.log({ payload });
-
-      state.products = [...state.products];
+      state.products.splice(idx, 1, payload);
       state.isLoading = false;
     });
 
