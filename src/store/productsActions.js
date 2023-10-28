@@ -26,3 +26,17 @@ export const updateProduct = createAsyncThunk(
     }
   }
 );
+
+export const updateSortIndex = createAsyncThunk(
+  "products/updateSortIndex",
+  async ({ data: products, success, failed }, { rejectWithValue }) => {
+    try {
+      const { data } = await cipa.put("/products", products);
+      success();
+      return data;
+    } catch (error) {
+      failed(error.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);

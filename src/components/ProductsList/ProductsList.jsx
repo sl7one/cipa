@@ -1,29 +1,68 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import "./products-list.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Icons from "../Icons/Icons";
 import { Link } from "react-router-dom";
+import { List, arrayMove } from "react-movable";
+import { Toast } from "../../context/toast-context";
+import { updateSortIndex } from "../../store/productsActions";
 
 export default function ProductsList() {
-  const productsData = useSelector((state) => state.products.products);
+  const [items, setItems] = useState(
+    useSelector((state) => state.products.products)
+  );
+  const dispatch = useDispatch();
+  const toast = useContext(Toast);
 
   return (
-    <ul className="products-list">
-      {productsData.map(
-        (
-          {
-            _id,
-            title,
-            img,
-            price = 0,
-            category,
-            subCategory = "",
-            sub2Category = "",
+    <List
+      values={items}
+      onChange={({ oldIndex, newIndex }) => {
+        console.log({
+          less: {
+            productId: items[oldIndex]._id,
+            sortIndex: oldIndex,
           },
-          idx
-        ) => (
-          <li className="products-item" key={++idx}>
-            <span className="products-item__number">{++idx + "."}</span>
+          more: {
+            productId: items[newIndex]._id,
+            sortIndex: newIndex,
+          },
+        });
+        dispatch(
+          updateSortIndex({
+            data: {
+              less: { productId: items[oldIndex]._id, sortIndex: oldIndex },
+              more: { productId: items[newIndex]._id, sortIndex: newIndex },
+            },
+            success: () => {
+              setItems(arrayMove(items, oldIndex, newIndex));
+              toast.success("Прядок успешно изменен");
+            },
+            failed: (message) => toast.error(message),
+          })
+        );
+      }}
+      renderList={({ children, props }) => (
+        <ul className="products-list" {...props}>
+          {children}
+        </ul>
+      )}
+      renderItem={({
+        value: {
+          img,
+          title,
+          category,
+          subCategory,
+          sub2Category,
+          price = 0,
+          _id,
+        },
+        props,
+        index,
+      }) => {
+        return (
+          <li className="products-item" {...props}>
+            <span className="products-item__number">{++index + "."}</span>
             <div className="thumb">
               <img
                 src={img}
@@ -52,8 +91,8 @@ export default function ProductsList() {
               <Icons name="edit" />
             </Link>
           </li>
-        )
-      )}
-    </ul>
+        );
+      }}
+    />
   );
 }

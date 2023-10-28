@@ -135,7 +135,6 @@ export default function UpdateProductForm() {
         <div className="categories-wrapper">
           <span>Категория 1</span>
           <CreatableSelect
-            // ref={refCategory}
             isClearable
             isSearchable
             defaultValue={{
@@ -156,7 +155,6 @@ export default function UpdateProductForm() {
         <div className="categories-wrapper">
           <span>Категория 2</span>
           <CreatableSelect
-            // ref={refSubCategory}
             isClearable
             isSearchable
             defaultValue={{
@@ -177,7 +175,6 @@ export default function UpdateProductForm() {
         <div className="categories-wrapper">
           <span>Категория 3</span>
           <CreatableSelect
-            // ref={refSub2Category}
             isClearable
             isSearchable
             defaultValue={{

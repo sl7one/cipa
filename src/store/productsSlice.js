@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllProducts, updateProduct } from "./productsActions";
+import {
+  getAllProducts,
+  updateProduct,
+  updateSortIndex,
+} from "./productsActions";
 
 const initialState = {
   products: [],
@@ -56,11 +60,20 @@ export const productsSlice = createSlice({
       state.isLoading = false;
     });
 
+    builder.addCase(updateSortIndex.fulfilled, (state, { payload }) => {
+      // const idx = state.products.findIndex((el) => el._id === payload._id);
+      // state.products.splice(idx, 1, payload);
+      state.isLoading = false;
+    });
+
     builder.addCase(getAllProducts.pending, pending);
     builder.addCase(getAllProducts.rejected, rejected);
 
     builder.addCase(updateProduct.pending, pending);
     builder.addCase(updateProduct.rejected, rejected);
+
+    builder.addCase(updateSortIndex.pending, pending);
+    builder.addCase(updateSortIndex.rejected, rejected);
   },
 });
 

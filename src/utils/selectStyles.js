@@ -7,6 +7,7 @@ export const selectStyles = () => ({
     transition: "border-color 350ms ease-in-out",
     boxShadow: state.isFocused ? "unset" : "unset",
     fontSize: "14px",
+    textTransform: "capitalize",
   }),
   menu: (base, state) => ({
     ...base,
