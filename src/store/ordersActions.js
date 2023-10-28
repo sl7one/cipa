@@ -15,7 +15,7 @@ export const getAllOrders = createAsyncThunk(
 
 export const postOrder = createAsyncThunk(
   "orders/postOrder",
-  async ({ order, success, failed }, { rejectWithValue }) => {
+  async ({ data: order, success, failed }, { rejectWithValue }) => {
     try {
       const { data } = await cipa.post("/orders", order);
       success();

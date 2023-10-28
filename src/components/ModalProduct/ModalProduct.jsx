@@ -16,6 +16,7 @@ const ModalProduct = () => {
   const { productModal } = animationsHelper;
 
   useEffect(() => {
+    if (!products.length) return;
     products.forEach(({ isSelected, _id }) => {
       isSelected
         ? productModal.itemOverlay.show("id" + _id)

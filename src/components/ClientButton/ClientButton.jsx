@@ -4,7 +4,7 @@ import "./client-btn.scss";
 import { animationsHelper } from "../../utils/animationsHelper";
 
 export default function ClientButton() {
-  const clientData = useSelector((state) => state.form.clientData);
+  const clientData = useSelector((state) => state.orders.orderForm.clientData);
   const { clientModal } = animationsHelper;
 
   return (

@@ -5,11 +5,11 @@ import { setSelectedProducts } from "../../store/productsSlice";
 import {
   calculateBroilerFood,
   calculateMedicine,
-} from "../../store/formDataSlice";
+} from "../../store/ordersSlice";
 
 export default function MenuPopupOrdersNewEdit() {
   const dispatch = useDispatch();
-  const formData = useSelector((state) => state.form.formData);
+  const ordersData = useSelector((state) => state.orders.orderForm.ordersData);
   const { menu, productModal, clientModal } = animationsHelper;
 
   const onClickAddProduct = () => {
@@ -23,8 +23,8 @@ export default function MenuPopupOrdersNewEdit() {
   };
 
   const onClickCalculateBroilerFood = () => {
-    const cobb = formData["652686067170a8f5411dc752"];
-    const ross = formData["652686067170a8f5411dc753"];
+    const cobb = ordersData["652686067170a8f5411dc752"];
+    const ross = ordersData["652686067170a8f5411dc753"];
 
     if (!cobb && !ross) {
       menu.hide();

@@ -6,13 +6,13 @@ import "./date-picker.scss";
 import { setDefaultLocale, registerLocale } from "react-datepicker";
 import ru from "date-fns/locale/ru";
 import { useDispatch, useSelector } from "react-redux";
-import { setDate } from "../../store/formDataSlice";
+import { setDate } from "../../store/ordersSlice";
 registerLocale("ru", ru);
 setDefaultLocale("ru");
 
 export default function DatePickerComponent({ startDate, setStartDate }) {
   const dispatch = useDispatch();
-  const dateData = useSelector((state) => state.form.date);
+  const dateData = useSelector((state) => state.orders.orderForm.date);
 
   const CustomButton = forwardRef(({ value, onClick }, ref) => (
     <button

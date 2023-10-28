@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setFormData } from "../../store/formDataSlice";
+import { setOrder } from "../../store/ordersSlice";
 
 export default function OrderFormInputField({
   id,
@@ -10,7 +10,7 @@ export default function OrderFormInputField({
   unit,
   inputKey,
 }) {
-  const formData = useSelector((state) => state.form.formData);
+  const { ordersData } = useSelector((state) => state.orders.orderForm);
   const dispatch = useDispatch();
 
   return (
@@ -19,9 +19,9 @@ export default function OrderFormInputField({
         className={`form__input ${inputKey}`}
         type="number"
         name={id}
-        value={formData[id]?.[inputKey] ? formData[id][inputKey] : ""}
+        value={ordersData[id]?.[inputKey] ? ordersData[id][inputKey] : ""}
         onChange={({ target: { name, value } }) =>
-          dispatch(setFormData({ [name]: { [inputKey]: value } }))
+          dispatch(setOrder({ [name]: { [inputKey]: value } }))
         }
         placeholder={placeholder}
         onFocus={() => onFocus(id)}

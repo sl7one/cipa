@@ -4,9 +4,9 @@ import ModalProduct from "../components/ModalProduct/ModalProduct";
 import ModalClient from "../components/ModalClient/ModalClient";
 import OrderForm from "../components/OrderForm/OrderForm";
 import { useDispatch, useSelector } from "react-redux";
-import { resetFormData, setOrder } from "../store/formDataSlice";
 import useProducts from "../hooks/useProducts";
 import { setSelectedProducts } from "../store/productsSlice";
+import { resetFormData, setOrder } from "../store/ordersSlice";
 
 export default function EditOrderPage() {
   const { id } = useParams();

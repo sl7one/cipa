@@ -13,7 +13,13 @@ export default function ProductsList() {
         <li className="products-item" key={++idx}>
           <span className="products-item__number">{++idx + "."}</span>
           <div className="thumb">
-            <img src={img} alt={title} width={100} height={100} />
+            <img
+              src={img}
+              alt={title}
+              width={100}
+              height={100}
+              loading="lazy"
+            />
           </div>
           <span className="products-item__title">{title}</span>
           <span className="products--item__price">{price + "грн."}</span>

@@ -2,11 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import "./order-form.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { isDataTruthyHelper } from "../../utils/isDataTruthy";
-import {
-  initFormData,
-  resetFormData,
-  setFormDataByHistoryButtons,
-} from "../../store/formDataSlice";
 import useHistoryPriceBtns from "../../hooks/useHistoryPriceBtns";
 import Inputs from "../Inputs/Inputs";
 import OrderFormGroup from "../OrderFormGroup/OrderFormGroup";
@@ -21,6 +16,11 @@ import { animationsHelper } from "../../utils/animationsHelper";
 import OrderFormButtonsGroup from "../OrderFormButtonsGroup/OrderFormButtonsGroup";
 import { Toast } from "../../context/toast-context";
 import { Select } from "../../context/select-context";
+import {
+  initFormData,
+  resetFormData,
+  // setFormDataByHistoryButtons,
+} from "../../store/ordersSlice";
 
 export default function ModalOrder({ productsSelected }) {
   const toast = useContext(Toast);
@@ -28,11 +28,13 @@ export default function ModalOrder({ productsSelected }) {
   const [historyButtonOrder, setHistoryButtonOrder] = useState(null);
 
   const isLoading = useSelector((state) => state.orders.isLoading);
-  const formData = useSelector((state) => state.form.formData);
-  const clientData = useSelector((state) => state.form.clientData);
-  const dateData = useSelector((state) => state.form.date);
-  const locationData = useSelector((state) => state.form.location);
-  const messageData = useSelector((state) => state.form.message);
+  const {
+    clientData,
+    date: dateData,
+    location: locationData,
+    message: messageData,
+    ordersData,
+  } = useSelector((state) => state.orders.orderForm);
 
   const dispatch = useDispatch();
 
@@ -40,27 +42,28 @@ export default function ModalOrder({ productsSelected }) {
   const { historyButtons } = animationsHelper;
 
   useEffect(() => {
+    if (!productsSelected.length) return;
     dispatch(initFormData({ productsSelected }));
   }, [productsSelected, dispatch]);
 
   useEffect(() => {
     const isDataPriceTruthy = isDataTruthyHelper({
-      data: formData,
+      data: ordersData,
       key: "price",
     });
     const isDataOrderTruthy = isDataTruthyHelper({
-      data: formData,
+      data: ordersData,
       key: "order",
     });
 
     if (isDataPriceTruthy) historyButtons.price.hide();
     if (isDataOrderTruthy) historyButtons.order.hide();
-  }, [formData, historyButtons]);
+  }, [ordersData, historyButtons]);
 
   const onFocusPrice = () => {
     historyButtons.order.hide();
     const isDataPriceTruthy = isDataTruthyHelper({
-      data: formData,
+      data: ordersData,
       key: "price",
     });
 
@@ -96,26 +99,26 @@ export default function ModalOrder({ productsSelected }) {
   };
 
   const onClickHistoryPriceButton = (value) => {
-    dispatch(setFormDataByHistoryButtons({ key: "price", value }));
+    // dispatch(setFormDataByHistoryButtons({ key: "price", value }));
   };
 
   const onClickHistoryOrderButton = () => {
-    dispatch(
-      setFormDataByHistoryButtons({
-        key: "order",
-        value: historyButtonOrder,
-      })
-    );
+    // dispatch(
+    //   setFormDataByHistoryButtons({
+    //     key: "order",
+    //     value: historyButtonOrder,
+    //   })
+    // );
   };
 
   const isOrderTruthy = () => {
     const isDataOrderTruthy = isDataTruthyHelper({
-      data: formData,
+      data: ordersData,
       key: "order",
     });
 
     const isDataPriceTruthy = isDataTruthyHelper({
-      data: formData,
+      data: ordersData,
       key: "price",
     });
 
@@ -128,11 +131,13 @@ export default function ModalOrder({ productsSelected }) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const orders = Object.entries(formData).map(([key, { order, price }]) => ({
-      _id: key,
-      order: Number(order),
-      price: Number(price),
-    }));
+    const orders = Object.entries(ordersData).map(
+      ([key, { order, price }]) => ({
+        _id: key,
+        order: Number(order),
+        price: Number(price),
+      })
+    );
 
     const order = {
       date: dateData.toISOString(),
@@ -144,7 +149,7 @@ export default function ModalOrder({ productsSelected }) {
 
     dispatch(
       postOrder({
-        order,
+        data: order,
         success: () => {
           toast.success("Заказ успешно добавлен");
           dispatch(resetFormData());
@@ -172,13 +177,13 @@ export default function ModalOrder({ productsSelected }) {
           </button>
         </div>
 
-        {Object.entries(formData).length === 0 ? (
+        {!Object.entries(ordersData).length ? (
           <OrderFormButtonsGroup />
         ) : (
           <>
             <div className="form-body">
               <Inputs
-                category="poultry"
+                category="птица"
                 list={productsSelected}
                 renderProducts={({ _id, title, img }) => (
                   <OrderFormGroup

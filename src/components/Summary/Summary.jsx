@@ -6,11 +6,11 @@ import { summary } from "../../utils/summary";
 
 export default function Summary({ category, title }) {
   const { summary: summaryAnimations } = animationsHelper;
-  const formData = useSelector((state) => state.form.formData);
+  const ordersData = useSelector((state) => state.orders.orderForm.ordersData);
 
   const { totalOrder, totalSumm } = summary({
     category,
-    data: formData,
+    data: ordersData,
   });
 
   useEffect(() => {

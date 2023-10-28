@@ -4,11 +4,11 @@ import { animationsHelper } from "../../utils/animationsHelper";
 import { updateClient } from "../../store/clientsActions";
 import { Toast } from "../../context/toast-context";
 import { useDispatch, useSelector } from "react-redux";
-import { resetClienData, setClientData } from "../../store/formDataSlice";
 import Loader from "../Loader/Loader";
+import { resetClienData, setClientData } from "../../store/ordersSlice";
 
 export default function ModalUpdateClient() {
-  const clientData = useSelector((state) => state.form.clientData);
+  const clientData = useSelector((state) => state.orders.orderForm.clientData);
   const isLoading = useSelector((state) => state.clients.isLoading);
 
   const toast = useContext(Toast);

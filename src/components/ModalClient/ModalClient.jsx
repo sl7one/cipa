@@ -2,11 +2,6 @@ import React, { useContext, useEffect, useRef } from "react";
 import "../OrderForm/order-form.scss";
 import "./modal-client.scss";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setClientData,
-  setLocation,
-  setMessage,
-} from "../../store/formDataSlice";
 import { animationsHelper } from "../../utils/animationsHelper";
 import { addNewClient } from "../../store/clientsActions";
 import { addNewLocation } from "../../store/locationsActions";
@@ -15,26 +10,32 @@ import { Toast } from "../../context/toast-context";
 import SelectComponent from "../SelectComponent/SelectComponent";
 import { selectStyles } from "../../utils/selectStyles";
 import { Select } from "../../context/select-context";
+import {
+  setClientData,
+  setLocation,
+  setMessage,
+} from "../../store/ordersSlice";
 
 const ModalClient = () => {
   const refSelectName = useRef(null);
   const refSelectLocation = useRef(null);
   const dispatch = useDispatch();
+  const {
+    clientData,
+    location: locationData,
+    message,
+  } = useSelector((state) => state.orders.orderForm);
   const clients = useSelector((state) => state.clients.clients);
   const locations = useSelector((state) => state.locations.locations);
-  const clientData = useSelector((state) => state.form.clientData);
-  const locationData = useSelector((state) => state.form.location);
-  const message = useSelector((state) => state.form.message);
   const toast = useContext(Toast);
   const { setRef } = useContext(Select);
+  const { clientModal } = animationsHelper;
 
   useEffect(() => {
     if (!refSelectName && !refSelectLocation) return;
     setRef([refSelectName, refSelectLocation]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refSelectName, refSelectLocation]);
-
-  const { clientModal } = animationsHelper;
 
   const onChangeName = (e) => {
     if (!e) {

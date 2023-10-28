@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { unsetSelectedProducts } from "../../store/productsSlice";
-import { deleteFormDataRecord } from "../../store/formDataSlice";
+import { deleteFormDataRecord } from "../../store/ordersSlice";
 
 export default function OrderFormDeleteBtn({ id }) {
   const dispatch = useDispatch();

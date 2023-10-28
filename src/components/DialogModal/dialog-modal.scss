@@ -1,0 +1,44 @@
+.dialog-modal__backdrop {
+  width: 100vw;
+  height: 100vh;
+
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog-modal {
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid red;
+
+  background-color: white;
+}
+
+.dialog-modal_client {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-modal .dialog-modal__buttons {
+  display: flex;
+  margin-top: 30px;
+}
+
+.dialog-modal .dialog-modal__buttons button {
+  height: 40px;
+  width: 100%;
+}
+
+.dialog-modal__button-yes {
+  background: var(--green-gradient);
+}
+
+.dialog-modal__button-no {
+  background: var(--orange-gradient);
+}

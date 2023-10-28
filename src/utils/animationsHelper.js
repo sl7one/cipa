@@ -126,13 +126,13 @@ export const animationsHelper = {
       }),
   },
 
-  editProduct: {
+  dialogModal: {
     show: () =>
-      gsap.to(".update-product-backdrop", {
+      gsap.to(".dialog-modal__backdrop", {
         bottom: 0,
       }),
     hide: () =>
-      gsap.to(".update-product-backdrop", {
+      gsap.to(".dialog-modal__backdrop", {
         bottom: "-100%",
       }),
   },

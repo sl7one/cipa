@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 import productsSlice from "./productsSlice";
-import formDataSlice from "./formDataSlice";
 import ordersSlice from "./ordersSlice";
 import locationsSlice from "./locationsSlice";
 import clientsSlice from "./clientsSlice";
@@ -14,7 +13,6 @@ export const store = configureStore({
     orders: ordersSlice,
     clients: clientsSlice,
     locations: locationsSlice,
-    form: formDataSlice,
     categories: categoriesSlice,
     subCategories: subCategoriesSlice,
     sub2categories: sub2CategoriesSlice,
@@ -23,7 +21,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredPaths: ["form.date"],
+        ignoredPaths: ["orders.orderForm.date"],
       },
     }),
 });
