@@ -61,41 +61,38 @@ export default function ModalOrder({ productsSelected }) {
   }, [ordersData, historyButtons]);
 
   const onFocusPrice = () => {
-    historyButtons.order.hide();
-    const isDataPriceTruthy = isDataTruthyHelper({
-      data: ordersData,
-      key: "price",
-    });
-
-    if (isDataPriceTruthy) {
-      historyButtons.price.hide();
-      return;
-    }
-    if (priceHitory.length > 0) historyButtons.price.show();
+    // historyButtons.order.hide();
+    // const isDataPriceTruthy = isDataTruthyHelper({
+    //   data: ordersData,
+    //   key: "price",
+    // });
+    // if (isDataPriceTruthy) {
+    //   historyButtons.price.hide();
+    //   return;
+    // }
+    // if (priceHitory.length > 0) historyButtons.price.show();
   };
 
   const onBlurPrice = ({ target: { value } }) => {
-    if (!value || Number(value) <= 0) return;
-
-    setPriceHistory((prev) => {
-      prev.unshift(value);
-      return [...new Set(prev)].slice(0, 3);
-    });
+    // if (!value || Number(value) <= 0) return;
+    // setPriceHistory((prev) => {
+    //   prev.unshift(value);
+    //   return [...new Set(prev)].slice(0, 3);
+    // });
   };
 
   const onFocusOrder = () => {
-    historyButtons.price.hide();
-    if (!historyButtonOrder) return;
-    historyButtons.order.show();
+    // historyButtons.price.hide();
+    // if (!historyButtonOrder) return;
+    // historyButtons.order.show();
   };
 
   const onBlurOrder = ({ target: { value } }) => {
-    if (historyButtonOrder) {
-      historyButtons.order.show();
-    }
-
-    if (!value) return;
-    setHistoryButtonOrder(value);
+    // if (historyButtonOrder) {
+    //   historyButtons.order.show();
+    // }
+    // if (!value) return;
+    // setHistoryButtonOrder(value);
   };
 
   const onClickHistoryPriceButton = (value) => {
@@ -199,14 +196,14 @@ export default function ModalOrder({ productsSelected }) {
                 )}
               />
               <Inputs
-                category="food"
+                category="корм"
                 list={productsSelected}
                 renderProducts={({ _id, title, img }) => (
                   <OrderFormGroup key={_id} id={_id} title={title} img={img} />
                 )}
               />
               <Inputs
-                category="other"
+                category="дополнительно"
                 list={productsSelected}
                 renderProducts={({ _id, title, img }) => (
                   <OrderFormGroup key={_id} id={_id} title={title} img={img} />

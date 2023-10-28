@@ -10,6 +10,7 @@ export default function OrderFormDeleteBtn({ id }) {
     dispatch(unsetSelectedProducts(id));
     dispatch(deleteFormDataRecord(id));
   };
+
   return (
     <button type="button" onClick={() => onClicDelete(id)}>
       x

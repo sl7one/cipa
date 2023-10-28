@@ -22,7 +22,18 @@
 }
 
 .products-item .products-item__title {
+  display: block;
   text-transform: capitalize;
+}
+
+.products-item__category,
+.products-item__sub-category,
+.products-item__sub-2-category {
+  display: inline-block;
+  background-color: var(--gray-bg);
+  padding: 2px;
+  margin-right: 5px;
+  font-size: 9px;
 }
 
 .products-item .products--item__price {

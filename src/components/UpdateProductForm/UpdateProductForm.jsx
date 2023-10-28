@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import CreatableSelect from "react-select/creatable";
 import { useNavigate, useParams } from "react-router-dom";
 import { resetProductForm, setProductForm } from "../../store/productsSlice";
@@ -12,10 +12,11 @@ import { addNewCategory } from "../../store/categoriesActions";
 import "./update-product.scss";
 
 export default function UpdateProductForm() {
+  const { id } = useParams();
   const navigate = useNavigate();
   const toast = useContext(Toast);
-  const productsData = useSelector((state) => state.products.products);
   const productForm = useSelector((state) => state.products.productForm);
+  const productsData = useSelector((state) => state.products.products);
   const categories = useSelector((state) => state.categories.categories);
   const subCategories = useSelector(
     (state) => state.subCategories.subCategories
@@ -23,31 +24,11 @@ export default function UpdateProductForm() {
   const sub2categories = useSelector(
     (state) => state.sub2categories.sub2categories
   );
-
-  const dispatch = useDispatch();
-  const { id } = useParams();
   const product = useMemo(
     () => productsData.find((el) => el._id === id),
     [id, productsData]
   );
-
-  useEffect(() => {
-    const { category, subCategory, sub2Category, ...rest } = product;
-    dispatch(
-      setProductForm({
-        ...rest,
-        category:
-          categories.find((el) => el.name === product.category)?._id || "",
-        subCategory:
-          subCategories.find((el) => el.name === product.subCategory)?._id ||
-          "",
-        sub2Category:
-          sub2categories.find((el) => el.name === product.sub2Category)?._id ||
-          "",
-      })
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, id, product]);
+  const dispatch = useDispatch();
 
   const onChangeCategory = (e) => {
     if (!e) {
@@ -140,8 +121,8 @@ export default function UpdateProductForm() {
         data: productForm,
         success: () => {
           toast.success("Продукт успешно изменен");
-          navigate("/products");
           dispatch(resetProductForm());
+          navigate("/products");
         },
         failed: (message) => toast.error(message),
       })

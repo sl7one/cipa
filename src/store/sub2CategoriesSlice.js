@@ -30,7 +30,7 @@ export const sub2CategoriesSlice = createSlice({
     });
 
     builder.addCase(addNewSub2Category.fulfilled, (state, { payload }) => {
-      state.categories.push(payload);
+      state.sub2categories.push(payload);
       state.isLoading = false;
     });
 

@@ -10,7 +10,7 @@ export default function OrderFormInputField({
   unit,
   inputKey,
 }) {
-  const { ordersData } = useSelector((state) => state.orders.orderForm);
+  const ordersData = useSelector((state) => state.orders.orderForm.ordersData);
   const dispatch = useDispatch();
 
   return (
@@ -18,14 +18,14 @@ export default function OrderFormInputField({
       <input
         className={`form__input ${inputKey}`}
         type="number"
-        name={id}
+        // name={id}
         value={ordersData[id]?.[inputKey] ? ordersData[id][inputKey] : ""}
-        onChange={({ target: { name, value } }) =>
-          dispatch(setOrder({ [name]: { [inputKey]: value } }))
+        onChange={({ target: { value } }) =>
+          dispatch(setOrder({ [id]: { [inputKey]: value } }))
         }
         placeholder={placeholder}
-        onFocus={() => onFocus(id)}
-        onBlur={onBlur}
+        // onFocus={() => onFocus(id)}
+        // onBlur={onBlur}
       />
       <label htmlFor={id}>{unit}</label>
     </div>

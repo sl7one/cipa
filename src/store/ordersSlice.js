@@ -160,9 +160,10 @@ export const ordersSlice = createSlice({
       state.orderForm.message = payload;
     },
     setOrder: (state, { payload }) => {
+      const [[key, value]] = Object.entries(payload);
       state.orderForm.ordersData = {
         ...state.orderForm.ordersData,
-        ...payload,
+        [key]: { ...state.orderForm.ordersData[key], ...value },
       };
     },
     setDate: (state, { payload }) => {
