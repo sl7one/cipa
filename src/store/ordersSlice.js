@@ -50,16 +50,7 @@ export const ordersSlice = createSlice({
       delete state.orderForm.ordersData[payload];
       state.orderForm.ordersData = { ...state.orderForm.ordersData };
     },
-    //////??????????////////////
-    // setFormDataByHistoryButtons: (state, { payload: { key, value } }) => {
-    //   Object.entries({ ...state.orderForm.ordersData })
-    //     .filter(([_, { category }]) => category === "птица")
-    //     .forEach(([id, _]) => {
-    //       state.orderForm.ordersData[id][key] = value;
-    //     });
 
-    //   state.orderForm.ordersData = { ...state.orderForm.ordersData };
-    // },
     initFormData: (state, { payload: { productsSelected } }) => {
       const initData = productsSelected.reduce((acc, { _id, ...rest }) => {
         return {
@@ -120,7 +111,7 @@ export const ordersSlice = createSlice({
     ///////////??????///////////
     calculateMedicine: (state) => {
       const count = Object.values(state.orderForm.ordersData)
-        .filter((el) => el?.subCategory === "chickens")
+        .filter((el) => el?.subCategory === "цыплята")
         .reduce((acc, { order = 0 }) => {
           return (acc += Number(order));
         }, 0);
@@ -138,12 +129,7 @@ export const ordersSlice = createSlice({
         },
       };
     },
-    resetFormData: (state) => {
-      state.orderForm.ordersData = initialFormState.ordersData;
-      state.orderForm.clientData = initialFormState.clientData;
-      state.orderForm.location = initialFormState.location;
-      state.orderForm.message = initialFormState.message;
-    },
+
     setClientData: (state, { payload }) => {
       state.orderForm.clientData = {
         ...state.orderForm.clientData,
@@ -156,8 +142,14 @@ export const ordersSlice = createSlice({
     setLocation: (state, { payload }) => {
       state.orderForm.location = payload;
     },
+    resetLocation: (state) => {
+      state.orderForm.location = initialFormState.location;
+    },
     setMessage: (state, { payload }) => {
-      state.orderForm.message = payload;
+      state.orderForm.message = initialFormState.message;
+    },
+    resetMessage: (state) => {
+      state.orderForm.location = initialFormState.location;
     },
     setOrder: (state, { payload }) => {
       const [[key, value]] = Object.entries(payload);
@@ -165,6 +157,9 @@ export const ordersSlice = createSlice({
         ...state.orderForm.ordersData,
         [key]: { ...state.orderForm.ordersData[key], ...value },
       };
+    },
+    resetOrder: (state) => {
+      state.orderForm.ordersData = initialFormState.ordersData;
     },
     setDate: (state, { payload }) => {
       state.orderForm.date = payload;
@@ -179,7 +174,6 @@ export const ordersSlice = createSlice({
 
     builder.addCase(postOrder.fulfilled, (state, { payload }) => {
       state.orders.unshift({ ...payload, isChecked: false });
-      // state.orders = [...state.orders];
       state.isLoading = false;
     });
 
@@ -190,7 +184,7 @@ export const ordersSlice = createSlice({
         return acc;
       }, []);
 
-      idx.forEach((id) => state.orders.splice(idx, 1));
+      idx.forEach((id) => state.orders.splice(id, 1));
       state.orders = [...state.orders];
       state.isLoading = false;
     });
@@ -225,16 +219,17 @@ export const {
   setChecked,
   unsetChecked,
   deleteFormDataRecord,
-  // setFormDataByHistoryButtons,
   initFormData,
   calculateBroilerFood,
   calculateMedicine,
   setClientData,
-  setLocation,
-  setMessage,
-  resetFormData,
   resetClienData,
+  setLocation,
+  resetLocation,
+  setMessage,
+  resetMessage,
   setOrder,
+  resetOrder,
   setDate,
 } = ordersSlice.actions;
 

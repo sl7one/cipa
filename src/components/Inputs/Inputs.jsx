@@ -4,13 +4,12 @@ import Summary from "../Summary/Summary";
 export default function Inputs({ list, renderProducts, category }) {
   const items = list
     .filter((el) => el.category === category)
-    .reverse()
     .map((el) => renderProducts(el));
 
   const titles = {
-    poultry: "Итого по птице",
-    food: "Итого по корму",
-    other: "Итого по допам",
+    птица: "Итого по птице",
+    корм: "Итого по корму",
+    дополнительно: "Итого по допам",
   };
 
   return (

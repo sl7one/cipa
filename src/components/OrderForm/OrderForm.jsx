@@ -18,8 +18,10 @@ import { Toast } from "../../context/toast-context";
 import { Select } from "../../context/select-context";
 import {
   initFormData,
-  resetFormData,
-  // setFormDataByHistoryButtons,
+  resetClienData,
+  resetLocation,
+  resetMessage,
+  resetOrder,
 } from "../../store/ordersSlice";
 
 export default function ModalOrder({ productsSelected }) {
@@ -149,7 +151,10 @@ export default function ModalOrder({ productsSelected }) {
         data: order,
         success: () => {
           toast.success("Заказ успешно добавлен");
-          dispatch(resetFormData());
+          dispatch(resetOrder());
+          dispatch(resetLocation());
+          dispatch(resetClienData());
+          dispatch(resetMessage());
           dispatch(resetProducts());
           resetSelect();
         },

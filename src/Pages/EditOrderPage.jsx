@@ -6,7 +6,7 @@ import OrderForm from "../components/OrderForm/OrderForm";
 import { useDispatch, useSelector } from "react-redux";
 import useProducts from "../hooks/useProducts";
 import { setSelectedProducts } from "../store/productsSlice";
-import { resetFormData, setOrder } from "../store/ordersSlice";
+import { resetOrder, setOrder } from "../store/ordersSlice";
 
 export default function EditOrderPage() {
   const { id } = useParams();
@@ -31,7 +31,7 @@ export default function EditOrderPage() {
 
     dispatch(setOrder({ formData, clientData }));
 
-    return () => dispatch(resetFormData());
+    return () => dispatch(resetOrder());
   }, [clientData, dispatch, order, productsObject]);
 
   useEffect(() => {
