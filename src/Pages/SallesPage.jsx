@@ -1,6 +1,11 @@
 import React from "react";
-import OrdersList from "../components/OrdersList/OrdersList";
+import SallesList from "../components/SallesList/SallesList";
+import "./salles-page.scss";
 
 export default function SallesPage() {
-  return <OrdersList type="purchases" />;
+  return (
+    <div className="salles-page">
+      <SallesList />
+    </div>
+  );
 }

@@ -25,7 +25,6 @@ export default function EditProductPage() {
     [id, productsData]
   );
   useEffect(() => {
-    console.log("вход");
     const { category, subCategory, sub2Category, ...rest } = product;
     dispatch(
       setProductForm({

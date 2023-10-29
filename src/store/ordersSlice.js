@@ -3,7 +3,8 @@ import {
   deleteOrder,
   getAllOrders,
   postOrder,
-  updateOrder,
+  salleOrder,
+  unsalleOrder,
 } from "./ordersActions";
 import { foodCalculator } from "../utils/foodCalculator";
 import { medicineCalculator } from "../utils/medicineCalculator";
@@ -189,7 +190,7 @@ export const ordersSlice = createSlice({
       state.isLoading = false;
     });
 
-    builder.addCase(updateOrder.fulfilled, (state, { payload }) => {
+    builder.addCase(salleOrder.fulfilled, (state, { payload }) => {
       const idx = payload.id.reduce((acc, id) => {
         const idx = state.orders.findIndex(({ _id }) => _id === id);
         acc.push(idx);
@@ -201,17 +202,26 @@ export const ordersSlice = createSlice({
       state.isLoading = false;
     });
 
+    builder.addCase(unsalleOrder.fulfilled, (state, { payload }) => {
+      const idx = state.orders.findIndex(({ _id }) => _id === payload._id);
+      state.orders.splice(idx, 1, payload);
+      state.isLoading = false;
+    });
+
     builder.addCase(getAllOrders.pending, pending);
     builder.addCase(getAllOrders.rejected, rejected);
 
     builder.addCase(postOrder.pending, pending);
     builder.addCase(postOrder.rejected, rejected);
 
-    builder.addCase(updateOrder.pending, pending);
-    builder.addCase(updateOrder.rejected, rejected);
+    builder.addCase(salleOrder.pending, pending);
+    builder.addCase(salleOrder.rejected, rejected);
 
     builder.addCase(deleteOrder.pending, pending);
     builder.addCase(deleteOrder.rejected, rejected);
+
+    builder.addCase(unsalleOrder.pending, pending);
+    builder.addCase(unsalleOrder.rejected, rejected);
   },
 });
 

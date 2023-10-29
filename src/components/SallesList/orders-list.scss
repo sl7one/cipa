@@ -1,0 +1,97 @@
+.orders-list,
+.orders-list-header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  font-size: 12px;
+  padding: 5px;
+}
+
+.orders-item,
+.orders-item-header {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.25);
+  padding: 10px 5px;
+
+  position: relative;
+  overflow-x: hidden;
+}
+
+.orders-item-header span button {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.orders-item-header .icon-wrapper {
+  border-radius: unset;
+  background: unset;
+  width: auto;
+  height: auto;
+}
+
+.orders-item__info-search {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.orders-item__info-search .icon-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 3px;
+
+  transform: translateY(-50%);
+}
+
+.orders-item__info-search input {
+  width: 100%;
+  height: 100%;
+
+  border: unset;
+  outline: unset;
+  padding: 10px;
+  padding-left: 20px;
+
+  background-color: var(--gray-bg);
+
+  border-radius: 10px;
+  font-size: 11px;
+}
+
+.orders-item__info-search input::placeholder {
+  color: black;
+  font-size: 11px;
+}
+
+.orders-item-header .orders-item__info-group .checkbox-label::after {
+  display: none;
+}
+
+.orders-item-header .orders-item__info-group .checkbox-label label::after {
+  content: "";
+  display: block;
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+  border: 2px solid gray;
+
+  transition: background-color 350ms ease-in-out;
+}
+
+.orders-item-header .checkbox-label label {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  transition: background-color 350ms ease-in-out;
+}
+
+.orders-item-header .checkbox-label label.checked {
+  background-color: greenyellow;
+}
+
+.salles-list .orders-item__info-group {
+  grid-template-columns: 50px 1fr 75px 30px;
+}

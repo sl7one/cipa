@@ -1,14 +1,7 @@
 import React from "react";
 import Icons from "../Icons/Icons";
 
-export default function OrdersListInfoGroupHeader({
-  setFilter,
-  filter,
-  setSort,
-  sort,
-  setMarks,
-  marks,
-}) {
+export default function SallesListHeader({ setFilter, filter, setSort, sort }) {
   const onClick = (type) => {
     if (type === "date") {
       sort.date === "desc"
@@ -23,31 +16,10 @@ export default function OrdersListInfoGroupHeader({
     }
   };
 
-  const onChange = () => {
-    if (marks === "init") {
-      setMarks(true);
-      return;
-    }
-    setMarks((prev) => !prev);
-  };
-
   return (
     <div className="orders-list-header">
       <div className="orders-item-header">
         <div className="orders-item__info-group">
-          <div className="checkbox-label">
-            <label
-              className={marks === "init" ? null : marks ? "checked" : null}
-              htmlFor="marks"
-            ></label>
-            <input
-              className="checkbox"
-              type="checkbox"
-              onChange={onChange}
-              id="marks"
-            />
-          </div>
-
           <span>
             <button type="button" onClick={() => onClick("date")}>
               <Icons name="sort" />

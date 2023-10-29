@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteOrder, updateOrder } from "../../store/ordersActions";
+import { deleteOrder, salleOrder } from "../../store/ordersActions";
 import useIdsToString from "../../hooks/useIdsToString";
 import { animationsHelper } from "../../utils/animationsHelper";
 
@@ -24,7 +24,7 @@ export default function MenuPopupOrders() {
   const onClickAddManyOrders = () => {
     if (!ids.length) return;
     menu.hide();
-    dispatch(updateOrder({ id: ids, success: () => {}, failed: () => {} }));
+    dispatch(salleOrder({ id: ids, success: () => {}, failed: () => {} }));
   };
   return (
     <ul className="menu-modal">

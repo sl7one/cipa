@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./orders-list.scss";
-import OrdersListButtonsGroup from "../OrdersListButtonsGroup/OrdersListButtonsGroup";
 import OrdersListInfoGroup from "../OrdersListInfoGroup/OrdersListInfoGroup";
 import { animationsHelper } from "../../utils/animationsHelper";
-import { useLocation } from "react-router-dom";
-import OrdersListInfoGroupHeader from "../OrdersListInfoGroupHeader/OrdersListInfoGroupHeader";
 import { setChecked, unsetChecked } from "../../store/ordersSlice";
+import FunctionalButtons from "../FunctionalButtons/FunctionalButtons";
+import OrdersListFunctionalButtons from "../OrdersListFunctionalButtons/OrdersListFunctionalButtons";
+import OrdersListHeader from "../OrdersListHeader/OrdersListHeader";
 
 export default function OrdersList() {
   const [filter, setFilter] = useState("");
@@ -14,15 +14,11 @@ export default function OrdersList() {
   const [marks, setMarks] = useState("init");
   const orders = useSelector((state) => state.orders.orders);
   const { orderModal } = animationsHelper;
-  const { pathname } = useLocation();
   const dispatch = useDispatch();
 
   const items = useMemo(
-    () =>
-      orders.filter(({ isActive }) =>
-        pathname.includes("orders") ? isActive : !isActive
-      ),
-    [orders, pathname]
+    () => orders.filter(({ isActive }) => isActive),
+    [orders]
   );
 
   useEffect(() => {
@@ -43,7 +39,7 @@ export default function OrdersList() {
 
   return (
     <>
-      <OrdersListInfoGroupHeader
+      <OrdersListHeader
         setFilter={setFilter}
         filter={filter}
         setSort={setSort}
@@ -53,7 +49,7 @@ export default function OrdersList() {
       />
       <ul className="orders-list">
         {items
-          .filter(({ client: { name, phone, location } }) => {
+          .filter(({ client: { name, phone }, location }) => {
             if (!filter) {
               return true;
             } else {
@@ -77,7 +73,9 @@ export default function OrdersList() {
           .map(({ _id, ...rest }) => (
             <li className="orders-item" key={_id}>
               <OrdersListInfoGroup {...rest} id={_id} />
-              <OrdersListButtonsGroup id={_id} />
+              <FunctionalButtons id={_id}>
+                <OrdersListFunctionalButtons id={_id} />
+              </FunctionalButtons>
             </li>
           ))}
       </ul>
