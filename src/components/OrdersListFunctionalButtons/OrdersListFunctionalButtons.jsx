@@ -2,11 +2,15 @@ import React, { useContext } from "react";
 import { Toast } from "../../context/toast-context";
 import { animationsHelper } from "../../utils/animationsHelper";
 import { useDispatch } from "react-redux";
-import { deleteOrder, salleOrder } from "../../store/ordersActions";
+import { salleOrder } from "../../store/ordersActions";
 import Icons from "../Icons/Icons";
 import { Link } from "react-router-dom";
 
-export default function OrdersListFunctionalButtons({ id }) {
+export default function OrdersListFunctionalButtons({
+  id,
+  confirmDelete,
+  ...rest
+}) {
   const toast = useContext(Toast);
   const { orderModal } = animationsHelper;
   const dispatch = useDispatch();
@@ -14,19 +18,6 @@ export default function OrdersListFunctionalButtons({ id }) {
   const onClickHide = () => {
     orderModal.infoGroup.show("i" + id);
     orderModal.buttonsGroup.hide("b" + id);
-  };
-
-  const onClickDelete = () => {
-    dispatch(
-      deleteOrder({
-        id,
-        success: () => {
-          // orderModal.infoGroup.show("i" + id);
-          // orderModal.buttonsGroup.hide("b" + id);
-        },
-        failed: () => {},
-      })
-    );
   };
 
   const onClickSalle = () => {
@@ -55,7 +46,7 @@ export default function OrdersListFunctionalButtons({ id }) {
       <button
         className="orders-item__buttons-btn"
         type="button"
-        onClick={onClickDelete}
+        onClick={() => confirmDelete({ id, ...rest })}
       >
         <Icons name="remove" />
       </button>

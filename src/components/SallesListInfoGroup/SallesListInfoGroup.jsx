@@ -1,30 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import moment from "moment";
 import Icons from "../Icons/Icons";
 import "./info-group.scss";
-import { useDispatch } from "react-redux";
-import { unsalleOrder } from "../../store/ordersActions";
-import { Toast } from "../../context/toast-context";
-import { useNavigate } from "react-router-dom";
-
-export default function SallesListInfoGroup({ total, client, id, date }) {
-  console.log(id);
-  const navigate = useNavigate();
-  const toast = useContext(Toast);
-  const dispatch = useDispatch();
-  const onClickDelete = ({ id }) => {
-    dispatch(
-      unsalleOrder({
-        data: id,
-        success: () => {
-          toast.success("Заказ распроведен успешно");
-          navigate("/orders");
-        },
-        failed: (message) => toast.error(message),
-      })
-    );
-  };
-
+export default function SallesListInfoGroup({
+  total,
+  client,
+  id,
+  date,
+  confirmDelete,
+}) {
   return (
     <div className="orders-item__info-group">
       <span className="orders-item__date">
@@ -38,7 +22,7 @@ export default function SallesListInfoGroup({ total, client, id, date }) {
       <button
         className="orders-item__menu-btn"
         type="button"
-        onClick={() => onClickDelete({ id })}
+        onClick={() => confirmDelete({ id, client, total })}
       >
         <Icons name="remove" />
       </button>

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./orders-list.scss";
 import OrdersListInfoGroup from "../OrdersListInfoGroup/OrdersListInfoGroup";
@@ -7,13 +7,18 @@ import { setChecked, unsetChecked } from "../../store/ordersSlice";
 import FunctionalButtons from "../FunctionalButtons/FunctionalButtons";
 import OrdersListFunctionalButtons from "../OrdersListFunctionalButtons/OrdersListFunctionalButtons";
 import OrdersListHeader from "../OrdersListHeader/OrdersListHeader";
+import DialogModal from "../DialogModal/DialogModal";
+import { deleteOrder } from "../../store/ordersActions";
+import { Toast } from "../../context/toast-context";
 
 export default function OrdersList() {
+  const toast = useContext(Toast);
+  const [order, setOrder] = useState({});
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState({ date: "init", total: "init" });
   const [marks, setMarks] = useState("init");
   const orders = useSelector((state) => state.orders.orders);
-  const { orderModal } = animationsHelper;
+  const { orderModal, dialogModal } = animationsHelper;
   const dispatch = useDispatch();
 
   const items = useMemo(
@@ -36,6 +41,24 @@ export default function OrdersList() {
         : orderModal.infoGroup.mark.hide("mark" + _id);
     });
   }, [orders, orderModal, items]);
+
+  const confirmDelete = (order) => {
+    setOrder(order);
+    dialogModal.show();
+  };
+
+  const onClickYes = ({ _id }) => {
+    dispatch(
+      deleteOrder({
+        data: _id,
+        success: () => {
+          toast.success("Заказ успешно удален");
+          dialogModal.hide();
+        },
+        failed: (message) => toast.error(message),
+      })
+    );
+  };
 
   return (
     <>
@@ -74,11 +97,23 @@ export default function OrdersList() {
             <li className="orders-item" key={_id}>
               <OrdersListInfoGroup {...rest} id={_id} />
               <FunctionalButtons id={_id}>
-                <OrdersListFunctionalButtons id={_id} />
+                <OrdersListFunctionalButtons
+                  {...rest}
+                  id={_id}
+                  confirmDelete={confirmDelete}
+                />
               </FunctionalButtons>
             </li>
           ))}
       </ul>
+      <DialogModal
+        title="Подтвердите удаление заказа"
+        onClickYes={() => onClickYes({ _id: order.id })}
+      >
+        <span>{order?.client?.name || ""}</span>
+        <span>{order?.client?.phone || ""}</span>
+        <span>{"Cумма " + order?.total || 0}</span>
+      </DialogModal>
     </>
   );
 }

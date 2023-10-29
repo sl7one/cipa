@@ -43,7 +43,7 @@ export const salleOrder = createAsyncThunk(
 
 export const deleteOrder = createAsyncThunk(
   "orders/deleteOrder",
-  async ({ id, success, failed }, { rejectWithValue }) => {
+  async ({ data: id, success, failed }, { rejectWithValue }) => {
     try {
       const { data } = await cipa.delete(`/orders/${id}`);
       success();
