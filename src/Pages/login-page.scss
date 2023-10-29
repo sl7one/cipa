@@ -1,0 +1,17 @@
+.auth-page.login {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-page.login h1 a.active {
+  background: var(--green-gradient);
+}
+
+.auth-page.login button {
+  background: var(--green-gradient);
+  font-size: 18px;
+}

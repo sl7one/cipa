@@ -1,0 +1,17 @@
+.auth-page.signup {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-page.signup h1 a.active {
+  background: var(--orange-gradient);
+}
+
+.auth-page.signup button {
+  background: var(--orange-gradient);
+  font-size: 18px;
+}
