@@ -16,7 +16,7 @@ export default function LoginPage() {
       login({
         data: userData,
         success: () => toast.success("Пользователь успешно зарегистрирован"),
-        error: (message) => toast.error(message),
+        failed: (message) => toast.error(message),
       })
     );
   };
