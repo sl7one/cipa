@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { cipa } from "./axiosBase";
+import { cipa } from "../api/axiosBase";
 
 export const getAllCategories = createAsyncThunk(
   "categories/getAllCategories",

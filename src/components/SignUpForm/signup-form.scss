@@ -8,7 +8,7 @@
   justify-content: center;
 }
 
-.login-form {
+.signup-form {
   width: 100%;
   max-width: 400px;
   border-radius: 10px;
@@ -21,7 +21,7 @@
   overflow: hidden;
 }
 
-.login-form form {
+.signup-form form {
   padding-top: 30px;
 
   display: flex;
@@ -29,43 +29,43 @@
   gap: 25px;
 }
 
-.login-form h1 {
+.signup-form h1 {
   display: flex;
   justify-content: space-around;
   font-size: 18px;
+
+  border-bottom: 1px solid #fbdf93;
 }
 
-.login-form h1 a {
+.signup-form h1 a {
   padding: 10px;
   width: 100%;
-
-  border-bottom: 1px solid #dbf043;
 }
 
-.login-form h1 a.active {
+.signup-form h1 a.active {
   background-color: orange;
 }
 
-.login-form .input-wrapper {
+.signup-form .input-wrapper {
   padding: 0 10px;
 }
 
-.login-form label {
+.signup-form label {
   margin-right: 10px;
 }
 
-.login-form input {
+.signup-form input {
   width: 100%;
   margin-top: 10px;
   margin-right: 10px;
   border: unset;
-  border-bottom: 1px solid #dbf043;
+  border-bottom: 1px solid #fbdf93;
   background-color: transparent;
 
   outline: unset;
 }
 
-.login-form button {
+.signup-form button {
   margin-left: auto;
 
   padding: 10px;
@@ -86,7 +86,7 @@
   color: red;
 }
 
-.login-form .loader {
+.signup-form .loader {
   margin-left: auto;
   margin-top: 36px;
 }

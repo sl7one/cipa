@@ -6,6 +6,7 @@ import clientsSlice from "./clientsSlice";
 import categoriesSlice from "./categoriesSlice";
 import subCategoriesSlice from "./subCategoriesSlice";
 import sub2CategoriesSlice from "./sub2CategoriesSlice";
+import authSlice from "./authSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     categories: categoriesSlice,
     subCategories: subCategoriesSlice,
     sub2categories: sub2CategoriesSlice,
+    auth: authSlice,
   },
 
   middleware: (getDefaultMiddleware) =>
