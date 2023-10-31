@@ -1,34 +1,32 @@
-import React, { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { deleteOrder, salleOrder } from "../../store/ordersActions";
 import useIdsToString from "../../hooks/useIdsToString";
 import { animationsHelper } from "../../utils/animationsHelper";
+import "./menu-oders.scss";
+import useCounter from "../../hooks/useCounter";
 
 export default function MenuPopupOrders() {
   const dispatch = useDispatch();
-  const orders = useSelector((state) => state.orders.orders);
   const ids = useIdsToString();
   const { menu } = animationsHelper;
-
-  const counter = useMemo(
-    () => orders.filter(({ isChecked }) => isChecked).length,
-    [orders]
-  );
+  const counter = useCounter();
 
   const onClickDeleteManyOrders = () => {
     if (!ids.length) return;
+    dispatch(deleteOrder({ data: ids, success: () => {}, failed: () => {} }));
     menu.hide();
-    dispatch(deleteOrder({ id: ids, success: () => {}, failed: () => {} }));
   };
 
   const onClickAddManyOrders = () => {
     if (!ids.length) return;
+    dispatch(salleOrder({ data: ids, success: () => {}, failed: () => {} }));
     menu.hide();
-    dispatch(salleOrder({ id: ids, success: () => {}, failed: () => {} }));
   };
+
   return (
     <ul className="menu-modal">
-      <li className="" onClick={onClickDeleteManyOrders}>
+      <li onClick={onClickDeleteManyOrders}>
         <p className="menu-list-item-sub">
           {counter ? (
             <span className="menu-list-counter">{counter}</span>
@@ -36,7 +34,7 @@ export default function MenuPopupOrders() {
           Удалить
         </p>
       </li>
-      <li className="" onClick={onClickAddManyOrders}>
+      <li onClick={onClickAddManyOrders}>
         <p className="menu-list-item-sub">
           {counter ? (
             <span className="menu-list-counter">{counter}</span>

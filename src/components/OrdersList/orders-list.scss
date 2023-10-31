@@ -1,3 +1,11 @@
+.orders-list-header .dots {
+  display: flex;
+  position: relative;
+
+  height: 100%;
+  width: 100%;
+}
+
 .orders-list,
 .orders-list-header {
   display: flex;
@@ -17,6 +25,10 @@
 
   position: relative;
   overflow-x: hidden;
+}
+
+.orders-item-header {
+  overflow: unset;
 }
 
 .orders-item-header span button {
@@ -90,10 +102,4 @@
 
 .orders-item-header .checkbox-label label.checked {
   background-color: greenyellow;
-}
-
-.orders-item-header .checkbox-label .checkbox:checked {
-  // width: 50px;
-  // height: 50px;
-  // background-color: greenyellow;
 }

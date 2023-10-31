@@ -1,18 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import "./order-form.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { isDataTruthyHelper } from "../../utils/isDataTruthy";
-import useHistoryPriceBtns from "../../hooks/useHistoryPriceBtns";
 import Inputs from "../Inputs/Inputs";
 import OrderFormGroup from "../OrderFormGroup/OrderFormGroup";
 import Summary from "../Summary/Summary";
 import DatePickerComponent from "../DatePicker/DatePicker";
 import ClientButton from "../ClientButton/ClientButton";
 import { resetProducts } from "../../store/productsSlice";
-import HistoryButtons from "../HistoryButtons/HistoryButtons";
 import { postOrder } from "../../store/ordersActions";
 import Loader from "../Loader/Loader";
-import { animationsHelper } from "../../utils/animationsHelper";
 import OrderFormButtonsGroup from "../OrderFormButtonsGroup/OrderFormButtonsGroup";
 import { Toast } from "../../context/toast-context";
 import { Select } from "../../context/select-context";
@@ -27,9 +24,9 @@ import {
 export default function ModalOrder({ productsSelected }) {
   const toast = useContext(Toast);
   const { resetSelect } = useContext(Select);
-  const [historyButtonOrder, setHistoryButtonOrder] = useState(null);
 
   const isLoading = useSelector((state) => state.orders.isLoading);
+  const owner = useSelector((state) => state.auth.user._id);
   const {
     clientData,
     date: dateData,
@@ -40,27 +37,10 @@ export default function ModalOrder({ productsSelected }) {
 
   const dispatch = useDispatch();
 
-  const [priceHitory, setPriceHistory] = useHistoryPriceBtns();
-  const { historyButtons } = animationsHelper;
-
   useEffect(() => {
     if (!productsSelected.length) return;
     dispatch(initFormData({ productsSelected }));
   }, [productsSelected, dispatch]);
-
-  useEffect(() => {
-    const isDataPriceTruthy = isDataTruthyHelper({
-      data: ordersData,
-      key: "price",
-    });
-    const isDataOrderTruthy = isDataTruthyHelper({
-      data: ordersData,
-      key: "order",
-    });
-
-    if (isDataPriceTruthy) historyButtons.price.hide();
-    if (isDataOrderTruthy) historyButtons.order.hide();
-  }, [ordersData, historyButtons]);
 
   const onFocusPrice = () => {
     // historyButtons.order.hide();
@@ -97,19 +77,6 @@ export default function ModalOrder({ productsSelected }) {
     // setHistoryButtonOrder(value);
   };
 
-  const onClickHistoryPriceButton = (value) => {
-    // dispatch(setFormDataByHistoryButtons({ key: "price", value }));
-  };
-
-  const onClickHistoryOrderButton = () => {
-    // dispatch(
-    //   setFormDataByHistoryButtons({
-    //     key: "order",
-    //     value: historyButtonOrder,
-    //   })
-    // );
-  };
-
   const isOrderTruthy = () => {
     const isDataOrderTruthy = isDataTruthyHelper({
       data: ordersData,
@@ -144,6 +111,7 @@ export default function ModalOrder({ productsSelected }) {
       order: orders,
       location: locationData._id,
       message: messageData,
+      owner,
     };
 
     dispatch(
@@ -217,13 +185,6 @@ export default function ModalOrder({ productsSelected }) {
 
               <Summary title="Всего по заказу: " />
             </div>
-            <HistoryButtons
-              onClickHistoryPriceButton={onClickHistoryPriceButton}
-              priceHitory={priceHitory}
-              setPriceHistory={setPriceHistory}
-              historyButtonOrder={historyButtonOrder}
-              onClickHistoryOrderButton={onClickHistoryOrderButton}
-            />
           </>
         )}
       </form>

@@ -2,14 +2,8 @@ import gsap from "gsap";
 
 export const animationsHelper = {
   menu: {
-    show: () =>
-      gsap.to(".menu-backdrop", { opacity: 1, visibility: "visible" }),
-    hide: () => {
-      gsap.to(".menu-backdrop", {
-        opacity: 0,
-        visibility: "hidden",
-      });
-    },
+    show: () => gsap.to(".menu-modal", { opacity: 1 }),
+    hide: () => gsap.to(".menu-modal", { opacity: 0 }),
   },
 
   clientModal: {
@@ -72,18 +66,6 @@ export const animationsHelper = {
         show: (id) => gsap.to(`#${id}`, { top: 0, opacity: 1 }),
         hide: (id) => gsap.to(`#${id}`, { top: "-100%", opacity: 0 }),
       },
-    },
-  },
-
-  historyButtons: {
-    price: {
-      show: () => gsap.to(".form__history-buttons", { bottom: 0, opacity: 1 }),
-      hide: () =>
-        gsap.to(".form__history-buttons", { bottom: "-100%", opacity: 0 }),
-    },
-    order: {
-      show: () => gsap.to(".btn-order", { bottom: 0, opacity: 1 }),
-      hide: () => gsap.to(".btn-order", { bottom: "-100%", opacity: 0 }),
     },
   },
 

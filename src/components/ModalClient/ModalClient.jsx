@@ -20,11 +20,9 @@ const ModalClient = () => {
   const refSelectName = useRef(null);
   const refSelectLocation = useRef(null);
   const dispatch = useDispatch();
-  const {
-    clientData,
-    location: locationData,
-    message,
-  } = useSelector((state) => state.orders.orderForm);
+  const { clientData, message } = useSelector(
+    (state) => state.orders.orderForm
+  );
   const clients = useSelector((state) => state.clients.clients);
   const locations = useSelector((state) => state.locations.locations);
   const toast = useContext(Toast);
@@ -64,42 +62,9 @@ const ModalClient = () => {
     }
 
     if (e.__isNew__) {
-      dispatch(setLocation({ location: e.value }));
-      return;
-    }
-
-    dispatch(setLocation(e.value));
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    const results = [];
-
-    const isClientExist = clients.find(({ _id }) => _id === clientData._id);
-    if (!isClientExist) {
-      const res = await dispatch(
-        addNewClient({
-          data: clientData,
-          success: (data) => {
-            toast.success("Добавлен новый контакт");
-            dispatch(setClientData(data));
-          },
-          failed: (error) => {
-            toast.error(error);
-          },
-        })
-      );
-
-      results.push(res);
-    }
-
-    const isLocationExist = locations.find(
-      ({ _id }) => _id === locationData._id
-    );
-    if (locationData && !isLocationExist) {
-      const res = await dispatch(
+      dispatch(
         addNewLocation({
-          data: { location: locationData },
+          data: { location: e.value },
           success: (data) => {
             toast.success("Добавлена новая локация");
             dispatch(setLocation(data));
@@ -110,16 +75,32 @@ const ModalClient = () => {
         })
       );
 
-      results.push(res);
+      return;
     }
 
-    const isSuccess = results.every(
-      ({ meta: { requestStatus } }) => requestStatus === "fulfilled"
-    );
+    dispatch(setLocation(e.value));
+  };
 
-    if (isSuccess) {
-      clientModal.hide();
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const isClientExist = clients.find(({ _id }) => _id === clientData._id);
+    if (!isClientExist) {
+      dispatch(
+        addNewClient({
+          data: clientData,
+          success: (data) => {
+            toast.success("Добавлен новый контакт");
+            dispatch(setClientData(data));
+            clientModal.hide();
+          },
+          failed: (error) => {
+            toast.error(error);
+          },
+        })
+      );
     }
+    clientModal.hide();
   };
 
   return (

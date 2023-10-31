@@ -29,7 +29,7 @@ export const postOrder = createAsyncThunk(
 
 export const salleOrder = createAsyncThunk(
   "orders/salleOrder",
-  async ({ id, success, failed }, { rejectWithValue }) => {
+  async ({ data: id, success, failed }, { rejectWithValue }) => {
     try {
       const { data } = await cipa.put(`/orders/salle/${id}`);
       success();

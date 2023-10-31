@@ -1,5 +1,7 @@
 import React from "react";
 import Icons from "../Icons/Icons";
+import MenuPopupOrders from "../MenuPopupOrders/MenuPopupOrders";
+import { animationsHelper } from "../../utils/animationsHelper";
 
 export default function OrdersListHeader({
   setFilter,
@@ -9,7 +11,9 @@ export default function OrdersListHeader({
   setMarks,
   marks,
 }) {
-  const onClick = (type) => {
+  const { menu } = animationsHelper;
+
+  const onClickonClickSortDateOrTotal = (type) => {
     if (type === "date") {
       sort.date === "desc"
         ? setSort({ date: "asc", total: "init" })
@@ -26,9 +30,11 @@ export default function OrdersListHeader({
   const onChange = () => {
     if (marks === "init") {
       setMarks(true);
+      if (marks === "init") menu.show();
       return;
     }
     setMarks((prev) => !prev);
+    !marks ? menu.show() : menu.hide();
   };
 
   return (
@@ -49,7 +55,10 @@ export default function OrdersListHeader({
           </div>
 
           <span>
-            <button type="button" onClick={() => onClick("date")}>
+            <button
+              type="button"
+              onClick={() => onClickonClickSortDateOrTotal("date")}
+            >
               <Icons name="sort" />
               Дата
             </button>
@@ -69,13 +78,17 @@ export default function OrdersListHeader({
             </label>
           </div>
           <span>
-            <button type="button" onClick={() => onClick("total")}>
+            <button
+              type="button"
+              onClick={() => onClickonClickSortDateOrTotal("total")}
+            >
               <Icons name="sort" />
               Сумма
             </button>
           </span>
-          <span>
+          <span className="dots">
             <Icons name="dots" />
+            <MenuPopupOrders />
           </span>
         </div>
       </div>

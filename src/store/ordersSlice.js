@@ -179,26 +179,18 @@ export const ordersSlice = createSlice({
     });
 
     builder.addCase(deleteOrder.fulfilled, (state, { payload }) => {
-      const idx = payload.id.reduce((acc, id) => {
+      payload.id.forEach((id) => {
         const idx = state.orders.findIndex(({ _id }) => _id === id);
-        acc.push(idx);
-        return acc;
-      }, []);
-
-      idx.forEach((id) => state.orders.splice(id, 1));
-      state.orders = [...state.orders];
+        state.orders.splice(idx, 1);
+      });
       state.isLoading = false;
     });
 
     builder.addCase(salleOrder.fulfilled, (state, { payload }) => {
-      const idx = payload.id.reduce((acc, id) => {
+      payload.id.forEach((id) => {
         const idx = state.orders.findIndex(({ _id }) => _id === id);
-        acc.push(idx);
-        return acc;
-      }, []);
-
-      idx.forEach((idx) => (state.orders[idx].isActive = false));
-      state.orders = [...state.orders];
+        state.orders.splice(idx, 1);
+      });
       state.isLoading = false;
     });
 
