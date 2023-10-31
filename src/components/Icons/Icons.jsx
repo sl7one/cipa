@@ -4,7 +4,7 @@ import { TbPhone, TbArrowsSort } from "react-icons/tb";
 import { GiReceiveMoney, GiCheckMark } from "react-icons/gi";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { MdKeyboardBackspace } from "react-icons/md";
-import { CgSearchLoading } from "react-icons/cg";
+import { CgLogOut, CgSearchLoading } from "react-icons/cg";
 
 import "./icons.scss";
 
@@ -20,6 +20,7 @@ export default function Icons({ name }) {
     mark: <GiCheckMark color="yellowgreen" size={size} />,
     sort: <TbArrowsSort color="blue" size={size} />,
     search: <CgSearchLoading color="blue" size={size} />,
+    logout: <CgLogOut color="black" size={size} />,
   };
 
   return <span className="icon-wrapper">{iconsSet[name]}</span>;

@@ -15,7 +15,9 @@ export default function LoginPage() {
     dispatch(
       login({
         data: userData,
-        success: () => toast.success("Пользователь успешно зарегистрирован"),
+        success: () => {
+          toast.success("Пользователь успешно залогинизировался");
+        },
         failed: (message) => toast.error(message),
       })
     );

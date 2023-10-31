@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import "./layout.scss";
-import MenuPopup from "../MenuPopup/MenuPopup";
-import MenuButton from "../MenuButton/MenuButton";
 import { Toast } from "../../context/toast-context";
 import { getAllProducts } from "../../store/productsActions";
 import { getAllOrders } from "../../store/ordersActions";
@@ -11,11 +9,12 @@ import Loader from "../Loader/Loader";
 import ErrorPage from "../../Pages/ErrorPage";
 import { getAllClients } from "../../store/clientsActions";
 import { getAllLocations } from "../../store/locationsActions";
-import RoutesMain from "../RoutesMain/RoutesMain";
-import RoutesService from "../RoutesService/RoutesService";
 import { getAllCategories } from "../../store/categoriesActions";
 import { getAllSubCategories } from "../../store/subCategoriesActions";
 import { getAllSub2Categories } from "../../store/sub2CategoriesActions";
+import ModalRoutes from "../ModalRoutes/ModalRoutes";
+import HelloUser from "../HelloUser/HelloUser";
+import RouteNavigationButton from "../RouteNavigationButton/RouteNavigationButton";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -61,18 +60,10 @@ export default function Layout() {
       ) : (
         <>
           <div className="layout">
-            <nav>
-              <RoutesService />
-            </nav>
+            <HelloUser />
+            <RouteNavigationButton />
           </div>
-
-          <div className="layout">
-            <nav>
-              <RoutesMain />
-            </nav>
-            <MenuButton />
-            <MenuPopup />
-          </div>
+          <ModalRoutes />
           {isLoading ? <Loader isVisible={isLoading} /> : <Outlet />}
         </>
       )}

@@ -1,0 +1,13 @@
+.hello-user {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hello-user h2 {
+  text-transform: capitalize;
+}
+
+.hello-user .icon-wrapper {
+  background: var(--orange-gradient);
+}

@@ -136,4 +136,9 @@ export const animationsHelper = {
         bottom: "-100%",
       }),
   },
+
+  modalRoutes: {
+    show: () => gsap.to(".modal-backdrop", { right: 0 }),
+    hide: () => gsap.to(".modal-backdrop", { right: "-100%" }),
+  },
 };
