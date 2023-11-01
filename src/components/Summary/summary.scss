@@ -1,34 +1,55 @@
 .form .form__summary {
-  white-space: nowrap;
-
-  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  background-color: white;
+  position: relative;
 
-  font-size: 11px;
-
-  padding: 5px 15px 15px 15px;
+  font-size: 12px;
+  overflow: hidden;
 }
 
-.form .form__summary span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.form .form__summary > p {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  font-size: 12px;
 
+  font-weight: 600;
+  span {
+    color: red;
+  }
+}
+
+.form__summary-header,
+.form__summary-body li {
+  display: grid;
+  grid-template-columns: 1fr 25% 25%;
+
+  border-bottom: 1px solid rgb(197, 197, 197);
+}
+
+.form__summary-header {
+  background-color: rgb(197, 197, 197);
+}
+
+.form__summary-header span {
+  padding: 5px;
   font-weight: 600;
 }
 
-.form .form__summary .count {
-  // background-color: yellow;
-  // padding-right: 60px;
-
-  // position: absolute;
-  // right: 50px;
+.form__summary-body li span:not(:last-of-type) {
+  border-right: 1px solid rgb(197, 197, 197);
 }
 
-.form .form__summary .summ {
-  // background-color: greenyellow;
-  position: relative;
-  // padding-right: 31px;
+.form__summary-body li span {
+  width: 100%;
+  padding: 5px;
+}
+
+.form__summary-header span:first-of-type,
+.form__summary-body li span:first-of-type {
+  justify-self: flex-start;
 }

@@ -1,25 +1,28 @@
-export const summary = ({ data, category = null }) => {
-  if (!data) return { totalOrder: 0, totalSumm: 0 };
+export const summaryHelper = ({ data }) => {
+  if (!data) return null;
+  const summaryData = {};
 
-  const filtredArray = Object.entries(data).filter(([_, value]) => {
-    if (!category) return true;
-    return value?.category === category;
-  });
+  for (const productItem in data) {
+    const product = data[productItem];
 
-  const isFalsyArray = filtredArray.some(
-    ([_, { order = 0, price = 0 }]) =>
-      Number(order) === 0 || Number(price) === 0
-  );
+    const { category, order, price } = product;
 
-  if (isFalsyArray) return { totalOrder: 0, totalSumm: 0 };
+    if (summaryData[category]) {
+      summaryData[category].totalOrder += Number(order);
+      summaryData[category].totalSumm += Number(order) * Number(price);
+    } else {
+      summaryData[category] = {
+        totalOrder: Number(order),
+        totalSumm: Number(order) * Number(price),
+      };
+    }
+  }
 
-  return filtredArray.reduce(
-    (acc, [_, value]) => {
-      const { order = 0, price = 0 } = value;
-      acc.totalOrder += Number(order);
-      acc.totalSumm += Number(order) * Number(price);
-      return acc;
-    },
-    { totalOrder: 0, totalSumm: 0 }
-  );
+  const summary = Object.entries(summaryData).map(([category, data]) => ({
+    category,
+    totalOrder: data.totalOrder,
+    totalSumm: data.totalSumm,
+  }));
+
+  return summary;
 };

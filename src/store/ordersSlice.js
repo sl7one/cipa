@@ -72,17 +72,10 @@ export const ordersSlice = createSlice({
     },
     ////////???????////////////
     calculateBroilerFood: (state) => {
-      const cobb = state.orderForm.ordersData["652686067170a8f5411dc752"];
-      const ross = state.orderForm.ordersData["652686067170a8f5411dc753"];
-      if (!cobb && !ross) return;
-
-      const poultry = {};
-      if (cobb) poultry.cobb = cobb;
-      if (ross) poultry.ross = ross;
-
-      const count = Object.values(poultry).reduce((acc, { order = 0 }) => {
-        return (acc += Number(order));
-      }, 0);
+      const count = Object.values({
+        cobb: state.orderForm.ordersData["652686067170a8f5411dc752"] || {},
+        ross: state.orderForm.ordersData["652686067170a8f5411dc753"] || {},
+      }).reduce((acc, { order = 0 }) => (acc += Number(order)), 0);
 
       const {
         startCount = 1,
@@ -93,40 +86,30 @@ export const ordersSlice = createSlice({
       state.orderForm.ordersData = {
         ...state.orderForm.ordersData,
         "652686067170a8f5411dc760": {
-          order: !startCount ? 1 : startCount,
-          price: "",
-          ...state.orderForm.ordersData["652686067170a8f5411dc760"],
+          order: startCount,
         },
         "652686067170a8f5411dc761": {
-          order: !growCount ? 1 : growCount,
-          price: "",
-          ...state.orderForm.ordersData["652686067170a8f5411dc761"],
+          order: growCount,
         },
         "652686067170a8f5411dc762": {
-          order: !finishCount ? 1 : finishCount,
-          price: "",
-          ...state.orderForm.ordersData["652686067170a8f5411dc762"],
+          order: finishCount,
         },
       };
     },
     ///////////??????///////////
     calculateMedicine: (state) => {
-      const count = Object.values(state.orderForm.ordersData)
-        .filter((el) => el?.subCategory === "цыплята")
+      const poultryCount = Object.values(state.orderForm.ordersData)
+        .filter(({ subCategory }) => subCategory === "цыплята")
         .reduce((acc, { order = 0 }) => {
           return (acc += Number(order));
         }, 0);
 
-      if (!count) return;
-
-      const medicine = medicineCalculator(count);
+      const medicineCount = medicineCalculator(poultryCount);
 
       state.orderForm.ordersData = {
         ...state.orderForm.ordersData,
         "652686067170a8f5411dc751": {
-          order: !medicine ? 1 : medicine,
-          price: "",
-          ...state.orderForm.ordersData["652686067170a8f5411dc751"],
+          order: medicineCount,
         },
       };
     },

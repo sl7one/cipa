@@ -3,7 +3,7 @@ import "./menu-popup.scss";
 import { animationsHelper } from "../../utils/animationsHelper";
 import { useLocation } from "react-router-dom";
 import MenuPopupOrders from "../MenuPopupOrders/MenuPopupOrders";
-import MenuPopupOrdersNewEdit from "../MenuPopupOrdersNewEdit/MenuPopupOrdersNewEdit";
+import MenuPopupOrdersNewEdit from "../ModalOrderPoultryFunction/ModalOrderPoultryFunction";
 
 const MenuPopup = () => {
   const { pathname } = useLocation();

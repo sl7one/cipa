@@ -1,9 +1,24 @@
 import gsap from "gsap";
 
 export const animationsHelper = {
-  menu: {
-    show: () => gsap.to(".menu-modal", { opacity: 1 }),
-    hide: () => gsap.to(".menu-modal", { opacity: 0 }),
+  menuOrder: {
+    show: () =>
+      gsap.to(".menu-orders-popup", { opacity: 1, visibility: "visible" }),
+    hide: () =>
+      gsap.to(".menu-orders-popup", { opacity: 0, visibility: "hidden" }),
+  },
+
+  menuOrderPoultry: {
+    show: () =>
+      gsap.to(".menu-modal-orers-poultry", {
+        opacity: 1,
+        visibility: "visible",
+      }),
+    hide: () =>
+      gsap.to(".menu-modal-orers-poultry", {
+        opacity: 0,
+        visibility: "hidden",
+      }),
   },
 
   clientModal: {
@@ -70,16 +85,8 @@ export const animationsHelper = {
   },
 
   summary: {
-    show: (id) => {
-      gsap.to(`#summary-${id}`, {
-        opacity: 1,
-      });
-    },
-    hide: (id) => {
-      gsap.to(`#summary-${id}`, {
-        opacity: 0,
-      });
-    },
+    show: () => gsap.to(`.form__summary`, { opacity: 1 }),
+    hide: () => gsap.to(`.form__summary`, { opacity: 0 }),
   },
 
   loader: {

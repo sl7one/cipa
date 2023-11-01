@@ -11,7 +11,7 @@ export default function OrdersListHeader({
   setMarks,
   marks,
 }) {
-  const { menu } = animationsHelper;
+  const { menuOrder } = animationsHelper;
 
   const onClickonClickSortDateOrTotal = (type) => {
     if (type === "date") {
@@ -30,11 +30,11 @@ export default function OrdersListHeader({
   const onChange = () => {
     if (marks === "init") {
       setMarks(true);
-      if (marks === "init") menu.show();
+      if (marks === "init") menuOrder.show();
       return;
     }
     setMarks((prev) => !prev);
-    !marks ? menu.show() : menu.hide();
+    !marks ? menuOrder.show() : menuOrder.hide();
   };
 
   return (

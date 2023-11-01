@@ -9,23 +9,23 @@ import useCounter from "../../hooks/useCounter";
 export default function MenuPopupOrders() {
   const dispatch = useDispatch();
   const ids = useIdsToString();
-  const { menu } = animationsHelper;
+  const { menuOrder } = animationsHelper;
   const counter = useCounter();
 
   const onClickDeleteManyOrders = () => {
     if (!ids.length) return;
     dispatch(deleteOrder({ data: ids, success: () => {}, failed: () => {} }));
-    menu.hide();
+    menuOrder.hide();
   };
 
   const onClickAddManyOrders = () => {
     if (!ids.length) return;
     dispatch(salleOrder({ data: ids, success: () => {}, failed: () => {} }));
-    menu.hide();
+    menuOrder.hide();
   };
 
   return (
-    <ul className="menu-modal">
+    <ul className="menu-orders-popup">
       <li onClick={onClickDeleteManyOrders}>
         <p className="menu-list-item-sub">
           {counter ? (

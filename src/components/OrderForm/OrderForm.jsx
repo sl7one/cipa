@@ -1,16 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import "./order-form.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { isDataTruthyHelper } from "../../utils/isDataTruthy";
 import Inputs from "../Inputs/Inputs";
 import OrderFormGroup from "../OrderFormGroup/OrderFormGroup";
 import Summary from "../Summary/Summary";
-import DatePickerComponent from "../DatePicker/DatePicker";
-import ClientButton from "../ClientButton/ClientButton";
 import { resetProducts } from "../../store/productsSlice";
 import { postOrder } from "../../store/ordersActions";
 import Loader from "../Loader/Loader";
-import OrderFormButtonsGroup from "../OrderFormButtonsGroup/OrderFormButtonsGroup";
 import { Toast } from "../../context/toast-context";
 import { Select } from "../../context/select-context";
 import {
@@ -20,6 +16,8 @@ import {
   resetMessage,
   resetOrder,
 } from "../../store/ordersSlice";
+import OrderPoultryFunctionBtn from "../OrderPoultryFunctionBtn/OrderPoultryFunctionBtn";
+import OrderFormHeader from "../OrderFormHeader/OrderFormHeader";
 
 export default function ModalOrder({ productsSelected }) {
   const toast = useContext(Toast);
@@ -41,58 +39,6 @@ export default function ModalOrder({ productsSelected }) {
     if (!productsSelected.length) return;
     dispatch(initFormData({ productsSelected }));
   }, [productsSelected, dispatch]);
-
-  const onFocusPrice = () => {
-    // historyButtons.order.hide();
-    // const isDataPriceTruthy = isDataTruthyHelper({
-    //   data: ordersData,
-    //   key: "price",
-    // });
-    // if (isDataPriceTruthy) {
-    //   historyButtons.price.hide();
-    //   return;
-    // }
-    // if (priceHitory.length > 0) historyButtons.price.show();
-  };
-
-  const onBlurPrice = ({ target: { value } }) => {
-    // if (!value || Number(value) <= 0) return;
-    // setPriceHistory((prev) => {
-    //   prev.unshift(value);
-    //   return [...new Set(prev)].slice(0, 3);
-    // });
-  };
-
-  const onFocusOrder = () => {
-    // historyButtons.price.hide();
-    // if (!historyButtonOrder) return;
-    // historyButtons.order.show();
-  };
-
-  const onBlurOrder = ({ target: { value } }) => {
-    // if (historyButtonOrder) {
-    //   historyButtons.order.show();
-    // }
-    // if (!value) return;
-    // setHistoryButtonOrder(value);
-  };
-
-  const isOrderTruthy = () => {
-    const isDataOrderTruthy = isDataTruthyHelper({
-      data: ordersData,
-      key: "order",
-    });
-
-    const isDataPriceTruthy = isDataTruthyHelper({
-      data: ordersData,
-      key: "price",
-    });
-
-    const isDataClientTruthy =
-      clientData.name.length > 0 && clientData.phone.length > 0;
-
-    return isDataOrderTruthy && isDataPriceTruthy && isDataClientTruthy;
-  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -134,59 +80,38 @@ export default function ModalOrder({ productsSelected }) {
   return (
     <>
       <form onSubmit={onSubmit} className="form">
-        <div className="form-header">
-          <ClientButton />
-          <DatePickerComponent />
-
-          <button
-            type="submit"
-            className="order-submit-btn"
-            disabled={!isOrderTruthy()}
-          >
-            Добавить <br /> в базу
-          </button>
-        </div>
-
-        {!Object.entries(ordersData).length ? (
-          <OrderFormButtonsGroup />
-        ) : (
-          <>
-            <div className="form-body">
-              <Inputs
-                category="птица"
-                list={productsSelected}
-                renderProducts={({ _id, title, img }) => (
-                  <OrderFormGroup
-                    key={_id}
-                    id={_id}
-                    title={title}
-                    img={img}
-                    onFocusOrder={onFocusOrder}
-                    onBlurOrder={onBlurOrder}
-                    onFocusPrice={onFocusPrice}
-                    onBlurPrice={onBlurPrice}
-                  />
-                )}
-              />
-              <Inputs
-                category="корм"
-                list={productsSelected}
-                renderProducts={({ _id, title, img }) => (
-                  <OrderFormGroup key={_id} id={_id} title={title} img={img} />
-                )}
-              />
-              <Inputs
-                category="дополнительно"
-                list={productsSelected}
-                renderProducts={({ _id, title, img }) => (
-                  <OrderFormGroup key={_id} id={_id} title={title} img={img} />
-                )}
-              />
-
-              <Summary title="Всего по заказу: " />
-            </div>
-          </>
-        )}
+        <OrderFormHeader />
+        <>
+          <div className="form-body">
+            <Inputs
+              list={productsSelected.filter(
+                ({ category }) => category === "птица"
+              )}
+              renderProducts={({ _id, title, img }) => (
+                <OrderFormGroup key={_id} id={_id} title={title} img={img} />
+              )}
+            >
+              <OrderPoultryFunctionBtn />
+            </Inputs>
+            <Inputs
+              list={productsSelected.filter(
+                ({ category }) => category === "корм"
+              )}
+              renderProducts={({ _id, title, img }) => (
+                <OrderFormGroup key={_id} id={_id} title={title} img={img} />
+              )}
+            />
+            <Inputs
+              list={productsSelected.filter(
+                ({ category }) => category === "дополнительно"
+              )}
+              renderProducts={({ _id, title, img }) => (
+                <OrderFormGroup key={_id} id={_id} title={title} img={img} />
+              )}
+            />
+            <Summary />
+          </div>
+        </>
       </form>
       {isLoading && <Loader isVisible={isLoading} />}
     </>
