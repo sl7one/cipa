@@ -8,7 +8,7 @@ export default function ModalRoutes() {
   const { modalRoutes } = animationsHelper;
   const routes = [
     { title: "Заказы", path: "/orders", color: "#FF5733" },
-    { title: "Продажи", path: "/sales", color: "#33FF57" },
+    { title: "Продажи", path: "/salles", color: "#33FF57" },
     { title: "Закупки", path: "/purchases", color: "#5733FF" },
     { title: "Клиенты", path: "/clients", color: "#FF3399" },
     { title: "Продукты", path: "/products", color: "#33CCFF" },

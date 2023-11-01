@@ -41,12 +41,16 @@ export const ordersSlice = createSlice({
       );
     },
 
-    setOrdersData: (state, { payload }) => {
+    setInputsData: (state, { payload }) => {
       const [key] = Object.keys(payload);
       const newValues = { ...state.orderForm.ordersData[key], ...payload[key] };
       const newData = { [key]: newValues };
-      state.formData = { ...state.orderForm.ordersData, ...newData };
+      state.orderForm.ordersData = {
+        ...state.orderForm.ordersData,
+        ...newData,
+      };
     },
+
     deleteFormDataRecord: (state, { payload }) => {
       delete state.orderForm.ordersData[payload];
       state.orderForm.ordersData = { ...state.orderForm.ordersData };
@@ -57,8 +61,8 @@ export const ordersSlice = createSlice({
         return {
           ...acc,
           [_id]: {
-            order: state.orderForm.ordersData[_id]?.order
-              ? state.orderForm.ordersData[_id].order
+            quantity: state.orderForm.ordersData[_id]?.quantity
+              ? state.orderForm.ordersData[_id].quantity
               : "",
             price: state.orderForm.ordersData[_id]?.price
               ? state.orderForm.ordersData[_id].price
@@ -75,7 +79,7 @@ export const ordersSlice = createSlice({
       const count = Object.values({
         cobb: state.orderForm.ordersData["652686067170a8f5411dc752"] || {},
         ross: state.orderForm.ordersData["652686067170a8f5411dc753"] || {},
-      }).reduce((acc, { order = 0 }) => (acc += Number(order)), 0);
+      }).reduce((acc, { quantity = 0 }) => (acc += Number(quantity)), 0);
 
       const {
         startCount = 1,
@@ -86,13 +90,13 @@ export const ordersSlice = createSlice({
       state.orderForm.ordersData = {
         ...state.orderForm.ordersData,
         "652686067170a8f5411dc760": {
-          order: startCount,
+          quantity: startCount,
         },
         "652686067170a8f5411dc761": {
-          order: growCount,
+          quantity: growCount,
         },
         "652686067170a8f5411dc762": {
-          order: finishCount,
+          quantity: finishCount,
         },
       };
     },
@@ -100,8 +104,8 @@ export const ordersSlice = createSlice({
     calculateMedicine: (state) => {
       const poultryCount = Object.values(state.orderForm.ordersData)
         .filter(({ subCategory }) => subCategory === "цыплята")
-        .reduce((acc, { order = 0 }) => {
-          return (acc += Number(order));
+        .reduce((acc, { quantity = 0 }) => {
+          return (acc += Number(quantity));
         }, 0);
 
       const medicineCount = medicineCalculator(poultryCount);
@@ -109,7 +113,7 @@ export const ordersSlice = createSlice({
       state.orderForm.ordersData = {
         ...state.orderForm.ordersData,
         "652686067170a8f5411dc751": {
-          order: medicineCount,
+          quantity: medicineCount,
         },
       };
     },
@@ -129,17 +133,22 @@ export const ordersSlice = createSlice({
     resetLocation: (state) => {
       state.orderForm.location = initialFormState.location;
     },
-    setMessage: (state, { payload }) => {
+    setMessage: (state) => {
       state.orderForm.message = initialFormState.message;
     },
     resetMessage: (state) => {
       state.orderForm.location = initialFormState.location;
     },
-    setOrder: (state, { payload }) => {
-      const [[key, value]] = Object.entries(payload);
+    setOrder: (state, { payload: { formData, clientData } }) => {
+      const [[key, value]] = Object.entries(formData);
+
       state.orderForm.ordersData = {
         ...state.orderForm.ordersData,
         [key]: { ...state.orderForm.ordersData[key], ...value },
+      };
+      state.orderForm.clientData = {
+        ...state.orderForm.clientData,
+        ...clientData,
       };
     },
     resetOrder: (state) => {
@@ -216,6 +225,7 @@ export const {
   setOrder,
   resetOrder,
   setDate,
+  setInputsData,
 } = ordersSlice.actions;
 
 export default ordersSlice.reducer;

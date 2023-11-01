@@ -1,11 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setOrder } from "../../store/ordersSlice";
+import { setInputsData } from "../../store/ordersSlice";
 
 export default function OrderFormInputField({
-  id,
-  onFocus,
-  onBlur,
+  _id,
   placeholder,
   unit,
   inputKey,
@@ -18,16 +16,13 @@ export default function OrderFormInputField({
       <input
         className={`form__input ${inputKey}`}
         type="number"
-        // name={id}
-        value={ordersData[id]?.[inputKey] ? ordersData[id][inputKey] : ""}
+        value={ordersData[_id]?.[inputKey] ? ordersData[_id][inputKey] : ""}
         onChange={({ target: { value } }) =>
-          dispatch(setOrder({ [id]: { [inputKey]: value } }))
+          dispatch(setInputsData({ [_id]: { [inputKey]: value } }))
         }
         placeholder={placeholder}
-        // onFocus={() => onFocus(id)}
-        // onBlur={onBlur}
       />
-      <label htmlFor={id}>{unit}</label>
+      <label htmlFor={_id}>{unit}</label>
     </div>
   );
 }

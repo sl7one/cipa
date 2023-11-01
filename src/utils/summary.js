@@ -5,15 +5,15 @@ export const summaryHelper = ({ data }) => {
   for (const productItem in data) {
     const product = data[productItem];
 
-    const { category, order, price } = product;
+    const { category, quantity, price } = product;
 
     if (summaryData[category]) {
-      summaryData[category].totalOrder += Number(order);
-      summaryData[category].totalSumm += Number(order) * Number(price);
+      summaryData[category].totalOrder += Number(quantity);
+      summaryData[category].totalSumm += Number(quantity) * Number(price);
     } else {
       summaryData[category] = {
-        totalOrder: Number(order),
-        totalSumm: Number(order) * Number(price),
+        totalOrder: Number(quantity),
+        totalSumm: Number(quantity) * Number(price),
       };
     }
   }

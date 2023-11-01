@@ -4,26 +4,26 @@ import OrderFormDeleteBtn from "../OrderFormDeleteBtn/OrderFormDeleteBtn";
 import OrderFormInputField from "../OrderFormInputField/OrderFormInputField";
 import OrderFormInputSummary from "../OrderFormInputSummary/OrderFormInputSummary";
 
-export default function OrderFormGroup({ id, title, img }) {
+export default function OrderFormGroup({ _id, title, img, total }) {
   return (
-    <div key={id} className="form__field">
+    <div key={_id} className="form__field">
       <OrderFormImage img={img} title={title} />
       <div className="form__input">
-        <OrderFormDeleteBtn id={id} />
+        <OrderFormDeleteBtn id={_id} />
         <p>{title}</p>
         <OrderFormInputField
-          id={id}
-          inputKey="order"
+          _id={_id}
+          inputKey="quantity"
           placeholder="кол-во"
           unit="шт "
         />
         <OrderFormInputField
-          id={id}
+          _id={_id}
           inputKey="price"
           placeholder="цена"
           unit="грн"
         />
-        <OrderFormInputSummary id={id} />
+        <OrderFormInputSummary _id={_id} total={total} />
       </div>
     </div>
   );

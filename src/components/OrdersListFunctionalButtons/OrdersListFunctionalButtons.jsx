@@ -23,7 +23,7 @@ export default function OrdersListFunctionalButtons({
   const onClickSalle = () => {
     dispatch(
       salleOrder({
-        id,
+        data: id,
         success: () => toast.success("Заказ успешно проведен"),
         failed: (message) => toast.error(message),
       })

@@ -18,6 +18,7 @@ import {
 } from "../../store/ordersSlice";
 import OrderPoultryFunctionBtn from "../OrderPoultryFunctionBtn/OrderPoultryFunctionBtn";
 import OrderFormHeader from "../OrderFormHeader/OrderFormHeader";
+import BackBtn from "../BackBtn/BackBtn";
 
 export default function ModalOrder({ productsSelected }) {
   const toast = useContext(Toast);
@@ -44,9 +45,9 @@ export default function ModalOrder({ productsSelected }) {
     e.preventDefault();
 
     const orders = Object.entries(ordersData).map(
-      ([key, { order, price }]) => ({
+      ([key, { quantity, price }]) => ({
         _id: key,
-        order: Number(order),
+        quantity: Number(quantity),
         price: Number(price),
       })
     );
@@ -77,42 +78,52 @@ export default function ModalOrder({ productsSelected }) {
     );
   };
 
+  const productsFiltredByCategory = (currentCategory) => {
+    return productsSelected.filter(
+      ({ category }) => category === currentCategory
+    );
+  };
+
   return (
     <>
       <form onSubmit={onSubmit} className="form">
         <OrderFormHeader />
         <>
-          <div className="form-body">
-            <Inputs
-              list={productsSelected.filter(
-                ({ category }) => category === "птица"
-              )}
-              renderProducts={({ _id, title, img }) => (
-                <OrderFormGroup key={_id} id={_id} title={title} img={img} />
-              )}
-            >
-              <OrderPoultryFunctionBtn />
-            </Inputs>
-            <Inputs
-              list={productsSelected.filter(
-                ({ category }) => category === "корм"
-              )}
-              renderProducts={({ _id, title, img }) => (
-                <OrderFormGroup key={_id} id={_id} title={title} img={img} />
-              )}
-            />
-            <Inputs
-              list={productsSelected.filter(
-                ({ category }) => category === "дополнительно"
-              )}
-              renderProducts={({ _id, title, img }) => (
-                <OrderFormGroup key={_id} id={_id} title={title} img={img} />
-              )}
-            />
-            <Summary />
-          </div>
+          {!productsSelected.length ? (
+            <div className="back-block">
+              <div>
+                <p>Верунться к заказам</p>
+                <BackBtn path="/orders" />
+              </div>
+            </div>
+          ) : (
+            <div className="form-body">
+              <Inputs
+                list={productsFiltredByCategory("птица")}
+                renderProducts={(props) => (
+                  <OrderFormGroup key={props._id} {...props} />
+                )}
+              >
+                <OrderPoultryFunctionBtn />
+              </Inputs>
+              <Inputs
+                list={productsFiltredByCategory("корм")}
+                renderProducts={(props) => (
+                  <OrderFormGroup key={props._id} {...props} />
+                )}
+              />
+              <Inputs
+                list={productsFiltredByCategory("дополнительно")}
+                renderProducts={(props) => (
+                  <OrderFormGroup key={props._id} {...props} />
+                )}
+              />
+              <Summary />
+            </div>
+          )}
         </>
       </form>
+
       {isLoading && <Loader isVisible={isLoading} />}
     </>
   );

@@ -13,7 +13,7 @@ export default function OrderFormHeader() {
   const isOrderTruthy = () => {
     const isDataOrderTruthy = isDataTruthyHelper({
       data: ordersData,
-      key: "order",
+      key: "quantity",
     });
 
     const isDataPriceTruthy = isDataTruthyHelper({

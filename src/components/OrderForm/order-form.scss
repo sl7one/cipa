@@ -3,16 +3,15 @@
 
   height: calc(100vh - 42px);
   width: 100%;
-  overflow-x: hidden;
 
   background-color: var(--gray-bg);
 }
 
-.form .form-body {
+.form-body {
   padding: 5px;
   overflow-y: scroll;
 
-  height: calc(100vh - 42px - 42px);
+  height: calc(100vh - 42px - 42px - 40px);
 
   display: flex;
   flex-direction: column;
@@ -155,4 +154,17 @@
   font-size: 11px;
 
   color: black;
+}
+
+.back-block {
+  height: calc(100vh - 42px - 42px - 40px);
+  background-color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    margin-bottom: 20px;
+  }
 }
