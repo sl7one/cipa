@@ -63,50 +63,54 @@ export default function OrdersList() {
 
   return (
     <>
-      <OrdersListHeader
-        setFilter={setFilter}
-        filter={filter}
-        setSort={setSort}
-        sort={sort}
-        setMarks={setMarks}
-        marks={marks}
-      />
-      <ul className="orders-list">
-        {items
-          .filter(({ client: { name, phone }, location }) => {
-            if (!filter) {
-              return true;
-            } else {
-              return (
-                name.includes(filter) ||
-                phone.includes(filter) ||
-                location.includes(filter)
-              );
-            }
-          })
-          .sort(({ date: dateA }, { date: dateB }) => {
-            if (sort.date === "init") return 0;
-            return sort.date === "asc"
-              ? Date.parse(dateA) - Date.parse(dateB)
-              : Date.parse(dateB) - Date.parse(dateA);
-          })
-          .sort(({ total: totalA }, { total: totalB }) => {
-            if (sort.total === "init") return 0;
-            return sort.total === "asc" ? totalA - totalB : totalB - totalA;
-          })
-          .map(({ _id, ...rest }) => (
-            <li className="orders-item" key={_id}>
-              <OrdersListInfoGroup {...rest} id={_id} />
-              <FunctionalButtons id={_id}>
-                <OrdersListFunctionalButtons
-                  {...rest}
-                  id={_id}
-                  confirmDelete={confirmDelete}
-                />
-              </FunctionalButtons>
-            </li>
-          ))}
-      </ul>
+      <div className="orders-list-wrapper">
+        <OrdersListHeader
+          setFilter={setFilter}
+          filter={filter}
+          setSort={setSort}
+          sort={sort}
+          setMarks={setMarks}
+          marks={marks}
+        />
+      </div>
+      <div className="orders-list-wrapper">
+        <ul className="orders-list">
+          {items
+            .filter(({ client: { name, phone }, location }) => {
+              if (!filter) {
+                return true;
+              } else {
+                return (
+                  name.includes(filter) ||
+                  phone.includes(filter) ||
+                  location.includes(filter)
+                );
+              }
+            })
+            .sort(({ date: dateA }, { date: dateB }) => {
+              if (sort.date === "init") return 0;
+              return sort.date === "asc"
+                ? Date.parse(dateA) - Date.parse(dateB)
+                : Date.parse(dateB) - Date.parse(dateA);
+            })
+            .sort(({ total: totalA }, { total: totalB }) => {
+              if (sort.total === "init") return 0;
+              return sort.total === "asc" ? totalA - totalB : totalB - totalA;
+            })
+            .map(({ _id, ...rest }) => (
+              <li className="orders-item" key={_id}>
+                <OrdersListInfoGroup {...rest} id={_id} />
+                <FunctionalButtons id={_id}>
+                  <OrdersListFunctionalButtons
+                    {...rest}
+                    id={_id}
+                    confirmDelete={confirmDelete}
+                  />
+                </FunctionalButtons>
+              </li>
+            ))}
+        </ul>
+      </div>
       <StatsPayload />
       <DialogModal
         title="Подтвердите удаление заказа"

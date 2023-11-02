@@ -1,6 +1,6 @@
 import React, { useContext, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./orders-list.scss";
+import "./salles-list.scss";
 import SallesListHeader from "../SallesListHeader/SallesListHeader";
 import SallesListInfoGroup from "../SallesListInfoGroup/SallesListInfoGroup";
 import { useNavigate } from "react-router-dom";
@@ -46,45 +46,49 @@ export default function SallesList() {
   return (
     <>
       <div className="salles-list">
-        <SallesListHeader
-          setFilter={setFilter}
-          filter={filter}
-          setSort={setSort}
-          sort={sort}
-        />
-        <ul className="orders-list">
-          {items
-            .filter(({ client: { name, phone }, location }) => {
-              if (!filter) {
-                return true;
-              } else {
-                return (
-                  name.includes(filter) ||
-                  phone.includes(filter) ||
-                  location.includes(filter)
-                );
-              }
-            })
-            .sort(({ date: dateA }, { date: dateB }) => {
-              if (sort.date === "init") return 0;
-              return sort.date === "asc"
-                ? Date.parse(dateA) - Date.parse(dateB)
-                : Date.parse(dateB) - Date.parse(dateA);
-            })
-            .sort(({ total: totalA }, { total: totalB }) => {
-              if (sort.total === "init") return 0;
-              return sort.total === "asc" ? totalA - totalB : totalB - totalA;
-            })
-            .map(({ _id, ...rest }) => (
-              <li className="orders-item" key={_id}>
-                <SallesListInfoGroup
-                  {...rest}
-                  id={_id}
-                  confirmDelete={confirmDelete}
-                />
-              </li>
-            ))}
-        </ul>
+        <div className="orders-list-wrapper">
+          <SallesListHeader
+            setFilter={setFilter}
+            filter={filter}
+            setSort={setSort}
+            sort={sort}
+          />
+        </div>
+        <div className="orders-list-wrapper">
+          <ul className="orders-list">
+            {items
+              .filter(({ client: { name, phone }, location }) => {
+                if (!filter) {
+                  return true;
+                } else {
+                  return (
+                    name.includes(filter) ||
+                    phone.includes(filter) ||
+                    location.includes(filter)
+                  );
+                }
+              })
+              .sort(({ date: dateA }, { date: dateB }) => {
+                if (sort.date === "init") return 0;
+                return sort.date === "asc"
+                  ? Date.parse(dateA) - Date.parse(dateB)
+                  : Date.parse(dateB) - Date.parse(dateA);
+              })
+              .sort(({ total: totalA }, { total: totalB }) => {
+                if (sort.total === "init") return 0;
+                return sort.total === "asc" ? totalA - totalB : totalB - totalA;
+              })
+              .map(({ _id, ...rest }) => (
+                <li className="orders-item" key={_id}>
+                  <SallesListInfoGroup
+                    {...rest}
+                    id={_id}
+                    confirmDelete={confirmDelete}
+                  />
+                </li>
+              ))}
+          </ul>
+        </div>
       </div>
       <DialogModal
         title="Подтвердите отменение продажи"

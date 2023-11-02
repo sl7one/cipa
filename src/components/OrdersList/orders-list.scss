@@ -12,6 +12,14 @@
   gap: 5px;
 
   font-size: 12px;
+}
+
+.orders-list {
+  height: calc(100vh - 42px - 40px - 52px - 50px - 20px);
+  overflow-x: hidden;
+}
+
+.orders-list-wrapper {
   padding: 5px;
 }
 
@@ -23,7 +31,6 @@
   padding: 10px 5px;
 
   position: relative;
-  overflow-x: hidden;
 }
 
 .orders-item-header {
