@@ -13,11 +13,25 @@ export const getAllOrders = createAsyncThunk(
   }
 );
 
-export const postOrder = createAsyncThunk(
-  "orders/postOrder",
+export const addNewOrder = createAsyncThunk(
+  "orders/addNewOrder",
   async ({ data: order, success, failed }, { rejectWithValue }) => {
     try {
       const { data } = await cipa.post("/orders", order);
+      success();
+      return data;
+    } catch (error) {
+      failed(error.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const updateOrder = createAsyncThunk(
+  "orders/updateOrder",
+  async ({ data: order, success, failed }, { rejectWithValue }) => {
+    try {
+      const { data } = await cipa.patch("/orders", order);
       success();
       return data;
     } catch (error) {

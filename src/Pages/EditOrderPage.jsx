@@ -6,7 +6,7 @@ import OrderForm from "../components/OrderForm/OrderForm";
 import { useDispatch, useSelector } from "react-redux";
 import useProducts from "../hooks/useProducts";
 import { setSelectedProducts } from "../store/productsSlice";
-import { resetOrder, setOrder } from "../store/ordersSlice";
+import { setOrder } from "../store/ordersSlice";
 import { Select } from "../context/select-context";
 import useSelectContext from "../hooks/useSelectContext";
 

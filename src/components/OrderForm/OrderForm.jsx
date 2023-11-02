@@ -5,7 +5,7 @@ import Inputs from "../Inputs/Inputs";
 import OrderFormGroup from "../OrderFormGroup/OrderFormGroup";
 import Summary from "../Summary/Summary";
 import { resetProducts } from "../../store/productsSlice";
-import { postOrder } from "../../store/ordersActions";
+import { addNewOrder } from "../../store/ordersActions";
 import Loader from "../Loader/Loader";
 import { Toast } from "../../context/toast-context";
 import { Select } from "../../context/select-context";
@@ -19,8 +19,9 @@ import {
 import OrderPoultryFunctionBtn from "../OrderPoultryFunctionBtn/OrderPoultryFunctionBtn";
 import OrderFormHeader from "../OrderFormHeader/OrderFormHeader";
 import BackBtn from "../BackBtn/BackBtn";
+import AddNewProduct from "../AddNewProduct/AddNewProduct";
 
-export default function ModalOrder({ productsSelected }) {
+export default function OrderForm({ productsSelected }) {
   const toast = useContext(Toast);
   const { resetSelect } = useContext(Select);
 
@@ -62,7 +63,7 @@ export default function ModalOrder({ productsSelected }) {
     };
 
     dispatch(
-      postOrder({
+      addNewOrder({
         data: order,
         success: () => {
           toast.success("Заказ успешно добавлен");
@@ -94,6 +95,7 @@ export default function ModalOrder({ productsSelected }) {
               <div>
                 <p>Верунться к заказам</p>
                 <BackBtn path="/orders" />
+                <AddNewProduct />
               </div>
             </div>
           ) : (

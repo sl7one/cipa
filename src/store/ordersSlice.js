@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  addNewOrder,
   deleteOrder,
   getAllOrders,
-  postOrder,
   salleOrder,
   unsalleOrder,
+  updateOrder,
 } from "./ordersActions";
 import { foodCalculator } from "../utils/foodCalculator";
 import { medicineCalculator } from "../utils/medicineCalculator";
@@ -165,8 +166,14 @@ export const ordersSlice = createSlice({
       state.isLoading = false;
     });
 
-    builder.addCase(postOrder.fulfilled, (state, { payload }) => {
+    builder.addCase(addNewOrder.fulfilled, (state, { payload }) => {
       state.orders.unshift({ ...payload, isChecked: false });
+      state.isLoading = false;
+    });
+
+    builder.addCase(updateOrder.fulfilled, (state, { payload }) => {
+      const idx = state.orders.findIndex(({ _id }) => _id === payload._id);
+      state.orders.splice(idx, 1, payload);
       state.isLoading = false;
     });
 
@@ -196,8 +203,11 @@ export const ordersSlice = createSlice({
     builder.addCase(getAllOrders.pending, pending);
     builder.addCase(getAllOrders.rejected, rejected);
 
-    builder.addCase(postOrder.pending, pending);
-    builder.addCase(postOrder.rejected, rejected);
+    builder.addCase(addNewOrder.pending, pending);
+    builder.addCase(addNewOrder.rejected, rejected);
+
+    builder.addCase(updateOrder.pending, pending);
+    builder.addCase(updateOrder.rejected, rejected);
 
     builder.addCase(salleOrder.pending, pending);
     builder.addCase(salleOrder.rejected, rejected);
