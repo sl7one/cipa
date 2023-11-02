@@ -88,7 +88,7 @@ const ModalClient = () => {
     if (!isClientExist) {
       dispatch(
         addNewClient({
-          data: clientData,
+          data: { name: clientData.name, phone: clientData.phone },
           success: (data) => {
             toast.success("Добавлен новый контакт");
             dispatch(setClientData(data));

@@ -7,7 +7,7 @@ export default function AddNewProduct() {
 
   return (
     <button className="add-product" type="button" onClick={productModal.show}>
-      Добавить товары
+      Добавить <br /> товары
     </button>
   );
 }
