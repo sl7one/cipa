@@ -1,15 +1,13 @@
 import React, { useEffect } from "react";
 import "./summary.scss";
-import { useSelector } from "react-redux";
 import { animationsHelper } from "../../utils/animationsHelper";
 import { summaryHelper } from "../../utils/summary";
 
-export default function Summary() {
+export default function Summary({ data }) {
   const { summary: summaryAnimations } = animationsHelper;
-  const ordersData = useSelector((state) => state.orders.orderForm.ordersData);
 
   const resultSummary = summaryHelper({
-    data: ordersData,
+    data,
   });
 
   const ordersTotalSumm = resultSummary.reduce(
@@ -40,7 +38,7 @@ export default function Summary() {
         ))}
       </ul>
       <p>
-        Всего по заказу: <span>{ordersTotalSumm + " грн"}</span>
+        Всего по заказам: <span>{ordersTotalSumm + " грн"}</span>
       </p>
     </div>
   );

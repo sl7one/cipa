@@ -6,7 +6,13 @@ import moment from "moment/moment";
 import { useDispatch, useSelector } from "react-redux";
 import { setChecked, unsetChecked } from "../../store/ordersSlice";
 
-export default function OrdersListInfoGroup({ total, client, id, date }) {
+export default function OrdersListInfoGroup({
+  total,
+  client,
+  id,
+  date,
+  location,
+}) {
   const { orderModal } = animationsHelper;
   const orders = useSelector((state) => state.orders.orders);
   const dispatch = useDispatch();
@@ -40,6 +46,7 @@ export default function OrdersListInfoGroup({ total, client, id, date }) {
       <div className="orders-item__info">
         <span className="orders-item__info-name">{client.name}</span>
         <span className="orders-item__info-phone">{client.phone}</span>
+        <span className="orders-item__info-location">{location}</span>
       </div>
       <p className="orders-item__total">{total + " грн"}</p>
       <button

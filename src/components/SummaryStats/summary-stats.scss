@@ -1,0 +1,74 @@
+.summary-stats {
+  width: 100%;
+}
+
+.summary-stats__header,
+.summary-stats__body li {
+  display: grid;
+  grid-template-columns: 1fr 25% 30%;
+  border-bottom: 1px solid rgb(197, 197, 197);
+}
+
+.summary-stats__body li div {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-stats__body li div span {
+  margin-left: 20px;
+  border-bottom: 1px dashed rgb(197, 197, 197);
+  padding: 5px;
+}
+
+.summary-stats__header span:first-of-type {
+  justify-self: flex-start;
+}
+
+.summary-stats__header span {
+  display: inline-block;
+  padding: 5px;
+  font-weight: 600;
+}
+
+.summary-stats__header {
+  background-color: rgb(197, 197, 197);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.summary-stats > p {
+  margin: 10px;
+
+  font-size: 14px;
+}
+
+.summary-stats > p span {
+  font-weight: 600;
+  color: blue;
+}
+
+.summary-cell {
+  width: 100%;
+}
+
+.summary-cell p {
+  background-color: rgb(231, 231, 231);
+  padding: 5px;
+}
+
+.summary-cell p:first-of-type {
+  font-weight: 600;
+}
+
+.summary-cell span {
+  padding: 0;
+  border-right: unset;
+}
+
+.summary-cell:not(:last-child) {
+  border-right: 1px solid rgb(197, 197, 197);
+}
+
+.summary-cell:first-child {
+  justify-self: flex-start;
+}

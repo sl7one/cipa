@@ -130,4 +130,9 @@ export const animationsHelper = {
     show: () => gsap.to(".modal-backdrop", { right: 0 }),
     hide: () => gsap.to(".modal-backdrop", { right: "-100%" }),
   },
+
+  stats: {
+    show: () => gsap.to(".stats-payload", { translateY: "-100%" }),
+    hide: () => gsap.to(".stats-payload", { translateY: "0" }),
+  },
 };

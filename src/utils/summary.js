@@ -1,28 +1,40 @@
 export const summaryHelper = ({ data }) => {
   if (!data) return null;
-  const summaryData = {};
 
-  for (const productItem in data) {
-    const product = data[productItem];
+  const entries = Object.entries(data).reduce(
+    (acc, [_, { category, quantity, total, title }]) => {
+      const totalByQuantity = acc?.[category]?.totalOrder || 0;
+      const summByQuantity = totalByQuantity + Number(quantity);
 
-    const { category, quantity, price } = product;
+      const totalBySumm = acc?.[category]?.totalSumm || 0;
+      const totalSumm = totalBySumm + Number(total);
 
-    if (summaryData[category]) {
-      summaryData[category].totalOrder += Number(quantity);
-      summaryData[category].totalSumm += Number(quantity) * Number(price);
-    } else {
-      summaryData[category] = {
-        totalOrder: Number(quantity),
-        totalSumm: Number(quantity) * Number(price),
+      const orders = acc?.[category]?.orders || [];
+      orders.push({ title, quantity, total });
+
+      acc = {
+        ...acc,
+        [category]: {
+          totalOrder: summByQuantity,
+          totalSumm: totalSumm,
+          orders,
+        },
+      };
+      return acc;
+    },
+    {}
+  );
+
+  const summary = Object.entries(entries).map(
+    ([category, { totalOrder, totalSumm, orders }]) => {
+      return {
+        category,
+        totalOrder,
+        totalSumm,
+        orders,
       };
     }
-  }
-
-  const summary = Object.entries(summaryData).map(([category, data]) => ({
-    category,
-    totalOrder: data.totalOrder,
-    totalSumm: data.totalSumm,
-  }));
+  );
 
   return summary;
 };

@@ -181,7 +181,8 @@ export const ordersSlice = createSlice({
     builder.addCase(salleOrder.fulfilled, (state, { payload }) => {
       payload.id.forEach((id) => {
         const idx = state.orders.findIndex(({ _id }) => _id === id);
-        state.orders.splice(idx, 1);
+        const { isActive, ...rest } = state.orders[idx];
+        state.orders.splice(idx, 1, { ...rest, isActive: false });
       });
       state.isLoading = false;
     });

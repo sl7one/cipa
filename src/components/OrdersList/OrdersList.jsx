@@ -10,6 +10,7 @@ import OrdersListHeader from "../OrdersListHeader/OrdersListHeader";
 import DialogModal from "../DialogModal/DialogModal";
 import { deleteOrder } from "../../store/ordersActions";
 import { Toast } from "../../context/toast-context";
+import StatsPayload from "../StatsPayload/StatsPayload";
 
 export default function OrdersList() {
   const toast = useContext(Toast);
@@ -106,6 +107,7 @@ export default function OrdersList() {
             </li>
           ))}
       </ul>
+      <StatsPayload />
       <DialogModal
         title="Подтвердите удаление заказа"
         onClickYes={() => onClickYes({ _id: order.id })}

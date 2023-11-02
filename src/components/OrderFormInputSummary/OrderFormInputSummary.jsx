@@ -13,7 +13,7 @@ export default function OrderFormInputSummary({ _id, total }) {
         type="number"
         className="form__input total"
         name={_id}
-        value={!total ? totalCount : 0}
+        value={total || totalCount || 0}
         readOnly
       />
       <label htmlFor={_id}>грн</label>

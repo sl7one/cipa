@@ -5,6 +5,7 @@ import { GiReceiveMoney, GiCheckMark } from "react-icons/gi";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { MdKeyboardBackspace } from "react-icons/md";
 import { CgLogOut, CgSearchLoading } from "react-icons/cg";
+import { AiOutlineBarChart } from "react-icons/ai";
 
 import "./icons.scss";
 
@@ -21,6 +22,7 @@ export default function Icons({ name }) {
     sort: <TbArrowsSort color="blue" size={size} />,
     search: <CgSearchLoading color="blue" size={size} />,
     logout: <CgLogOut color="black" size={size} />,
+    chart: <AiOutlineBarChart color="black" size={size} />,
   };
 
   return <span className="icon-wrapper">{iconsSet[name]}</span>;

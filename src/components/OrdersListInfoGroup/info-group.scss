@@ -9,12 +9,6 @@
   left: 0;
 }
 
-.orders-item__info {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
 .checkbox-label {
   position: relative;
   overflow: hidden;
@@ -64,6 +58,13 @@
 
 .orders-item__info-phone {
   font-weight: 600;
+}
+
+.orders-item__info-location {
+  display: inline-block;
+  background-color: var(--gray-bg);
+  padding: 2px;
+  font-size: 9px;
 }
 
 .orders-item__total {

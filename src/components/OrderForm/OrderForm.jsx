@@ -118,7 +118,7 @@ export default function ModalOrder({ productsSelected }) {
                   <OrderFormGroup key={props._id} {...props} />
                 )}
               />
-              <Summary />
+              <Summary data={ordersData} />
             </div>
           )}
         </>
