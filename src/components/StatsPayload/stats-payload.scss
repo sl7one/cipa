@@ -28,8 +28,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 5px;
 
   position: relative;
+}
+
+.stats-payload h2 > div {
+  display: block;
+}
+
+.stats-payload h2 > #arrow {
+  transform: rotate(90deg);
+}
+
+.stats-payload h2 > div span svg {
+  fill: blue;
 }
 
 .stats-payload h2 .icon-wrapper {
@@ -37,7 +50,6 @@
   height: unset;
 
   background: unset;
-  margin-right: 10px;
 }
 
 .stats-payload h2::before {
