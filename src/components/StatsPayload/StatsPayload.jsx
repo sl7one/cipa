@@ -17,11 +17,23 @@ export default function StatsPayload() {
   );
 
   const normalizeData = useMemo(() => {
-    const getOrdersArray = filtredArray.map(({ order }) => order).flat();
-    return getOrdersArray.reduce(
-      (acc, { _id, ...rest }) => (acc = { ...acc, [_id]: rest }),
-      {}
-    );
+    return filtredArray
+      .map(({ order }) => order)
+      .flat()
+      .reduce((acc, { _id, quantity, total, ...rest }) => {
+        acc = {
+          ...acc,
+          [_id]:
+            _id in acc
+              ? {
+                  ...rest,
+                  quantity: Number(acc[_id].quantity) + Number(quantity),
+                  total: Number(acc[_id].total) + Number(total),
+                }
+              : { ...rest, quantity, total },
+        };
+        return acc;
+      }, {});
   }, [filtredArray]);
 
   const onClick = () => {

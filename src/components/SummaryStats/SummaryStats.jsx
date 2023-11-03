@@ -7,6 +7,7 @@ export default function SummaryStats({ data }) {
     const resultSummary = summaryHelper({
       data,
     });
+
     const ordersTotalSumm = resultSummary.reduce(
       (acc, { totalSumm }) => (acc += totalSumm),
       0
