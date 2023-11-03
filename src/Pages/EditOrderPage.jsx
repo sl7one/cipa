@@ -30,6 +30,7 @@ export default function EditOrderPage() {
   );
 
   const products = useSelector((state) => state.products.products);
+  const owner = useSelector((state) => state.auth.user._id);
   const productsSelected = useSelectedProducts(products);
 
   const dispatch = useDispatch();
@@ -39,19 +40,12 @@ export default function EditOrderPage() {
   const orderForm = useSelector((state) => state.orders.orderForm);
 
   useEffect(() => {
-    const { order, client, date } = orderData;
-    const formOrderData = order.reduce(
-      (acc, { _id, ...rest }) => ({
-        ...acc,
-        [_id]: { ...rest },
-      }),
-      {}
-    );
+    const { order, client, date, _id } = orderData;
 
     order.forEach(({ _id }) => dispatch(setSelectedProducts(_id)));
+    dispatch(setOrder({ _id, order }));
     dispatch(setDate(new Date(date)));
     dispatch(setClientData(client));
-    dispatch(setOrder(formOrderData));
 
     return () => {
       dispatch(resetProducts());
@@ -75,18 +69,19 @@ export default function EditOrderPage() {
       })
     );
 
-    const order = {
-      date: orderForm.dateData.toISOString(),
-      client: orderForm.clientData._id,
-      order: orders,
-      location: orderForm.locationData._id,
-      message: orderForm.messageData,
-      owner: orderForm.owner,
-    };
-
     dispatch(
       updateOrder({
-        data: order,
+        data: {
+          _id: orderForm._id,
+          body: {
+            date: orderForm.date.toISOString(),
+            client: orderForm.clientData._id,
+            order: orders,
+            location: orderForm.location?._id || "",
+            message: orderForm.message,
+            owner,
+          },
+        },
         success: () => {
           toast.success("Заказ успешно добавлен");
           dispatch(resetOrder());

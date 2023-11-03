@@ -140,9 +140,20 @@ export const ordersSlice = createSlice({
     resetMessage: (state) => {
       state.orderForm.location = initialFormState.location;
     },
-    setOrder: (state, { payload }) => {
+    setOrder: (state, { payload: { _id, order } }) => {
+      const formOrder = order.reduce(
+        (acc, { _id, ...rest }) => ({
+          ...acc,
+          [_id]: { ...rest },
+        }),
+        {}
+      );
       state.orderForm.ordersData = {
-        ...payload,
+        ...formOrder,
+      };
+      state.orderForm = {
+        ...state.orderForm,
+        _id,
       };
     },
     resetOrder: (state) => {

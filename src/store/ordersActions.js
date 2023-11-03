@@ -29,9 +29,9 @@ export const addNewOrder = createAsyncThunk(
 
 export const updateOrder = createAsyncThunk(
   "orders/updateOrder",
-  async ({ data: order, success, failed }, { rejectWithValue }) => {
+  async ({ data: { _id, body }, success, failed }, { rejectWithValue }) => {
     try {
-      const { data } = await cipa.patch("/orders", order);
+      const { data } = await cipa.patch(`/orders/${_id}`, body);
       success();
       return data;
     } catch (error) {
