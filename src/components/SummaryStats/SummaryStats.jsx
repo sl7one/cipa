@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { summaryHelper } from "../../utils/summary";
 import "./summary-stats.scss";
 
 export default function SummaryStats({ data }) {
-  const resultSummary = summaryHelper({
-    data,
-  });
-
-  const ordersTotalSumm = resultSummary.reduce(
-    (acc, { totalSumm }) => (acc += totalSumm),
-    0
-  );
+  const { resultSummary, ordersTotalSumm } = useMemo(() => {
+    const resultSummary = summaryHelper({
+      data,
+    });
+    const ordersTotalSumm = resultSummary.reduce(
+      (acc, { totalSumm }) => (acc += totalSumm),
+      0
+    );
+    return { resultSummary, ordersTotalSumm };
+  }, [data]);
 
   return (
     <div className="summary-stats">

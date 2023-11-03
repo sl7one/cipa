@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import "./summary.scss";
 import { animationsHelper } from "../../utils/animationsHelper";
 import { summaryHelper } from "../../utils/summary";
@@ -6,14 +6,17 @@ import { summaryHelper } from "../../utils/summary";
 export default function Summary({ data }) {
   const { summary: summaryAnimations } = animationsHelper;
 
-  const resultSummary = summaryHelper({
-    data,
-  });
+  const { resultSummary, ordersTotalSumm } = useMemo(() => {
+    const resultSummary = summaryHelper({
+      data,
+    });
 
-  const ordersTotalSumm = resultSummary.reduce(
-    (acc, { totalSumm }) => (acc += totalSumm),
-    0
-  );
+    const ordersTotalSumm = resultSummary.reduce(
+      (acc, { totalSumm }) => (acc += totalSumm),
+      0
+    );
+    return { resultSummary, ordersTotalSumm };
+  }, [data]);
 
   useEffect(() => {
     resultSummary.length && ordersTotalSumm

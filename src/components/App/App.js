@@ -6,6 +6,8 @@ import PrivatRoutes from "../PrivatRoutes/PrivatRoutes";
 import PublicRoutes from "../PublicRoutes/PublicRoutes";
 import { useDispatch, useSelector } from "react-redux";
 import { current } from "../../store/authActions";
+import useSelectContext from "../../hooks/useSelectContext";
+import { Select } from "../../context/select-context";
 
 export default function App() {
   const isLogined = useSelector((state) => state.auth.isLogined);
@@ -16,9 +18,11 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    <Toast.Provider value={useToastContext()}>
-      {isLogined ? <PrivatRoutes /> : <PublicRoutes />}
-      <ToastContainer />
-    </Toast.Provider>
+    <Select.Provider value={useSelectContext()}>
+      <Toast.Provider value={useToastContext()}>
+        {isLogined ? <PrivatRoutes /> : <PublicRoutes />}
+        <ToastContainer />
+      </Toast.Provider>
+    </Select.Provider>
   );
 }
