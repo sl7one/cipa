@@ -10,6 +10,7 @@ import { Select } from "../context/select-context";
 import { addNewOrder } from "../store/ordersActions";
 import {
   resetClienData,
+  resetDate,
   resetLocation,
   resetMessage,
   resetOrder,
@@ -74,6 +75,19 @@ export default function NewOrderPage() {
       })
     );
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetProducts());
+      dispatch(resetOrder());
+      dispatch(resetClienData());
+      dispatch(resetDate());
+      dispatch(resetLocation());
+      dispatch(resetMessage());
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

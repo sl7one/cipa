@@ -22,8 +22,6 @@ export const store = configureStore({
 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredPaths: ["orders.orderForm.date"],
-      },
+      serializableCheck: false,
     }),
 });

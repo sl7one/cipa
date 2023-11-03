@@ -1,53 +1,68 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import ModalProduct from "../components/ModalProduct/ModalProduct";
 import ModalClient from "../components/ModalClient/ModalClient";
 import OrderForm from "../components/OrderForm/OrderForm";
 import { useDispatch, useSelector } from "react-redux";
-import useProducts from "../hooks/useProducts";
 import { resetProducts, setSelectedProducts } from "../store/productsSlice";
 import {
   resetClienData,
+  resetDate,
   resetLocation,
   resetMessage,
   resetOrder,
+  setClientData,
+  setDate,
   setOrder,
 } from "../store/ordersSlice";
 import { Select } from "../context/select-context";
 import useSelectContext from "../hooks/useSelectContext";
 import { updateOrder } from "../store/ordersActions";
 import { Toast } from "../context/toast-context";
+import useSelectedProducts from "../hooks/useSelectedProducts";
 
 export default function EditOrderPage() {
   const { id } = useParams();
   const orders = useSelector((state) => state.orders.orders);
-  const orderData = orders.find((el) => el._id === id);
-  const { order, client: clientData } = orderData;
+  const orderData = useMemo(
+    () => orders.find((el) => el._id === id),
+    [id, orders]
+  );
+
+  const products = useSelector((state) => state.products.products);
+  const productsSelected = useSelectedProducts(products);
 
   const dispatch = useDispatch();
-  const productsObject = useProducts();
   const toast = useContext(Toast);
   // const { resetSelect } = useContext(Select);
 
   const orderForm = useSelector((state) => state.orders.orderForm);
 
-  // useEffect(() => {
-  //   if (!clientData) return;
+  useEffect(() => {
+    const { order, client, date } = orderData;
+    const formOrderData = order.reduce(
+      (acc, { _id, ...rest }) => ({
+        ...acc,
+        [_id]: { ...rest },
+      }),
+      {}
+    );
 
-  //   const formData = order.reduce(
-  //     (acc, { _id, order, quantity, product: productRef }) => {
-  //       const product = productsObject[productRef];
-  //       return { ...acc, [_id]: { order, quantity, ...product } };
-  //     },
-  //     {}
-  //   );
+    order.forEach(({ _id }) => dispatch(setSelectedProducts(_id)));
+    dispatch(setDate(new Date(date)));
+    dispatch(setClientData(client));
+    dispatch(setOrder(formOrderData));
 
-  //   dispatch(setOrder({ formData, clientData }));
-  // }, [clientData, dispatch, order, productsObject]);
-
-  // useEffect(() => {
-  //   order.forEach(({ product }) => dispatch(setSelectedProducts(product)));
-  // }, [dispatch]);
+    return () => {
+      dispatch(resetProducts());
+      dispatch(resetOrder());
+      dispatch(resetClienData());
+      dispatch(resetDate());
+      dispatch(resetLocation());
+      dispatch(resetMessage());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -90,13 +105,7 @@ export default function EditOrderPage() {
     <>
       <ModalProduct />
       <ModalClient />
-      {/* <OrderForm
-        onSubmit={onSubmit}
-        productsSelected={order.map((el) => ({
-          ...el,
-          ...productsObject[el.product],
-        }))}
-      /> */}
+      <OrderForm onSubmit={onSubmit} productsSelected={productsSelected} />
     </>
   );
 }
