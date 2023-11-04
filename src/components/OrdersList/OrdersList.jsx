@@ -15,9 +15,11 @@ export default function OrdersList() {
   const toast = useContext(Toast);
   const [order, setOrder] = useState({});
   const [filter, setFilter] = useState("");
+  const [filterByOwner, setFilterByOwner] = useState(false);
   const [sort, setSort] = useState({ date: "init", total: "init" });
   const [mainMark, setMainMark] = useState("init");
   const orders = useSelector((state) => state.orders.orders);
+  const currentUser = useSelector((state) => state.auth.user._id);
   const { orderModal, dialogModal, menuOrder } = animationsHelper;
   const dispatch = useDispatch();
 
@@ -77,6 +79,8 @@ export default function OrdersList() {
         <OrdersListHeader
           setFilter={setFilter}
           filter={filter}
+          setFilterByOwner={setFilterByOwner}
+          filterByOwner={filterByOwner}
           setSort={setSort}
           sort={sort}
           setMainMark={setMainMark}
@@ -84,7 +88,7 @@ export default function OrdersList() {
         />
       </div>
       <div className="orders-list-wrapper">
-        <ul className="orders-list">
+        <ul className={"orders-list"}>
           {items
             .filter(({ client: { name, phone }, location }) => {
               if (!filter) {
@@ -97,6 +101,9 @@ export default function OrdersList() {
                 );
               }
             })
+            .filter(({ owner }) =>
+              !filterByOwner ? true : owner === currentUser
+            )
             .sort(({ date: dateA }, { date: dateB }) => {
               if (sort.date === "init") return 0;
               return sort.date === "asc"
@@ -107,8 +114,15 @@ export default function OrdersList() {
               if (sort.total === "init") return 0;
               return sort.total === "asc" ? totalA - totalB : totalB - totalA;
             })
-            .map(({ _id, ...rest }) => (
-              <li className="orders-item" key={_id}>
+            .map(({ _id, owner, ...rest }) => (
+              <li
+                className={
+                  owner === currentUser
+                    ? "orders-item current-color"
+                    : "orders-item"
+                }
+                key={_id}
+              >
                 <OrdersListInfoGroup {...rest} _id={_id} />
                 <FunctionalButtons _id={_id}>
                   <OrdersListFunctionalButtons

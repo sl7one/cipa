@@ -12,8 +12,10 @@ import DialogModal from "../DialogModal/DialogModal";
 export default function SallesList() {
   const [order, setOrder] = useState({});
   const [filter, setFilter] = useState("");
+  const [filterByOwner, setFilterByOwner] = useState(false);
   const [sort, setSort] = useState({ date: "init", total: "init" });
   const orders = useSelector((state) => state.orders.orders);
+  const currentUser = useSelector((state) => state.auth.user._id);
   const navigate = useNavigate();
   const toast = useContext(Toast);
   const dispatch = useDispatch();
@@ -50,6 +52,8 @@ export default function SallesList() {
           <SallesListHeader
             setFilter={setFilter}
             filter={filter}
+            setFilterByOwner={setFilterByOwner}
+            filterByOwner={filterByOwner}
             setSort={setSort}
             sort={sort}
           />
@@ -68,6 +72,9 @@ export default function SallesList() {
                   );
                 }
               })
+              .filter(({ owner }) =>
+                !filterByOwner ? true : owner === currentUser
+              )
               .sort(({ date: dateA }, { date: dateB }) => {
                 if (sort.date === "init") return 0;
                 return sort.date === "asc"
@@ -78,8 +85,15 @@ export default function SallesList() {
                 if (sort.total === "init") return 0;
                 return sort.total === "asc" ? totalA - totalB : totalB - totalA;
               })
-              .map(({ _id, ...rest }) => (
-                <li className="orders-item" key={_id}>
+              .map(({ _id, owner, ...rest }) => (
+                <li
+                  className={
+                    owner === currentUser
+                      ? "orders-item current-color"
+                      : "orders-item"
+                  }
+                  key={_id}
+                >
                   <SallesListInfoGroup
                     {...rest}
                     id={_id}

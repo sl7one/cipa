@@ -24,6 +24,10 @@
   position: relative;
 }
 
+.orders-item.current-color {
+  background-color: rgb(234, 255, 240);
+}
+
 .orders-item-header .orders-item__info-group .checkbox-label::after {
   display: none;
 }

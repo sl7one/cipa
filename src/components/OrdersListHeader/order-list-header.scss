@@ -81,3 +81,16 @@
   color: black;
   font-size: 11px;
 }
+
+.current-user-orders {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 5px;
+  align-items: center;
+  justify-items: center;
+  margin-top: 10px;
+}
+
+.current-user-orders label {
+  justify-self: flex-start;
+}

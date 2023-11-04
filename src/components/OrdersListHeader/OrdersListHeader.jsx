@@ -7,12 +7,14 @@ import "./order-list-header.scss";
 export default function OrdersListHeader({
   setFilter,
   filter,
+  setFilterByOwner,
+  filterByOwner,
   setSort,
   sort,
   setMainMark,
   mainMark: mark,
 }) {
-  const { menuOrder, mainMark } = animationsHelper;
+  const { menuOrder, mainMark, currentUserMark } = animationsHelper;
 
   const onClickonClickSortDateOrTotal = (type) => {
     if (type === "date") {
@@ -43,6 +45,10 @@ export default function OrdersListHeader({
     !mark ? mainMark.hide() : mainMark.show();
   }, [mainMark, mark]);
 
+  useEffect(() => {
+    !filterByOwner ? currentUserMark.hide() : currentUserMark.show();
+  }, [currentUserMark, filterByOwner]);
+
   return (
     <div className="orders-list-header">
       <div className="orders-item-header">
@@ -58,7 +64,6 @@ export default function OrdersListHeader({
               <Icons name="mark" />
             </div>
           </label>
-
           <span>
             <button
               type="button"
@@ -95,6 +100,22 @@ export default function OrdersListHeader({
             <Icons name="dots" />
             <MenuPopupOrders />
           </span>
+        </div>
+        <div className="current-user-orders">
+          <div className="checkbox-label" htmlFor="main-mark">
+            <input
+              className="checkbox"
+              type="checkbox"
+              id="current-user-mark"
+              onChange={() => setFilterByOwner((prev) => !prev)}
+            />
+            <div className="mark-wrapper" id={"current-user-mark"}>
+              <Icons name="mark" />
+            </div>
+          </div>
+          <label htmlFor="current-user-mark">
+            Отобразить только мои заказы
+          </label>
         </div>
       </div>
     </div>

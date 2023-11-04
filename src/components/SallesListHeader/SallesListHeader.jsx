@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Icons from "../Icons/Icons";
+import { animationsHelper } from "../../utils/animationsHelper";
 
-export default function SallesListHeader({ setFilter, filter, setSort, sort }) {
+export default function SallesListHeader({
+  setFilter,
+  filter,
+  setSort,
+  sort,
+  setFilterByOwner,
+  filterByOwner,
+}) {
+  const { currentUserMark } = animationsHelper;
+
   const onClick = (type) => {
     if (type === "date") {
       sort.date === "desc"
@@ -15,6 +25,10 @@ export default function SallesListHeader({ setFilter, filter, setSort, sort }) {
         : setSort({ date: "init", total: "desc" });
     }
   };
+
+  useEffect(() => {
+    !filterByOwner ? currentUserMark.hide() : currentUserMark.show();
+  }, [currentUserMark, filterByOwner]);
 
   return (
     <div className="orders-list-header">
@@ -49,6 +63,22 @@ export default function SallesListHeader({ setFilter, filter, setSort, sort }) {
           <span>
             <Icons name="dots" />
           </span>
+        </div>
+        <div className="current-user-orders">
+          <div className="checkbox-label" htmlFor="main-mark">
+            <input
+              className="checkbox"
+              type="checkbox"
+              id="current-user-mark"
+              onChange={() => setFilterByOwner((prev) => !prev)}
+            />
+            <div className="mark-wrapper" id={"current-user-mark"}>
+              <Icons name="mark" />
+            </div>
+          </div>
+          <label htmlFor="current-user-mark">
+            Отобразить только мои заказы
+          </label>
         </div>
       </div>
     </div>

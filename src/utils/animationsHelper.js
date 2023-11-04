@@ -140,4 +140,9 @@ export const animationsHelper = {
     show: () => gsap.to("#main-mark", { top: 0, opacity: 1 }),
     hide: () => gsap.to("#main-mark", { top: "-100%", opacity: 0 }),
   },
+
+  currentUserMark: {
+    show: () => gsap.to("#current-user-mark", { top: 0, opacity: 1 }),
+    hide: () => gsap.to("#current-user-mark", { top: "-100%", opacity: 0 }),
+  },
 };
