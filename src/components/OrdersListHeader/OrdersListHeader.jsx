@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Icons from "../Icons/Icons";
 import MenuPopupOrders from "../MenuPopupOrders/MenuPopupOrders";
 import { animationsHelper } from "../../utils/animationsHelper";
+import "./order-list-header.scss";
 
 export default function OrdersListHeader({
   setFilter,
   filter,
   setSort,
   sort,
-  setMarks,
-  marks,
+  setMainMark,
+  mainMark: mark,
 }) {
-  const { menuOrder } = animationsHelper;
+  const { menuOrder, mainMark } = animationsHelper;
 
   const onClickonClickSortDateOrTotal = (type) => {
     if (type === "date") {
@@ -28,31 +29,35 @@ export default function OrdersListHeader({
   };
 
   const onChange = () => {
-    if (marks === "init") {
-      setMarks(true);
-      if (marks === "init") menuOrder.show();
+    if (mark === "init") {
+      setMainMark(true);
+      menuOrder.show();
       return;
     }
-    setMarks((prev) => !prev);
-    !marks ? menuOrder.show() : menuOrder.hide();
+    setMainMark((prev) => !prev);
+    !mark ? menuOrder.show() : menuOrder.hide();
   };
+
+  useEffect(() => {
+    if (mark === "init") return;
+    !mark ? mainMark.hide() : mainMark.show();
+  }, [mainMark, mark]);
 
   return (
     <div className="orders-list-header">
       <div className="orders-item-header">
-        <div className="orders-item__info-group">
-          <div className="checkbox-label">
-            <label
-              className={marks === "init" ? null : marks ? "checked" : null}
-              htmlFor="marks"
-            ></label>
+        <div className="orders-item-header__info-group">
+          <label className="checkbox-label" htmlFor="main-mark">
             <input
               className="checkbox"
               type="checkbox"
+              id="main-mark"
               onChange={onChange}
-              id="marks"
             />
-          </div>
+            <div className="mark-wrapper" id={"main-mark"}>
+              <Icons name="mark" />
+            </div>
+          </label>
 
           <span>
             <button
@@ -63,8 +68,8 @@ export default function OrdersListHeader({
               Дата
             </button>
           </span>
-          <div className="orders-item__info">
-            <label className="orders-item__info-search" htmlFor="search">
+          <div className="orders-item-header__search-block">
+            <label className="orders-item-header__search-bar" htmlFor="search">
               <Icons name="search" />
               <input
                 type="text"

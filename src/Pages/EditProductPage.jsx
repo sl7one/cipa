@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo } from "react";
-import Loader from "../components/Loader/Loader";
 import BackBtn from "../components/BackBtn/BackBtn";
 import UpdateProductForm from "../components/UpdateProductForm/UpdateProductForm";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +8,6 @@ import { setProductForm } from "../store/productsSlice";
 export default function EditProductPage() {
   const { id } = useParams();
   const productsData = useSelector((state) => state.products.products);
-  const isLoading = useSelector((state) => state.products.isLoading);
   const categories = useSelector((state) => state.categories.categories);
   const subCategories = useSelector(
     (state) => state.subCategories.subCategories
@@ -44,15 +42,9 @@ export default function EditProductPage() {
   }, []);
 
   return (
-    <div>
-      {isLoading ? (
-        <Loader isVisible={isLoading} />
-      ) : (
-        <>
-          <BackBtn path="/products" />
-          <UpdateProductForm />
-        </>
-      )}
-    </div>
+    <>
+      <BackBtn path="/products" />
+      <UpdateProductForm />
+    </>
   );
 }

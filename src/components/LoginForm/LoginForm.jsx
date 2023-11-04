@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import gsap from "gsap";
-import Loader from "../Loader/Loader";
 import "./login-form.scss";
 import { NavLink } from "react-router-dom";
 
@@ -63,7 +62,7 @@ export default function LoginForm({ onSubmit, isLoading }) {
               ) : null}
             </div>
 
-            {isLoading ? <Loader /> : <button type="submit">Войти</button>}
+            <button type="submit">Войти</button>
           </Form>
         )}
       </Formik>

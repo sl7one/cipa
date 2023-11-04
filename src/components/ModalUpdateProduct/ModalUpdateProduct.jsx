@@ -33,7 +33,6 @@ export default function ModalUpdateProduct() {
   const dispatch = useDispatch();
   const { editProduct } = animationsHelper;
   const productForm = useSelector((state) => state.products.productForm);
-  const isLoading = useSelector((state) => state.products.isLoading);
 
   const onChangeCategory = (e) => {
     if (!e) {
@@ -135,9 +134,7 @@ export default function ModalUpdateProduct() {
 
   return (
     <>
-      {isLoading ? (
-        <Loader isVisible={isLoading} />
-      ) : (
+ 
         <div className="update-product-backdrop">
           <form className="update-product" onSubmit={onSubmit}>
             <div className="categories">
@@ -263,7 +260,6 @@ export default function ModalUpdateProduct() {
             </div>
           </form>
         </div>
-      )}
     </>
   );
 }

@@ -7,7 +7,7 @@ import Icons from "../Icons/Icons";
 import { Link } from "react-router-dom";
 
 export default function OrdersListFunctionalButtons({
-  id,
+  _id,
   confirmDelete,
   ...rest
 }) {
@@ -16,14 +16,14 @@ export default function OrdersListFunctionalButtons({
   const dispatch = useDispatch();
 
   const onClickHide = () => {
-    orderModal.infoGroup.show("i" + id);
-    orderModal.buttonsGroup.hide("b" + id);
+    orderModal.infoGroup.show("i" + _id);
+    orderModal.buttonsGroup.hide("b" + _id);
   };
 
   const onClickSalle = () => {
     dispatch(
       salleOrder({
-        data: id,
+        data: _id,
         success: () => toast.success("Заказ успешно проведен"),
         failed: (message) => toast.error(message),
       })
@@ -39,14 +39,14 @@ export default function OrdersListFunctionalButtons({
         <Icons name="back" />
       </button>
 
-      <Link className="orders-item__buttons-btn" to={`edit/${id}`}>
+      <Link className="orders-item__buttons-btn" to={`edit/${_id}`}>
         <Icons name="edit" />
       </Link>
 
       <button
         className="orders-item__buttons-btn"
         type="button"
-        onClick={() => confirmDelete({ id, ...rest })}
+        onClick={() => confirmDelete({ _id, ...rest })}
       >
         <Icons name="remove" />
       </button>

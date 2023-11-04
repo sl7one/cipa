@@ -16,9 +16,9 @@ export default function OrdersList() {
   const [order, setOrder] = useState({});
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState({ date: "init", total: "init" });
-  const [marks, setMarks] = useState("init");
+  const [mainMark, setMainMark] = useState("init");
   const orders = useSelector((state) => state.orders.orders);
-  const { orderModal, dialogModal } = animationsHelper;
+  const { orderModal, dialogModal, menuOrder } = animationsHelper;
   const dispatch = useDispatch();
 
   const items = useMemo(
@@ -27,20 +27,31 @@ export default function OrdersList() {
   );
 
   useEffect(() => {
-    if (marks === "init") return;
+    if (mainMark === "init") return;
     items.forEach(({ _id }) =>
-      marks ? dispatch(setChecked(_id)) : dispatch(unsetChecked(_id))
+      mainMark ? dispatch(setChecked(_id)) : dispatch(unsetChecked(_id))
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, marks]);
+  }, [dispatch, mainMark]);
 
   useEffect(() => {
+    if (!items.length) {
+      setMainMark(false);
+      return;
+    }
+
     items.forEach(({ isChecked, _id }) => {
       isChecked
         ? orderModal.infoGroup.mark.show("mark" + _id)
         : orderModal.infoGroup.mark.hide("mark" + _id);
     });
-  }, [orders, orderModal, items]);
+  }, [orderModal, items]);
+
+  useEffect(() => {
+    items.some(({ isChecked }) => isChecked)
+      ? menuOrder.show()
+      : menuOrder.hide();
+  }, [menuOrder, items]);
 
   const confirmDelete = (order) => {
     setOrder(order);
@@ -68,8 +79,8 @@ export default function OrdersList() {
           filter={filter}
           setSort={setSort}
           sort={sort}
-          setMarks={setMarks}
-          marks={marks}
+          setMainMark={setMainMark}
+          mainMark={mainMark}
         />
       </div>
       <div className="orders-list-wrapper">
@@ -98,11 +109,11 @@ export default function OrdersList() {
             })
             .map(({ _id, ...rest }) => (
               <li className="orders-item" key={_id}>
-                <OrdersListInfoGroup {...rest} id={_id} />
-                <FunctionalButtons id={_id}>
+                <OrdersListInfoGroup {...rest} _id={_id} />
+                <FunctionalButtons _id={_id}>
                   <OrdersListFunctionalButtons
                     {...rest}
-                    id={_id}
+                    _id={_id}
                     confirmDelete={confirmDelete}
                   />
                 </FunctionalButtons>

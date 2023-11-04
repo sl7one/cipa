@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from "react";
 import OrderForm from "../components/OrderForm/OrderForm";
 import ModalProduct from "../components/ModalProduct/ModalProduct";
 import ModalClient from "../components/ModalClient/ModalClient";
-import Loader from "../components/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { animationsHelper } from "../utils/animationsHelper";
 import useSelectedProducts from "../hooks/useSelectedProducts";
@@ -19,7 +18,6 @@ import { resetProducts } from "../store/productsSlice";
 import { Toast } from "../context/toast-context";
 
 export default function NewOrderPage() {
-  const isLoading = useSelector((state) => state.products.isLoading);
   const { productModal } = animationsHelper;
   const products = useSelector((state) => state.products.products);
   const productsSelected = useSelectedProducts(products);
@@ -91,15 +89,9 @@ export default function NewOrderPage() {
 
   return (
     <>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <ModalProduct />
-          <ModalClient />
-          <OrderForm onSubmit={onSubmit} productsSelected={productsSelected} />
-        </>
-      )}
+      <ModalProduct />
+      <ModalClient />
+      <OrderForm onSubmit={onSubmit} productsSelected={productsSelected} />
     </>
   );
 }

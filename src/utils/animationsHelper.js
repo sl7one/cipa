@@ -135,4 +135,9 @@ export const animationsHelper = {
     show: () => gsap.to(".stats-payload", { translateY: "-90%" }),
     hide: () => gsap.to(".stats-payload", { translateY: 0 }),
   },
+
+  mainMark: {
+    show: () => gsap.to("#main-mark", { top: 0, opacity: 1 }),
+    hide: () => gsap.to("#main-mark", { top: "-100%", opacity: 0 }),
+  },
 };

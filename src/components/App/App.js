@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { current } from "../../store/authActions";
 import useSelectContext from "../../hooks/useSelectContext";
 import { Select } from "../../context/select-context";
+import LoadingBackdrop from "../LoadingBackdrop/LoadingBackdrop";
 
 export default function App() {
   const isLogined = useSelector((state) => state.auth.isLogined);
@@ -18,11 +19,14 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    <Select.Provider value={useSelectContext()}>
-      <Toast.Provider value={useToastContext()}>
-        {isLogined ? <PrivatRoutes /> : <PublicRoutes />}
-        <ToastContainer />
-      </Toast.Provider>
-    </Select.Provider>
+    <>
+      <Select.Provider value={useSelectContext()}>
+        <Toast.Provider value={useToastContext()}>
+          {isLogined ? <PrivatRoutes /> : <PublicRoutes />}
+          <ToastContainer />
+        </Toast.Provider>
+      </Select.Provider>
+      <LoadingBackdrop />
+    </>
   );
 }

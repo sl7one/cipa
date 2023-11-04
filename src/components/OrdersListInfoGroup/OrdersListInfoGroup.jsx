@@ -9,7 +9,7 @@ import { setChecked, unsetChecked } from "../../store/ordersSlice";
 export default function OrdersListInfoGroup({
   total,
   client,
-  id,
+  _id,
   date,
   location,
 }) {
@@ -18,25 +18,25 @@ export default function OrdersListInfoGroup({
   const dispatch = useDispatch();
 
   const onClickMenu = () => {
-    orderModal.infoGroup.hide("i" + id);
-    orderModal.buttonsGroup.show("b" + id);
+    orderModal.infoGroup.hide("i" + _id);
+    orderModal.buttonsGroup.show("b" + _id);
   };
 
-  const onChange = (id) => {
-    const [{ isChecked }] = orders.filter((el) => el._id === id);
-    isChecked ? dispatch(unsetChecked(id)) : dispatch(setChecked(id));
+  const onChange = (_id) => {
+    const { isChecked } = orders.find((el) => el._id === _id);
+    isChecked ? dispatch(unsetChecked(_id)) : dispatch(setChecked(_id));
   };
 
   return (
-    <div className="orders-item__info-group" id={"i" + id}>
-      <label className="checkbox-label" htmlFor={id}>
+    <div className="orders-item__info-group" id={"i" + _id}>
+      <label className="checkbox-label" htmlFor={_id}>
         <input
           className="checkbox"
           type="checkbox"
-          id={id}
-          onChange={() => onChange(id)}
+          id={_id}
+          onChange={() => onChange(_id)}
         />
-        <div className="mark-wrapper" id={"mark" + id}>
+        <div className="mark-wrapper" id={"mark" + _id}>
           <Icons name="mark" />
         </div>
       </label>
@@ -46,7 +46,9 @@ export default function OrdersListInfoGroup({
       <div className="orders-item__info">
         <span className="orders-item__info-name">{client.name}</span>
         <span className="orders-item__info-phone">{client.phone}</span>
-        <span className="orders-item__info-location">{location}</span>
+        {location && (
+          <span className="orders-item__info-location">{location}</span>
+        )}
       </div>
       <p className="orders-item__total">{total + " грн"}</p>
       <button
