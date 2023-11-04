@@ -9,20 +9,20 @@ import { AiOutlineBarChart } from "react-icons/ai";
 
 import "./icons.scss";
 
-export default function Icons({ name }) {
+export default function Icons({ name, color = null }) {
   const size = "1.25em";
   const iconsSet = {
-    edit: <CiEdit color="orange" size={size} />,
-    remove: <CiTrash color="red" size={size} />,
-    phone: <TbPhone color="blue" size={size} />,
-    hand: <GiReceiveMoney color="green" size={size} />,
-    dots: <BiDotsVerticalRounded color="black" size={size} />,
-    back: <MdKeyboardBackspace color="black" size={size} />,
-    mark: <GiCheckMark color="yellowgreen" size={size} />,
-    sort: <TbArrowsSort color="blue" size={size} />,
-    search: <CgSearchLoading color="blue" size={size} />,
-    logout: <CgLogOut color="black" size={size} />,
-    chart: <AiOutlineBarChart color="black" size={size} />,
+    edit: <CiEdit color={color || "orange"} size={size} />,
+    remove: <CiTrash color={color || "red"} size={size} />,
+    phone: <TbPhone color={color || "blue"} size={size} />,
+    hand: <GiReceiveMoney color={color || "green"} size={size} />,
+    dots: <BiDotsVerticalRounded color={color || "black"} size={size} />,
+    back: <MdKeyboardBackspace color={color || "black"} size={size} />,
+    mark: <GiCheckMark color={color || "yellowgreen"} size={size} />,
+    sort: <TbArrowsSort color={color || "blue"} size={size} />,
+    search: <CgSearchLoading color={color || "blue"} size={size} />,
+    logout: <CgLogOut color={color || "black"} size={size} />,
+    chart: <AiOutlineBarChart color={color || "black"} size={size} />,
   };
 
   return <span className="icon-wrapper">{iconsSet[name]}</span>;

@@ -76,9 +76,7 @@ export default function SallesListHeader({
               <Icons name="mark" />
             </div>
           </div>
-          <label htmlFor="current-user-mark">
-            Отобразить только мои заказы
-          </label>
+          <label htmlFor="current-user-mark">Отобразить только продажи</label>
         </div>
       </div>
     </div>

@@ -13,11 +13,11 @@ export default function HelloUser() {
   };
 
   return (
-    <div className="hello-user">
-      <button type="button" onClick={onClickLogout}>
-        <Icons name="logout" />
+    <div className="hello-user-wrapper">
+      <button className="hello-user" onClick={onClickLogout} type="button">
+        <Icons name="logout" color="blue" />
+        <h2>{user.firstName}</h2>
       </button>
-      <h2>{user.firstName}</h2>
     </div>
   );
 }

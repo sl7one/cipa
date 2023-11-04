@@ -24,8 +24,11 @@ export default function OrdersList() {
   const dispatch = useDispatch();
 
   const items = useMemo(
-    () => orders.filter(({ isActive }) => isActive),
-    [orders]
+    () =>
+      orders
+        .filter(({ isActive }) => isActive)
+        .filter(({ owner }) => (!filterByOwner ? true : owner === currentUser)),
+    [currentUser, filterByOwner, orders]
   );
 
   useEffect(() => {

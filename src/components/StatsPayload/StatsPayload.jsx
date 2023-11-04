@@ -54,7 +54,7 @@ export default function StatsPayload() {
         <div className="stats-payload" onClick={onClick}>
           <h2>
             <div id="arrow">
-              <Icons name="back" />
+              <Icons name="back" color="blue" />
             </div>
             <Icons name="chart" />
             <p>Нагрузка</p>

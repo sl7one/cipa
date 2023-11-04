@@ -6,11 +6,11 @@ import { animationsHelper } from "../../utils/animationsHelper";
 import "./menu-oders.scss";
 import useCounter from "../../hooks/useCounter";
 
-export default function MenuPopupOrders() {
+export default function MenuPopupOrders({ filterByOwner }) {
   const dispatch = useDispatch();
   const ids = useIdsToString();
   const { menuOrder } = animationsHelper;
-  const counter = useCounter();
+  const counter = useCounter({ filterByOwner });
 
   const onClickDeleteManyOrders = () => {
     if (!ids.length) return;

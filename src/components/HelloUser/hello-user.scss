@@ -1,7 +1,22 @@
+.hello-user-wrapper {
+  position: relative;
+}
+
 .hello-user {
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+.hello-user::before {
+  content: "";
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  background-color: blue;
+  cursor: pointer;
 }
 
 .hello-user h2 {
@@ -9,5 +24,7 @@
 }
 
 .hello-user .icon-wrapper {
-  background: var(--orange-gradient);
+  background: unset;
+  width: auto;
+  height: auto;
 }

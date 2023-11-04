@@ -98,7 +98,7 @@ export default function OrdersListHeader({
           </span>
           <span className="dots">
             <Icons name="dots" />
-            <MenuPopupOrders />
+            <MenuPopupOrders filterByOwner={filterByOwner} />
           </span>
         </div>
         <div className="current-user-orders">
