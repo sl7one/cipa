@@ -3,20 +3,12 @@ import {
   addNewSub2Category,
   getAllSub2Categories,
 } from "./sub2CategoriesActions";
+import { pending, rejected } from "../utils/storeUtils";
 
 const initialState = {
   sub2categories: [],
   isLoading: false,
   error: "",
-};
-
-const pending = (state) => {
-  state.isLoading = true;
-};
-
-const rejected = (state, { payload }) => {
-  state.isLoading = false;
-  state.error = payload.message;
 };
 
 export const sub2CategoriesSlice = createSlice({

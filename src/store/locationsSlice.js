@@ -1,19 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addNewLocation, getAllLocations } from "./locationsActions";
+import { pending, rejected } from "../utils/storeUtils";
 
 const initialState = {
   locations: [],
   isLoading: false,
   error: "",
-};
-
-const pending = (state) => {
-  state.isLoading = true;
-};
-
-const rejected = (state, { payload }) => {
-  state.isLoading = false;
-  state.error = payload.message;
 };
 
 export const locationsSlice = createSlice({

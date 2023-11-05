@@ -1,19 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addNewSubCategory, getAllSubCategories } from "./subCategoriesActions";
+import { pending, rejected } from "../utils/storeUtils";
 
 const initialState = {
   subCategories: [],
   isLoading: false,
   error: "",
-};
-
-const pending = (state) => {
-  state.isLoading = true;
-};
-
-const rejected = (state, { payload }) => {
-  state.isLoading = false;
-  state.error = payload.message;
 };
 
 export const subCategoriesSlice = createSlice({

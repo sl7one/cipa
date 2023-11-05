@@ -4,21 +4,13 @@ import {
   updateProduct,
   updateSortIndex,
 } from "./productsActions";
+import { pending, rejected } from "../utils/storeUtils";
 
 const initialState = {
   products: [],
   isLoading: false,
   error: "",
   productForm: {},
-};
-
-const pending = (state) => {
-  state.isLoading = true;
-};
-
-const rejected = (state, { payload }) => {
-  state.isLoading = false;
-  state.error = payload.message;
 };
 
 export const productsSlice = createSlice({

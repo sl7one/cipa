@@ -46,7 +46,11 @@ export const authSlice = createSlice({
     builder.addCase(signup.rejected, rejected);
 
     builder.addCase(current.pending, pending);
-    builder.addCase(current.rejected, rejected);
+    builder.addCase(current.rejected, (state, { payload }) => {
+      state.isLoading = false;
+      state.isLogined = false;
+      state.error = payload;
+    });
 
     builder.addCase(logout.pending, pending);
     builder.addCase(logout.rejected, rejected);
