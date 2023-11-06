@@ -68,7 +68,7 @@ export default function SallesList() {
                   return (
                     name.includes(filter) ||
                     phone.includes(filter) ||
-                    location.includes(filter)
+                    location?.location.includes(filter)
                   );
                 }
               })
@@ -86,19 +86,15 @@ export default function SallesList() {
                 return sort.total === "asc" ? totalA - totalB : totalB - totalA;
               })
               .map(({ _id, owner, ...rest }) => (
-                <li
-                  className={
-                    owner === currentUser
-                      ? "orders-item current-color"
-                      : "orders-item"
-                  }
-                  key={_id}
-                >
+                <li className="orders-item" key={_id}>
                   <SallesListInfoGroup
                     {...rest}
                     id={_id}
                     confirmDelete={confirmDelete}
                   />
+                  {owner === currentUser && (
+                    <span className="current-user-marker"></span>
+                  )}
                 </li>
               ))}
           </ul>

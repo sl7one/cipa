@@ -118,14 +118,7 @@ export default function OrdersList() {
               return sort.total === "asc" ? totalA - totalB : totalB - totalA;
             })
             .map(({ _id, owner, location, ...rest }) => (
-              <li
-                className={
-                  owner === currentUser
-                    ? "orders-item current-color"
-                    : "orders-item"
-                }
-                key={_id}
-              >
+              <li className="orders-item" key={_id}>
                 <OrdersListInfoGroup
                   {...rest}
                   location={location?.location}
@@ -138,6 +131,9 @@ export default function OrdersList() {
                     confirmDelete={confirmDelete}
                   />
                 </FunctionalButtons>
+                {owner === currentUser && (
+                  <span className="current-user-marker"></span>
+                )}
               </li>
             ))}
         </ul>

@@ -18,16 +18,6 @@ export default function ProductsList() {
     <List
       values={items}
       onChange={({ oldIndex, newIndex }) => {
-        console.log({
-          less: {
-            productId: items[oldIndex]._id,
-            sortIndex: oldIndex,
-          },
-          more: {
-            productId: items[newIndex]._id,
-            sortIndex: newIndex,
-          },
-        });
         dispatch(
           updateSortIndex({
             data: {
