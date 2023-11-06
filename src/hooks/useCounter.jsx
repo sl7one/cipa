@@ -8,7 +8,7 @@ export default function useCounter({ filterByOwner }) {
   const counter = useMemo(
     () =>
       orders
-        .filter(({ isChecked }) => isChecked)
+        .filter(({ isChecked, isActive }) => isChecked && isActive)
         .filter(({ owner }) => (!filterByOwner ? true : owner === currentUser))
         .length,
     [currentUser, filterByOwner, orders]
