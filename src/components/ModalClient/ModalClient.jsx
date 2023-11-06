@@ -29,6 +29,8 @@ const ModalClient = () => {
   const { setRef } = useContext(Select);
   const { clientModal } = animationsHelper;
 
+  console.log(message);
+
   useEffect(() => {
     if (!refSelectName && !refSelectLocation) return;
     setRef([refSelectName, refSelectLocation]);
@@ -151,13 +153,12 @@ const ModalClient = () => {
       </div>
       <div className="form__input-wrapper">
         <textarea
-          type="text"
           name="message"
           value={message}
           placeholder="Дополнительно"
-          onChange={({ target: { name, value } }) =>
-            dispatch(setMessage({ [name]: value }))
-          }
+          onChange={({ target: { name, value } }) => {
+            dispatch(setMessage({ [name]: value }));
+          }}
         ></textarea>
       </div>
       {clientData.name && clientData.phone ? (

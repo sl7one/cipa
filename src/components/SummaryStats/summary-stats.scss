@@ -16,8 +16,10 @@
 
 .summary-stats__body li div span {
   margin-left: 20px;
-  border-bottom: 1px dashed rgb(197, 197, 197);
   padding: 5px;
+}
+.summary-stats__body li div span:not(:last-of-type) {
+  border-bottom: 1px dashed rgb(197, 197, 197);
 }
 
 .summary-stats__header span:first-of-type {

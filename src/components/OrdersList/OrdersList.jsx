@@ -10,6 +10,7 @@ import OrdersListHeader from "../OrdersListHeader/OrdersListHeader";
 import DialogModal from "../DialogModal/DialogModal";
 import { deleteOrder } from "../../store/ordersActions";
 import { Toast } from "../../context/toast-context";
+import OrderInfoModal from "../OrderInfoModal/OrderInfoModal";
 
 export default function OrdersList() {
   const toast = useContext(Toast);
@@ -18,6 +19,7 @@ export default function OrdersList() {
   const [filterByOwner, setFilterByOwner] = useState(false);
   const [sort, setSort] = useState({ date: "init", total: "init" });
   const [mainMark, setMainMark] = useState("init");
+  const [id, setId] = useState(false);
   const orders = useSelector((state) => state.orders.orders);
   const currentUser = useSelector((state) => state.auth.user._id);
   const { orderModal, dialogModal, menuOrder } = animationsHelper;
@@ -129,6 +131,7 @@ export default function OrdersList() {
                     {...rest}
                     _id={_id}
                     confirmDelete={confirmDelete}
+                    setId={setId}
                   />
                 </FunctionalButtons>
                 {owner === currentUser && (
@@ -138,6 +141,7 @@ export default function OrdersList() {
             ))}
         </ul>
       </div>
+      <OrderInfoModal _id={id} />
       <DialogModal
         title="Подтвердите удаление заказа"
         onClickYes={() => onClickYes({ _id: order.id })}

@@ -11,7 +11,6 @@ import { foodCalculator } from "../utils/foodCalculator";
 import { medicineCalculator } from "../utils/medicineCalculator";
 import { pending, rejected } from "../utils/storeUtils";
 
-
 const initialFormState = {
   date: new Date(),
   ordersData: {},
@@ -135,8 +134,11 @@ export const ordersSlice = createSlice({
     resetLocation: (state) => {
       state.orderForm.location = initialFormState.location;
     },
-    setMessage: (state) => {
-      state.orderForm.message = initialFormState.message;
+    setMessage: (state, { payload }) => {
+      state.orderForm = {
+        ...state.orderForm,
+        ...payload,
+      };
     },
     resetMessage: (state) => {
       state.orderForm.location = initialFormState.location;

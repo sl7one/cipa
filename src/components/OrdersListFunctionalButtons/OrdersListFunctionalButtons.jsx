@@ -5,14 +5,16 @@ import { useDispatch } from "react-redux";
 import { salleOrder } from "../../store/ordersActions";
 import Icons from "../Icons/Icons";
 import { Link } from "react-router-dom";
+import "./orders-item-buttons.scss";
 
 export default function OrdersListFunctionalButtons({
   _id,
   confirmDelete,
+  setId,
   ...rest
 }) {
   const toast = useContext(Toast);
-  const { orderModal } = animationsHelper;
+  const { orderModal, orderInfo } = animationsHelper;
   const dispatch = useDispatch();
 
   const onClickHide = () => {
@@ -29,6 +31,12 @@ export default function OrdersListFunctionalButtons({
       })
     );
   };
+
+  const onClickInfo = () => {
+    setId(_id);
+    orderInfo.show();
+  };
+
   return (
     <>
       <button
@@ -39,6 +47,14 @@ export default function OrdersListFunctionalButtons({
         <Icons name="back" />
       </button>
 
+      <button
+        className="orders-item__buttons-btn"
+        type="button"
+        onClick={() => confirmDelete({ _id, ...rest })}
+      >
+        <Icons name="remove" />
+      </button>
+
       <Link className="orders-item__buttons-btn" to={`edit/${_id}`}>
         <Icons name="edit" />
       </Link>
@@ -46,9 +62,9 @@ export default function OrdersListFunctionalButtons({
       <button
         className="orders-item__buttons-btn"
         type="button"
-        onClick={() => confirmDelete({ _id, ...rest })}
+        onClick={onClickInfo}
       >
-        <Icons name="remove" />
+        <Icons name="info" />
       </button>
 
       <button

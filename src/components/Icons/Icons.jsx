@@ -6,6 +6,7 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import { MdKeyboardBackspace } from "react-icons/md";
 import { CgLogOut, CgSearchLoading } from "react-icons/cg";
 import { AiOutlineBarChart } from "react-icons/ai";
+import { BsInfo } from "react-icons/bs";
 
 import "./icons.scss";
 
@@ -23,6 +24,7 @@ export default function Icons({ name, color = null }) {
     search: <CgSearchLoading color={color || "blue"} size={size} />,
     logout: <CgLogOut color={color || "black"} size={size} />,
     chart: <AiOutlineBarChart color={color || "black"} size={size} />,
+    info: <BsInfo color={color || "black"} size={size} />,
   };
 
   return <span className="icon-wrapper">{iconsSet[name]}</span>;

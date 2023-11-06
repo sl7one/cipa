@@ -145,4 +145,17 @@ export const animationsHelper = {
     show: () => gsap.to("#current-user-mark", { top: 0, opacity: 1 }),
     hide: () => gsap.to("#current-user-mark", { top: "-100%", opacity: 0 }),
   },
+
+  orderInfo: {
+    show: () =>
+      gsap.to(".order-info-modal-backdrop", {
+        opacity: 1,
+        visibility: "visible",
+      }),
+    hide: () =>
+      gsap.to(".order-info-modal-backdrop", {
+        opacity: 0,
+        visibility: "hidden",
+      }),
+  },
 };

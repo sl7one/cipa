@@ -27,7 +27,7 @@ export default function Summary({ data }) {
   return (
     <div className="form__summary">
       <div className="form__summary-header">
-        <span>Категория</span>
+        <span>Товары</span>
         <span>Количество</span>
         <span>Сумма</span>
       </div>

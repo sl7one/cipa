@@ -35,6 +35,12 @@
   background: transparent;
 }
 
+.orders-item__info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
 .checkbox-label::after {
   content: "";
   display: block;
