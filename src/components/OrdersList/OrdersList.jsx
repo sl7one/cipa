@@ -100,7 +100,7 @@ export default function OrdersList() {
                 return (
                   name.includes(filter) ||
                   phone.includes(filter) ||
-                  location.includes(filter)
+                  location?.location.includes(filter)
                 );
               }
             })
@@ -117,7 +117,7 @@ export default function OrdersList() {
               if (sort.total === "init") return 0;
               return sort.total === "asc" ? totalA - totalB : totalB - totalA;
             })
-            .map(({ _id, owner, ...rest }) => (
+            .map(({ _id, owner, location, ...rest }) => (
               <li
                 className={
                   owner === currentUser
@@ -126,7 +126,11 @@ export default function OrdersList() {
                 }
                 key={_id}
               >
-                <OrdersListInfoGroup {...rest} _id={_id} />
+                <OrdersListInfoGroup
+                  {...rest}
+                  location={location?.location}
+                  _id={_id}
+                />
                 <FunctionalButtons _id={_id}>
                   <OrdersListFunctionalButtons
                     {...rest}

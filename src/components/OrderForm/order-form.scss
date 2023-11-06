@@ -139,10 +139,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  p {
-    margin-bottom: 20px;
-  }
+  flex-direction: column;
 }
 
 .back-block .add-product {

@@ -33,11 +33,8 @@ export default function OrderForm({ productsSelected, onSubmit }) {
         <>
           {!productsSelected.length ? (
             <div className="back-block">
-              <div>
-                <p>Верунться к заказам</p>
-                <BackBtn path="/orders" />
-                <AddNewProduct />
-              </div>
+              <AddNewProduct />
+              <BackBtn path="/orders" title="Верунться к заказам" />
             </div>
           ) : (
             <div className="form-body">
