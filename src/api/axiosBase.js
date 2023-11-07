@@ -1,3 +1,5 @@
 import axios from "axios";
 
-export const cipa = axios.create({ baseURL: "http://localhost:5000/api" });
+export const cipa = axios.create({
+  baseURL: "https://cipa-backend.onrender.com/api",
+});
