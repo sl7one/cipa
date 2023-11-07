@@ -10,17 +10,17 @@ export default function SallesListInfoGroup({
   confirmDelete,
 }) {
   return (
-    <div className="orders-item__info-group">
-      <span className="orders-item__date">
+    <div className="salles-item__info-group">
+      <span className="salles-item__date">
         {moment(date).format("DD.MM.YY")}
       </span>
-      <div className="orders-item__info">
-        <span className="orders-item__info-name">{client.name}</span>
-        <span className="orders-item__info-phone">{client.phone}</span>
+      <div className="salles-item__info">
+        <span className="salles-item__info-name">{client.name}</span>
+        <span className="salles-item__info-phone">{client.phone}</span>
       </div>
-      <p className="orders-item__total">{total + " грн"}</p>
+      <p className="salles-item__total">{total + " грн"}</p>
       <button
-        className="orders-item__menu-btn"
+        className="salles-item__menu-btn"
         type="button"
         onClick={() => confirmDelete({ id, client, total })}
       >

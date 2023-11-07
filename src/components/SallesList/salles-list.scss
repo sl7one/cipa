@@ -1,22 +1,49 @@
-.orders-item-header span button {
+.salles-list-wrapper {
+  padding: 5px;
+}
+
+.salles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 12px;
+
+  height: calc(100vh - 42px - 40px - 52px - 50px - 20px);
+  overflow-x: hidden;
+}
+
+.salles-item {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.25);
+  padding: 10px 5px;
+
+  position: relative;
+}
+
+.salles-page .orders-item-header span button {
   font-size: 11px;
   font-weight: 600;
 }
 
-.orders-item-header .icon-wrapper {
+.salles-page .orders-item-header .icon-wrapper {
   border-radius: unset;
   background: unset;
   width: auto;
   height: auto;
 }
 
-.orders-item__info-search {
+.salles-page .orders-item__info-group {
+  grid-template-columns: 50px 1fr 75px 30px;
+}
+
+.salles-page .orders-item__info-search {
   position: relative;
   width: 100%;
   height: 100%;
 }
 
-.orders-item__info-search .icon-wrapper {
+.salles-page .orders-item__info-search .icon-wrapper {
   position: absolute;
   top: 50%;
   left: 3px;
@@ -24,7 +51,7 @@
   transform: translateY(-50%);
 }
 
-.orders-item__info-search input {
+.salles-page .orders-item__info-search input {
   width: 100%;
   height: 100%;
 
@@ -39,16 +66,23 @@
   font-size: 11px;
 }
 
-.orders-item__info-search input::placeholder {
+.salles-page .orders-item__info-search input::placeholder {
   color: black;
   font-size: 11px;
 }
 
-.orders-item-header .orders-item__info-group .checkbox-label::after {
+.salles-page
+  .orders-item-header
+  .orders-item__info-group
+  .checkbox-label::after {
   display: none;
 }
 
-.orders-item-header .orders-item__info-group .checkbox-label label::after {
+.salles-page
+  .orders-item-header
+  .orders-item__info-group
+  .checkbox-label
+  label::after {
   content: "";
   display: block;
   width: 15px;
@@ -59,7 +93,7 @@
   transition: background-color 350ms ease-in-out;
 }
 
-.orders-item-header .checkbox-label label {
+.salles-page .orders-item-header .checkbox-label label {
   display: block;
   width: 100%;
   height: 100%;
@@ -67,15 +101,11 @@
   transition: background-color 350ms ease-in-out;
 }
 
-.orders-item-header .checkbox-label label.checked {
+.salles-page .orders-item-header .checkbox-label label.checked {
   background-color: greenyellow;
 }
 
-.salles-list .orders-item__info-group {
-  grid-template-columns: 50px 1fr 75px 30px;
-}
-
-.current-user-marker {
+.salles-page .current-user-marker {
   width: 3px;
   height: 80%;
   position: absolute;

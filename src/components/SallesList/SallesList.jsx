@@ -47,8 +47,8 @@ export default function SallesList() {
 
   return (
     <>
-      <div className="salles-list">
-        <div className="orders-list-wrapper">
+      <div className="salles-page">
+        <div className="salles-list-wrapper">
           <SallesListHeader
             setFilter={setFilter}
             filter={filter}
@@ -58,8 +58,8 @@ export default function SallesList() {
             sort={sort}
           />
         </div>
-        <div className="orders-list-wrapper">
-          <ul className="orders-list">
+        <div className="salles-list-wrapper">
+          <ul className="salles-list">
             {items
               .filter(({ client: { name, phone }, location }) => {
                 if (!filter) {
@@ -86,7 +86,7 @@ export default function SallesList() {
                 return sort.total === "asc" ? totalA - totalB : totalB - totalA;
               })
               .map(({ _id, owner, ...rest }) => (
-                <li className="orders-item" key={_id}>
+                <li className="salles-item" key={_id}>
                   <SallesListInfoGroup
                     {...rest}
                     id={_id}
