@@ -99,11 +99,9 @@ export default function OrdersList() {
               if (!filter) {
                 return true;
               } else {
-                return (
-                  name.includes(filter) ||
-                  phone.includes(filter) ||
-                  location?.location.includes(filter)
-                );
+                if (name.includes(filter)) return true;
+                if (phone.includes(filter)) return true;
+                if (location?.location?.includes(filter)) return true;
               }
             })
             .filter(({ owner }) =>

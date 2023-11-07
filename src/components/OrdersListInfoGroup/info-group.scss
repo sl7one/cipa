@@ -37,6 +37,20 @@
 
 .orders-item__info {
   display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.orders-item__info .icon-wrapper {
+  width: auto;
+  height: auto;
+
+  background: transparent;
+  border-radius: unset;
+}
+
+.orders-item__info > div {
+  display: flex;
   flex-wrap: wrap;
   gap: 3px;
 }

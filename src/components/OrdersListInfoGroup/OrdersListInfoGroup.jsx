@@ -43,13 +43,16 @@ export default function OrdersListInfoGroup({
       <span className="orders-item__date">
         {moment(date).format("DD.MM.YY")}
       </span>
-      <div className="orders-item__info">
-        <span className="orders-item__info-name">{client.name}</span>
-        <span className="orders-item__info-phone">{client.phone}</span>
-        {location && (
-          <span className="orders-item__info-location">{location}</span>
-        )}
-      </div>
+      <a className="orders-item__info" href={`tel:${client.phone}`}>
+        <Icons name="phone" />
+        <div>
+          <span className="orders-item__info-name">{client.name}</span>
+          <span className="orders-item__info-phone">{client.phone}</span>
+          {location && (
+            <span className="orders-item__info-location">{location}</span>
+          )}
+        </div>
+      </a>
       <p className="orders-item__total">{total + " грн"}</p>
       <button
         className="orders-item__menu-btn"

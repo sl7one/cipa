@@ -29,8 +29,6 @@ const ModalClient = () => {
   const { setRef } = useContext(Select);
   const { clientModal } = animationsHelper;
 
-  console.log(message);
-
   useEffect(() => {
     if (!refSelectName && !refSelectLocation) return;
     setRef([refSelectName, refSelectLocation]);
