@@ -5,6 +5,8 @@ import "./loading-backdrop.scss";
 
 export default function LoadingBackdrop() {
   const [isLoading, setIsLoading] = useState(false);
+  const [seconds, setSeconds] = useState(0);
+  const [intervalId, setIntervalId] = useState(null);
   const state = useSelector((state) => state);
   const isLoadingArray = useMemo(
     () => Object.values(state).map(({ isLoading }) => isLoading),
@@ -13,14 +15,25 @@ export default function LoadingBackdrop() {
 
   useEffect(() => {
     const isIsLoadingSome = isLoadingArray.some((isLoading) => isLoading);
-    isIsLoadingSome ? setIsLoading(true) : setIsLoading(false);
+    if (isIsLoadingSome) {
+      setIsLoading(true);
+      setIntervalId(
+        setInterval(() => {
+          setSeconds((prev) => prev++);
+        }, 1000)
+      );
+    } else {
+      setIsLoading(false);
+      clearInterval(intervalId);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoadingArray]);
 
   return (
     <>
       {isLoading &&
         createPortal(
-          <div className="loading-backdrop">LOADING DATA...</div>,
+          <div className="loading-backdrop">LOADING DATA... {seconds}</div>,
           document.querySelector("#loading-backdrop")
         )}
     </>
