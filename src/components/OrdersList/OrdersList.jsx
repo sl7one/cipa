@@ -96,12 +96,18 @@ export default function OrdersList() {
         <ul className={"orders-list"}>
           {items
             .filter(({ client: { name, phone }, location }) => {
-              if (!filter) return true;
-              if (name.includes(filter)) return true;
-              if (phone.includes(filter)) return true;
-              if (location?.location?.includes(filter)) return true;
+              if (name.includes(filter)) {
+                return true;
+              }
+              if (phone.includes(filter)) {
+                return true;
+              }
 
-              return true;
+              if (location) {
+                return location?.location?.includes(filter);
+              }
+
+              return false;
             })
             .filter(({ owner }) =>
               !filterByOwner ? true : owner === currentUser

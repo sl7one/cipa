@@ -62,15 +62,18 @@ export default function SallesList() {
           <ul className="salles-list">
             {items
               .filter(({ client: { name, phone }, location }) => {
-                if (!filter) {
+                if (name.includes(filter)) {
                   return true;
-                } else {
-                  return (
-                    name.includes(filter) ||
-                    phone.includes(filter) ||
-                    location?.location.includes(filter)
-                  );
                 }
+                if (phone.includes(filter)) {
+                  return true;
+                }
+
+                if (location) {
+                  return location?.location?.includes(filter);
+                }
+
+                return false;
               })
               .filter(({ owner }) =>
                 !filterByOwner ? true : owner === currentUser
