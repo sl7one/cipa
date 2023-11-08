@@ -1,5 +1,4 @@
 .client-modal-form {
-  padding: 15px;
   position: fixed;
   top: 0;
   left: -100%;
@@ -34,12 +33,14 @@
 }
 
 .submit-btn {
-  width: 100vw;
-  position: fixed;
+  width: 100%;
+  position: sticky;
   bottom: 0;
   left: 0;
 
-  padding: 10px;
+  padding: 20px;
   background: var(--orange-gradient);
   text-transform: uppercase;
+
+  height: 42px;
 }

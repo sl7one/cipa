@@ -15,6 +15,22 @@ import {
   setLocation,
   setMessage,
 } from "../../store/ordersSlice";
+import gsap from "gsap";
+
+const ButtonSubmit = () => {
+  useEffect(() => {
+    gsap.fromTo(
+      ".submit-btn",
+      { bottom: "-100", opacity: 0 },
+      { bottom: 0, opacity: 1 }
+    );
+  }, []);
+  return (
+    <button className="submit-btn" type="submit">
+      Ок
+    </button>
+  );
+};
 
 const ModalClient = () => {
   const refSelectName = useRef(null);
@@ -159,11 +175,7 @@ const ModalClient = () => {
           }}
         ></textarea>
       </div>
-      {clientData.name && clientData.phone ? (
-        <button className="submit-btn" type="submit">
-          Ок
-        </button>
-      ) : null}
+      {clientData.name && clientData.phone ? <ButtonSubmit /> : null}
     </form>
   );
 };
