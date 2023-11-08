@@ -30,21 +30,6 @@ export const animationsHelper = {
     show: () => gsap.to(".product-modal", { left: 0 }),
     hide: () => gsap.to(".product-modal", { left: "-100%" }),
 
-    footer: {
-      show: () =>
-        gsap.to(".buttons-wrapper", {
-          bottom: 0,
-          onComplete: () => gsap.to(".product-list", { paddingBottom: 50 }),
-        }),
-      hide: () =>
-        gsap.to(".buttons-wrapper", {
-          bottom: "-100%",
-          onComplete: () => {
-            gsap.to(".product-list", { paddingBottom: 0 });
-          },
-        }),
-    },
-
     itemOverlay: {
       show: (id) => {
         gsap.to(`#${id}`, {

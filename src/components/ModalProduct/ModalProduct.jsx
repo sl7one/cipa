@@ -8,6 +8,23 @@ import {
 } from "../../store/productsSlice";
 import { isItemSelectedHelper } from "../../utils/isItemSelected";
 import { animationsHelper } from "../../utils/animationsHelper";
+import gsap from "gsap";
+
+const ButtonChoose = ({ onClickChoose, productsSelected }) => {
+  useEffect(() => {
+    gsap.fromTo(
+      ".button-choose",
+      { bottom: "-100", opacity: 0 },
+      { bottom: 0, opacity: 1 }
+    );
+  }, []);
+  return (
+    <button type="button" className="button-choose" onClick={onClickChoose}>
+      Выбрать
+      <span>{productsSelected.length}</span>
+    </button>
+  );
+};
 
 const ModalProduct = () => {
   const products = useSelector((state) => state.products.products);
@@ -23,12 +40,6 @@ const ModalProduct = () => {
         : productModal.itemOverlay.hide("id" + _id);
     });
   }, [products, productModal]);
-
-  useEffect(() => {
-    productsSelected.length > 0
-      ? productModal.footer.show()
-      : productModal.footer.hide();
-  }, [productsSelected, productModal]);
 
   const onClickProduct = (id) => {
     const isItemSelected = isItemSelectedHelper({ products, id });
@@ -56,12 +67,12 @@ const ModalProduct = () => {
         ))}
       </ul>
 
-      <div className="buttons-wrapper">
-        <button type="button" className="button-choose" onClick={onClickChoose}>
-          Выбрать
-          <span>{productsSelected.length}</span>
-        </button>
-      </div>
+      {productsSelected.length !== 0 && (
+        <ButtonChoose
+          onClickChoose={onClickChoose}
+          productsSelected={productsSelected}
+        />
+      )}
     </div>
   );
 };
