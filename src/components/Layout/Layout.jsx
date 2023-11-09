@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import "./layout.scss";
 import { Toast } from "../../context/toast-context";
 import { getAllProducts } from "../../store/productsActions";
 import { getAllOrders } from "../../store/ordersActions";
 import { useDispatch } from "react-redux";
-import ErrorPage from "../../Pages/ErrorPage";
 import { getAllClients } from "../../store/clientsActions";
 import { getAllLocations } from "../../store/locationsActions";
 import { getAllCategories } from "../../store/categoriesActions";
@@ -17,7 +16,6 @@ import RouteNavigationButton from "../RouteNavigationButton/RouteNavigationButto
 
 export default function Layout() {
   const dispatch = useDispatch();
-  const [isError, setIsError] = useState(false);
   const toast = useContext(Toast);
   const navigate = useNavigate();
 
@@ -40,7 +38,6 @@ export default function Layout() {
           statusCode: 500,
         });
         navigate("bad-connection");
-        setIsError(true);
       }
     };
     loadData();
@@ -49,18 +46,12 @@ export default function Layout() {
 
   return (
     <>
-      {isError ? (
-        <ErrorPage />
-      ) : (
-        <>
-          <div className="layout">
-            <HelloUser />
-            <RouteNavigationButton />
-          </div>
-          <ModalRoutes />
-          <Outlet />
-        </>
-      )}
+      <div className="layout">
+        <HelloUser />
+        <RouteNavigationButton />
+      </div>
+      <ModalRoutes />
+      <Outlet />
     </>
   );
 }
