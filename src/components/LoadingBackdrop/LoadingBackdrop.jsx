@@ -19,8 +19,7 @@ export default function LoadingBackdrop() {
       setIsLoading(true);
       setIntervalId(
         setInterval(() => {
-          setSeconds((prev) => prev++);
-          console.log(seconds);
+          setSeconds((prev) => (prev += 1));
         }, 1000)
       );
     } else {

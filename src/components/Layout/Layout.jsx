@@ -64,7 +64,7 @@ export default function Layout() {
             <RouteNavigationButton />
           </div>
           <ModalRoutes />
-          {isLoading ? <Loader isVisible={isLoading} /> : <Outlet />}
+          <Outlet />
         </>
       )}
     </>
