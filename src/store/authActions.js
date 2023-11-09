@@ -50,8 +50,6 @@ export const current = createAsyncThunk(
       const token = store.get("token");
       tokenService.setToken(token);
       const { data } = await cipa.post("/auth/current", { token });
-
-      console.log(data);
       success();
       return data;
     } catch (error) {
