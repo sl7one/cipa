@@ -53,7 +53,10 @@ const ModalProduct = () => {
   };
 
   return (
-    <div className="product-modal">
+    <div
+      className="product-modal"
+      style={{ paddingBottom: productsSelected.length !== 0 ? "42px" : 0 }}
+    >
       <ul className="product-list">
         {products.map(({ _id, img, title }) => (
           <li key={_id}>
