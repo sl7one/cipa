@@ -14,9 +14,19 @@ const ButtonChoose = ({ onClickChoose, productsSelected }) => {
   useEffect(() => {
     gsap.fromTo(
       ".button-choose",
-      { bottom: "-100", opacity: 0 },
-      { bottom: 0, opacity: 1 }
+      {
+        bottom: "-100",
+        opacity: 0,
+      },
+      {
+        bottom: 0,
+        opacity: 1,
+        onComplete: () =>
+          gsap.to(".product-list", { height: "calc(100% - 42px)" }),
+      }
     );
+
+    return () => gsap.to(".product-list", { height: "100vh" });
   }, []);
   return (
     <button type="button" className="button-choose" onClick={onClickChoose}>
@@ -53,10 +63,7 @@ const ModalProduct = () => {
   };
 
   return (
-    <div
-      className="product-modal"
-      style={{ paddingBottom: productsSelected.length !== 0 ? "42px" : 0 }}
-    >
+    <div className="product-modal">
       <ul className="product-list">
         {products.map(({ _id, img, title }) => (
           <li key={_id}>
