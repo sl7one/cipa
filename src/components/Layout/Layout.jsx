@@ -5,7 +5,6 @@ import { Toast } from "../../context/toast-context";
 import { getAllProducts } from "../../store/productsActions";
 import { getAllOrders } from "../../store/ordersActions";
 import { useDispatch } from "react-redux";
-import Loader from "../Loader/Loader";
 import ErrorPage from "../../Pages/ErrorPage";
 import { getAllClients } from "../../store/clientsActions";
 import { getAllLocations } from "../../store/locationsActions";
@@ -18,13 +17,11 @@ import RouteNavigationButton from "../RouteNavigationButton/RouteNavigationButto
 
 export default function Layout() {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const toast = useContext(Toast);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setIsLoading(true);
     const loadData = async () => {
       try {
         await dispatch(getAllProducts());
@@ -43,10 +40,7 @@ export default function Layout() {
           statusCode: 500,
         });
         navigate("bad-connection");
-        setIsLoading(false);
         setIsError(true);
-      } finally {
-        setIsLoading(false);
       }
     };
     loadData();
