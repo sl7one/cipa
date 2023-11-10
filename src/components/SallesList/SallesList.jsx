@@ -8,12 +8,14 @@ import { Toast } from "../../context/toast-context";
 import { unsalleOrder } from "../../store/ordersActions";
 import { animationsHelper } from "../../utils/animationsHelper";
 import DialogModal from "../DialogModal/DialogModal";
+import OrderInfoModal from "../OrderInfoModal/OrderInfoModal";
 
 export default function SallesList() {
   const [order, setOrder] = useState({});
   const [filter, setFilter] = useState("");
   const [filterByOwner, setFilterByOwner] = useState(false);
   const [sort, setSort] = useState({ date: "init", total: "init" });
+  const [id, setId] = useState(false);
   const orders = useSelector((state) => state.orders.orders);
   const currentUser = useSelector((state) => state.auth.user._id);
   const navigate = useNavigate();
@@ -92,8 +94,9 @@ export default function SallesList() {
                 <li className="salles-item" key={_id}>
                   <SallesListInfoGroup
                     {...rest}
-                    id={_id}
+                    _id={_id}
                     confirmDelete={confirmDelete}
+                    setId={setId}
                   />
                   {owner === currentUser && (
                     <span className="current-user-marker"></span>
@@ -103,6 +106,7 @@ export default function SallesList() {
           </ul>
         </div>
       </div>
+      <OrderInfoModal _id={id} />
       <DialogModal
         title="Подтвердите отменение продажи"
         onClickYes={() => onClickYes({ _id: order.id })}

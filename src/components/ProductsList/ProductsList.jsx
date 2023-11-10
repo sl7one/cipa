@@ -16,6 +16,7 @@ export default function ProductsList() {
 
   return (
     <List
+      lockVertically={true}
       values={items}
       onChange={({ oldIndex, newIndex }) => {
         dispatch(
