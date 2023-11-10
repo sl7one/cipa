@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import gsap from "gsap";
 import "./signup-form.scss";
 import { NavLink } from "react-router-dom";
+import Icons from "../Icons/Icons";
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -28,7 +29,11 @@ const ErrorMessage = ({ message }) => {
   return <div className="error-message">{message}</div>;
 };
 
-export default function SignUpForm({ onSubmit, isLoading }) {
+export default function SignUpForm({ onSubmit }) {
+  const [isHidden, setIsHidden] = useState(true);
+  const toggleClick = () => {
+    setIsHidden((prev) => !prev);
+  };
   return (
     <div className="signup-form">
       <h1>
@@ -47,37 +52,47 @@ export default function SignUpForm({ onSubmit, isLoading }) {
         {({ errors, touched }) => (
           <Form>
             <div className="input-wrapper">
-              {/* <label htmlFor="firstName">Имя</label> */}
+              <label htmlFor="firstName">Имя</label>
               <Field id="firstName" name="firstName" placeholder="Имя" />
-              {errors.phone && touched.phone ? (
-                <ErrorMessage message={errors.phone} />
+              {errors.firstName && touched.firstName ? (
+                <ErrorMessage message={errors.firstName} />
               ) : null}
             </div>
-            <div className="input-wrapper">
-              {/* <label htmlFor="phone">Телефон</label> */}
-              <Field id="phone" name="phone" placeholder="+380ХХ-ХХХ-ХХ-ХХ" />
+            <div className="input-wrapper ">
+              <label htmlFor="phone">Телефон</label>
+              <Field
+                id="phone"
+                type="tel"
+                name="phone"
+                placeholder="+380ХХ-ХХХ-ХХ-ХХ"
+              />
+
               {errors.phone && touched.phone ? (
                 <ErrorMessage message={errors.phone} />
               ) : null}
             </div>
 
-            <div className="input-wrapper">
-              {/* <label htmlFor="password">Пароль</label> */}
+            <div className="input-wrapper password">
+              <label htmlFor="password">Пароль</label>
               <Field
                 id="password"
                 name="password"
                 placeholder="Пароль"
-                type="password"
+                type={isHidden ? "password" : "text"}
               />
+              <button type="button" onClick={toggleClick}>
+                {isHidden ? (
+                  <Icons name="eyeOpen" />
+                ) : (
+                  <Icons name="eyeClose" />
+                )}
+              </button>
               {errors.password && touched.password ? (
                 <ErrorMessage message={errors.password} />
               ) : null}
             </div>
 
-
-
-              <button type="submit">Зарегистрироваться</button>
-
+            <button type="submit">Зарегистрироваться</button>
           </Form>
         )}
       </Formik>
