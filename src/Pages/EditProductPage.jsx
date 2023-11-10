@@ -43,7 +43,7 @@ export default function EditProductPage() {
 
   return (
     <>
-      <BackBtn path="/products" />
+      <BackBtn path="/products" title="Вернуться" />
       <UpdateProductForm />
     </>
   );

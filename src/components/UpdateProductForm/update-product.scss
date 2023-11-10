@@ -1,26 +1,21 @@
-.update-product-backdrop {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-
-  bottom: -100%;
-  left: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .update-product {
   background-color: white;
-  padding: 20px;
   box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.25);
+
+  width: 100vw;
+  height: calc(100vh - 42px - 40px);
+  height: calc((var(--vh, 1vh) * 100) - 42px - 40px);
+
+  display: flex;
+  flex-direction: column;
 }
 
 .update-product .categories {
   display: flex;
   flex-direction: column;
   gap: 5px;
+
+  padding: 15px;
 }
 
 .update-product .categories-wrapper {
@@ -34,7 +29,7 @@
 }
 
 .update-product .body {
-  margin-top: 30px;
+  padding: 15px;
 }
 
 .update-product .body label {
@@ -57,20 +52,11 @@
   text-transform: uppercase;
 }
 
-.update-product-buttons {
-  grid-area: buttons;
-  margin-top: 30px;
-  display: flex;
-}
-
-.update-product-buttons button {
-  height: 40px;
-  width: 100%;
-}
-
-.update-product-close {
-  background: var(--orange-gradient);
-}
 .update-product-submit {
+  margin-top: auto;
+
+  height: 42px;
+  width: 100%;
+
   background: var(--green-gradient);
 }

@@ -240,11 +240,9 @@ export default function UpdateProductForm() {
         </div>
       </div>
 
-      <div className="update-product-buttons">
-        <button className="update-product-submit" type="submit">
-          Изменить
-        </button>
-      </div>
+      <button className="update-product-submit" type="submit">
+        Изменить
+      </button>
     </form>
   );
 }
