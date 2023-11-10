@@ -53,6 +53,10 @@
 
   display: flex;
   align-items: center;
+
+  padding: 10px;
+  border: 1px solid red;
+  border-radius: 10px;
 }
 
 .order-info-modal__message .icon-wrapper {

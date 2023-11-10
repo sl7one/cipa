@@ -91,16 +91,16 @@ export default function SallesList() {
                 return sort.total === "asc" ? totalA - totalB : totalB - totalA;
               })
               .map(({ _id, owner, ...rest }) => (
-                <li className="salles-item" key={_id}>
+                <li
+                  className={owner ? "salles-item owner" : "salles-item"}
+                  key={_id}
+                >
                   <SallesListInfoGroup
                     {...rest}
                     _id={_id}
                     confirmDelete={confirmDelete}
                     setId={setId}
                   />
-                  {owner === currentUser && (
-                    <span className="current-user-marker"></span>
-                  )}
                 </li>
               ))}
           </ul>
@@ -109,7 +109,7 @@ export default function SallesList() {
       <OrderInfoModal _id={id} />
       <DialogModal
         title="Подтвердите отменение продажи"
-        onClickYes={() => onClickYes({ _id: order.id })}
+        onClickYes={() => onClickYes({ _id: order._id })}
       >
         <span>{order?.client?.name || ""}</span>
         <span>{order?.client?.phone || ""}</span>

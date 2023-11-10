@@ -78,6 +78,13 @@ export default function OrdersList() {
     );
   };
 
+  const classes = ({ message, owner }) => {
+    let classesStr = "orders-item";
+    if (message) classesStr += " message";
+    if (owner === currentUser) classesStr += " owner";
+    return classesStr;
+  };
+
   return (
     <>
       <div className="orders-list-wrapper">
@@ -122,8 +129,8 @@ export default function OrdersList() {
               if (sort.total === "init") return 0;
               return sort.total === "asc" ? totalA - totalB : totalB - totalA;
             })
-            .map(({ _id, owner, location, ...rest }) => (
-              <li className="orders-item" key={_id}>
+            .map(({ _id, owner, location, message, ...rest }) => (
+              <li className={classes({ message, owner })} key={_id}>
                 <OrdersListInfoGroup
                   {...rest}
                   location={location?.location}
@@ -137,9 +144,6 @@ export default function OrdersList() {
                     setId={setId}
                   />
                 </FunctionalButtons>
-                {owner === currentUser && (
-                  <span className="current-user-marker"></span>
-                )}
               </li>
             ))}
         </ul>

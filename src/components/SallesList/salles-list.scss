@@ -21,6 +21,10 @@
   position: relative;
 }
 
+.salles-item .owner {
+  border: 2px dashed skyblue;
+}
+
 .salles-page .orders-item-header span button {
   font-size: 11px;
   font-weight: 600;
@@ -102,19 +106,5 @@
 }
 
 .salles-page .orders-item-header .checkbox-label label.checked {
-  background-color: greenyellow;
-}
-
-.salles-page .current-user-marker {
-  width: 3px;
-  height: 80%;
-  position: absolute;
-  top: 50%;
-  left: 0;
-
-  border-radius: 50%;
-
-  transform: translateY(-50%);
-
   background-color: greenyellow;
 }

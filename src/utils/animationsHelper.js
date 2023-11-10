@@ -117,7 +117,7 @@ export const animationsHelper = {
   },
 
   stats: {
-    show: () => gsap.to(".stats-payload", { translateY: "-90%" }),
+    show: () => gsap.to(".stats-payload", { translateY: "-84%" }),
     hide: () => gsap.to(".stats-payload", { translateY: 0 }),
   },
 
