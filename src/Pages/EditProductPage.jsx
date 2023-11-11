@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo } from "react";
-import BackBtn from "../components/BackBtn/BackBtn";
 import UpdateProductForm from "../components/UpdateProductForm/UpdateProductForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -43,7 +42,6 @@ export default function EditProductPage() {
 
   return (
     <>
-      <BackBtn path="/products" title="Вернуться" />
       <UpdateProductForm />
     </>
   );

@@ -50,61 +50,59 @@ export default function SallesList() {
   return (
     <>
       <div className="salles-page">
-        <div className="salles-list-wrapper">
-          <SallesListHeader
-            setFilter={setFilter}
-            filter={filter}
-            setFilterByOwner={setFilterByOwner}
-            filterByOwner={filterByOwner}
-            setSort={setSort}
-            sort={sort}
-          />
-        </div>
-        <div className="salles-list-wrapper">
-          <ul className="salles-list">
-            {items
-              .filter(({ client: { name, phone }, location }) => {
-                if (name.includes(filter)) {
-                  return true;
-                }
-                if (phone.includes(filter)) {
-                  return true;
-                }
+        <SallesListHeader
+          setFilter={setFilter}
+          filter={filter}
+          setFilterByOwner={setFilterByOwner}
+          filterByOwner={filterByOwner}
+          setSort={setSort}
+          sort={sort}
+        />
+        <ul className="salles-list">
+          {items
+            .filter(({ client: { name, phone }, location }) => {
+              if (name.includes(filter)) {
+                return true;
+              }
+              if (phone.includes(filter)) {
+                return true;
+              }
 
-                if (location) {
-                  return location?.location?.includes(filter);
-                }
+              if (location) {
+                return location?.location?.includes(filter);
+              }
 
-                return false;
-              })
-              .filter(({ owner }) =>
-                !filterByOwner ? true : owner === currentUser
-              )
-              .sort(({ date: dateA }, { date: dateB }) => {
-                if (sort.date === "init") return 0;
-                return sort.date === "asc"
-                  ? Date.parse(dateA) - Date.parse(dateB)
-                  : Date.parse(dateB) - Date.parse(dateA);
-              })
-              .sort(({ total: totalA }, { total: totalB }) => {
-                if (sort.total === "init") return 0;
-                return sort.total === "asc" ? totalA - totalB : totalB - totalA;
-              })
-              .map(({ _id, owner, ...rest }) => (
-                <li
-                  className={owner ? "salles-item owner" : "salles-item"}
-                  key={_id}
-                >
-                  <SallesListInfoGroup
-                    {...rest}
-                    _id={_id}
-                    confirmDelete={confirmDelete}
-                    setId={setId}
-                  />
-                </li>
-              ))}
-          </ul>
-        </div>
+              return false;
+            })
+            .filter(({ owner }) =>
+              !filterByOwner ? true : owner === currentUser
+            )
+            .sort(({ date: dateA }, { date: dateB }) => {
+              if (sort.date === "init") return 0;
+              return sort.date === "asc"
+                ? Date.parse(dateA) - Date.parse(dateB)
+                : Date.parse(dateB) - Date.parse(dateA);
+            })
+            .sort(({ total: totalA }, { total: totalB }) => {
+              if (sort.total === "init") return 0;
+              return sort.total === "asc" ? totalA - totalB : totalB - totalA;
+            })
+            .map(({ _id, owner, ...rest }) => (
+              <li
+                className={
+                  owner === currentUser ? "salles-item owner" : "salles-item"
+                }
+                key={_id}
+              >
+                <SallesListInfoGroup
+                  {...rest}
+                  _id={_id}
+                  confirmDelete={confirmDelete}
+                  setId={setId}
+                />
+              </li>
+            ))}
+        </ul>
       </div>
       <OrderInfoModal _id={id} />
       <DialogModal

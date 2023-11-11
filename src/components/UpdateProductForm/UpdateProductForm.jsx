@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from "react";
-import CreatableSelect from "react-select/creatable";
+import Select from "react-select";
 import { useNavigate, useParams } from "react-router-dom";
 import { resetProductForm, setProductForm } from "../../store/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,25 +10,68 @@ import { updateProduct } from "../../store/productsActions";
 import { selectStyles } from "../../utils/selectStyles";
 import { addNewCategory } from "../../store/categoriesActions";
 import "./update-product.scss";
+import BackBtn from "../BackBtn/BackBtn";
+
+const ButtonSubmit = () => {
+  return (
+    <button className="update-product-submit" type="submit">
+      Изменить
+    </button>
+  );
+};
+
+const Buttons = () => {
+  return (
+    <div className="update-product-btns">
+      <ButtonSubmit />
+      <BackBtn path="/products" title="Вернуться" />
+    </div>
+  );
+};
+
+const Category = ({ inputKey, idx, fn, list }) => {
+  const { id: _id } = useParams();
+  const productsData = useSelector((state) => state.products.products);
+
+  const product = useMemo(
+    () => productsData.find((el) => el._id === _id),
+    [_id, productsData]
+  );
+
+  return (
+    <div className="categories-wrapper">
+      <span>{++idx + "."}</span>
+      <Select
+        defaultValue={{
+          label: product[inputKey],
+          value: product[inputKey],
+        }}
+        options={list.map((el) => ({
+          label: <span style={{ textTransform: "capitalize" }}>{el.name}</span>,
+          value: el,
+        }))}
+        placeholder="Категория"
+        styles={selectStyles()}
+        onChange={fn}
+      />
+    </div>
+  );
+};
 
 export default function UpdateProductForm() {
-  const { id } = useParams();
   const navigate = useNavigate();
   const toast = useContext(Toast);
   const productForm = useSelector((state) => state.products.productForm);
-  const productsData = useSelector((state) => state.products.products);
   const categories = useSelector((state) => state.categories.categories);
   const subCategories = useSelector(
     (state) => state.subCategories.subCategories
   );
-  const sub2categories = useSelector(
+  const sub2Categories = useSelector(
     (state) => state.sub2categories.sub2categories
   );
-  const product = useMemo(
-    () => productsData.find((el) => el._id === id),
-    [id, productsData]
-  );
+
   const dispatch = useDispatch();
+  const { category, subCategory = null, sub2Category = null } = productForm;
 
   const onChangeCategory = (e) => {
     if (!e) {
@@ -131,70 +174,36 @@ export default function UpdateProductForm() {
 
   return (
     <form className="update-product" onSubmit={onSubmit}>
+      <span>Категория</span>
+
       <div className="categories">
-        <div className="categories-wrapper">
-          <span>Категория 1</span>
-          <CreatableSelect
-            isClearable
-            isSearchable
-            defaultValue={{
-              label: product.category,
-              value: product.category,
-            }}
-            options={categories.map((el) => ({
-              label: (
-                <span style={{ textTransform: "capitalize" }}>{el.name}</span>
-              ),
-              value: el,
-            }))}
-            placeholder="Категория"
-            styles={selectStyles()}
-            onChange={onChangeCategory}
-          />
-        </div>
-        <div className="categories-wrapper">
-          <span>Категория 2</span>
-          <CreatableSelect
-            isClearable
-            isSearchable
-            defaultValue={{
-              label: product.subCategory,
-              value: product.subCategory,
-            }}
-            options={subCategories.map((el) => ({
-              label: (
-                <span style={{ textTransform: "capitalize" }}>{el.name}</span>
-              ),
-              value: el,
-            }))}
-            placeholder="Подкатегория"
-            styles={selectStyles()}
-            onChange={onChangeSubCategory}
-          />
-        </div>
-        <div className="categories-wrapper">
-          <span>Категория 3</span>
-          <CreatableSelect
-            isClearable
-            isSearchable
-            defaultValue={{
-              label: product?.sub2Category || null,
-              value: product?.sub2Category || null,
-            }}
-            options={sub2categories.map((el) => ({
-              label: (
-                <span style={{ textTransform: "capitalize" }}>{el.name}</span>
-              ),
-              value: el,
-            }))}
-            placeholder="Подкатегория 2"
-            styles={selectStyles()}
-            onChange={onChangeSub2Category}
-          />
-        </div>
+        {[
+          {
+            _id: category,
+            key: "category",
+            fn: onChangeCategory,
+            list: categories,
+          },
+          {
+            _id: subCategory,
+            key: "subCategory",
+            fn: onChangeSubCategory,
+            list: subCategories,
+          },
+          {
+            _id: sub2Category,
+            key: "sub2Category",
+            fn: onChangeSub2Category,
+            list: sub2Categories,
+          },
+        ]
+          .filter((el) => el._id)
+          .map(({ key, list, fn }, idx) => (
+            <Category key={key} idx={idx} inputKey={key} list={list} fn={fn} />
+          ))}
       </div>
       <div className="body">
-        <div className="form__input-wrapper">
+        <div className="body__input-wrapper">
           <label htmlFor="title">Наименование</label>
           <input
             id="title"
@@ -207,7 +216,7 @@ export default function UpdateProductForm() {
             }
           />
         </div>
-        <div className="form__input-wrapper">
+        <div className="body__input-wrapper">
           <label htmlFor="img">Картинка</label>
           <input
             id="img"
@@ -220,7 +229,7 @@ export default function UpdateProductForm() {
             }
           />
         </div>
-        <div className="form__input-wrapper">
+        <div className="body__input-wrapper">
           <label htmlFor="price">Цена, грн.</label>
           <input
             id="price"
@@ -240,9 +249,7 @@ export default function UpdateProductForm() {
         </div>
       </div>
 
-      <button className="update-product-submit" type="submit">
-        Изменить
-      </button>
+      <Buttons />
     </form>
   );
 }

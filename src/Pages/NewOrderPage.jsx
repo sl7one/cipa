@@ -5,7 +5,6 @@ import ModalClient from "../components/ModalClient/ModalClient";
 import { useDispatch, useSelector } from "react-redux";
 import { animationsHelper } from "../utils/animationsHelper";
 import useSelectedProducts from "../hooks/useSelectedProducts";
-import { Select } from "../context/select-context";
 import { addNewOrder } from "../store/ordersActions";
 import {
   resetClienData,
@@ -16,14 +15,15 @@ import {
 } from "../store/ordersSlice";
 import { resetProducts } from "../store/productsSlice";
 import { Toast } from "../context/toast-context";
+import { useNavigate } from "react-router-dom";
 
 export default function NewOrderPage() {
+  const navigate = useNavigate();
   const { productModal } = animationsHelper;
   const products = useSelector((state) => state.products.products);
   const productsSelected = useSelectedProducts(products);
   const dispatch = useDispatch();
   const toast = useContext(Toast);
-  const { resetSelect } = useContext(Select);
   const {
     clientData,
     date: dateData,
@@ -67,7 +67,7 @@ export default function NewOrderPage() {
           dispatch(resetClienData());
           dispatch(resetMessage());
           dispatch(resetProducts());
-          resetSelect();
+          navigate("/orders");
         },
         failed: (message) => toast.error(message),
       })

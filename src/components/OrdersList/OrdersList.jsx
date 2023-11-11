@@ -87,67 +87,63 @@ export default function OrdersList() {
 
   return (
     <>
-      <div className="orders-list-wrapper">
-        <OrdersListHeader
-          setFilter={setFilter}
-          filter={filter}
-          setFilterByOwner={setFilterByOwner}
-          filterByOwner={filterByOwner}
-          setSort={setSort}
-          sort={sort}
-          setMainMark={setMainMark}
-          mainMark={mainMark}
-        />
-      </div>
-      <div className="orders-list-wrapper">
-        <ul className={"orders-list"}>
-          {items
-            .filter(({ client: { name, phone }, location }) => {
-              if (name.includes(filter)) {
-                return true;
-              }
-              if (phone.includes(filter)) {
-                return true;
-              }
+      <OrdersListHeader
+        setFilter={setFilter}
+        filter={filter}
+        setFilterByOwner={setFilterByOwner}
+        filterByOwner={filterByOwner}
+        setSort={setSort}
+        sort={sort}
+        setMainMark={setMainMark}
+        mainMark={mainMark}
+      />
+      <ul className={"orders-list"}>
+        {items
+          .filter(({ client: { name, phone }, location }) => {
+            if (name.includes(filter)) {
+              return true;
+            }
+            if (phone.includes(filter)) {
+              return true;
+            }
 
-              if (location) {
-                return location?.location?.includes(filter);
-              }
+            if (location) {
+              return location?.location?.includes(filter);
+            }
 
-              return false;
-            })
-            .filter(({ owner }) =>
-              !filterByOwner ? true : owner === currentUser
-            )
-            .sort(({ date: dateA }, { date: dateB }) => {
-              if (sort.date === "init") return 0;
-              return sort.date === "asc"
-                ? Date.parse(dateA) - Date.parse(dateB)
-                : Date.parse(dateB) - Date.parse(dateA);
-            })
-            .sort(({ total: totalA }, { total: totalB }) => {
-              if (sort.total === "init") return 0;
-              return sort.total === "asc" ? totalA - totalB : totalB - totalA;
-            })
-            .map(({ _id, owner, location, message, ...rest }) => (
-              <li className={classes({ message, owner })} key={_id}>
-                <OrdersListInfoGroup
+            return false;
+          })
+          .filter(({ owner }) =>
+            !filterByOwner ? true : owner === currentUser
+          )
+          .sort(({ date: dateA }, { date: dateB }) => {
+            if (sort.date === "init") return 0;
+            return sort.date === "asc"
+              ? Date.parse(dateA) - Date.parse(dateB)
+              : Date.parse(dateB) - Date.parse(dateA);
+          })
+          .sort(({ total: totalA }, { total: totalB }) => {
+            if (sort.total === "init") return 0;
+            return sort.total === "asc" ? totalA - totalB : totalB - totalA;
+          })
+          .map(({ _id, owner, location, message, ...rest }) => (
+            <li className={classes({ message, owner })} key={_id}>
+              <OrdersListInfoGroup
+                {...rest}
+                location={location?.location}
+                _id={_id}
+              />
+              <FunctionalButtons _id={_id}>
+                <OrdersListFunctionalButtons
                   {...rest}
-                  location={location?.location}
                   _id={_id}
+                  confirmDelete={confirmDelete}
+                  setId={setId}
                 />
-                <FunctionalButtons _id={_id}>
-                  <OrdersListFunctionalButtons
-                    {...rest}
-                    _id={_id}
-                    confirmDelete={confirmDelete}
-                    setId={setId}
-                  />
-                </FunctionalButtons>
-              </li>
-            ))}
-        </ul>
-      </div>
+              </FunctionalButtons>
+            </li>
+          ))}
+      </ul>
       <OrderInfoModal _id={id} />
       <DialogModal
         title="Подтвердите удаление заказа"

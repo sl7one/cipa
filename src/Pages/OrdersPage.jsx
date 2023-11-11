@@ -7,7 +7,9 @@ export default function OrdersPage() {
   return (
     <div>
       <AddNewBtn title="Добавить новый заказ" path="/orders/new" />
-      <OrdersList />
+      <div style={{ padding: "5px" }}>
+        <OrdersList />
+      </div>
       <StatsPayload />
     </div>
   );
