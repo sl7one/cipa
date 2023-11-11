@@ -9,6 +9,7 @@ import {
   AiOutlineBarChart,
   AiOutlineEye,
   AiOutlineEyeInvisible,
+  AiOutlinePlus,
 } from "react-icons/ai";
 import { BsInfo } from "react-icons/bs";
 
@@ -31,6 +32,7 @@ export default function Icons({ name, color = null }) {
     info: <BsInfo color={color || "black"} size={size} />,
     eyeOpen: <AiOutlineEye color={color || "black"} size={size} />,
     eyeClose: <AiOutlineEyeInvisible color={color || "black"} size={size} />,
+    plus: <AiOutlinePlus color={color || "black"} size={size} />,
   };
 
   return <span className="icon-wrapper">{iconsSet[name]}</span>;

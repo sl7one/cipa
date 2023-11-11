@@ -25,6 +25,7 @@ export default function LoadingBackdrop() {
     } else {
       setIsLoading(false);
       clearInterval(intervalId);
+      setSeconds(0);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoadingArray]);

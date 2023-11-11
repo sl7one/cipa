@@ -29,6 +29,7 @@ export const selectStyles = () => ({
     ...base,
     color: state.isActive ? "#8C8C8C" : "#8C8C8C",
     backgroundColor: "transparent",
+    borderBottom: "1px solid white",
     ":hover": {
       backgroundColor: "transparent",
     },

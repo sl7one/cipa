@@ -100,6 +100,28 @@ export const animationsHelper = {
       }),
   },
 
+  createClient: {
+    show: () =>
+      gsap.to(".create-client-backdrop", {
+        bottom: 0,
+      }),
+    hide: () =>
+      gsap.to(".create-client-backdrop", {
+        bottom: "-100%",
+      }),
+  },
+
+  createLocation: {
+    show: () =>
+      gsap.to(".create-location-backdrop", {
+        bottom: 0,
+      }),
+    hide: () =>
+      gsap.to(".create-location-backdrop", {
+        bottom: "-100%",
+      }),
+  },
+
   dialogModal: {
     show: () =>
       gsap.to(".dialog-modal__backdrop", {
