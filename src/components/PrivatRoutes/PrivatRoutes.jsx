@@ -7,6 +7,7 @@ const newOrderPage = lazy(() => import("../../Pages/NewOrderPage"));
 const editOrderPage = lazy(() => import("../../Pages/EditOrderPage"));
 const sallesPage = lazy(() => import("../../Pages/SallesPage"));
 const purchasePage = lazy(() => import("../../Pages//PurchasesPage"));
+const newPurchasePage = lazy(() => import("../../Pages/NewPurchasePage"));
 const clientsPage = lazy(() => import("../../Pages/ClientsPage"));
 const productsPage = lazy(() => import("../../Pages/ProductsPage"));
 const newProductsPage = lazy(() => import("../../Pages/NewProductPage"));
@@ -31,6 +32,10 @@ export default function PrivatRoutes() {
         <Route
           path="purchases"
           element={<LazyLoad component={purchasePage} />}
+        />
+        <Route
+          path="purchases/new"
+          element={<LazyLoad component={newPurchasePage} />}
         />
         <Route path="clients" element={<LazyLoad component={clientsPage} />} />
         <Route

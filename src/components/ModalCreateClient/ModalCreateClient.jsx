@@ -8,6 +8,9 @@ import { Toast } from "../../context/toast-context";
 import { useDispatch } from "react-redux";
 import { setClientData } from "../../store/ordersSlice";
 import gsap from "gsap";
+import ModalButtons from "../ModalButtons/ModalButtons";
+import ButtonClose from "../ButtonClose/ButtonClose";
+import ButtonOk from "../ButtonOk/ButtonOk";
 
 const ClientSchema = Yup.object().shape({
   name: Yup.string()
@@ -34,12 +37,13 @@ export default function ModalCreateClient() {
 
   const { createClient } = animationsHelper;
 
-  const onSubmit = ({ name, phone }) => {
+  const onSubmit = ({ userValues: { name, phone }, resetForm }) => {
     dispatch(
       addNewClient({
         data: { name, phone },
         success: (data) => {
           toast.success("Добавлен новый контакт");
+          resetForm();
           dispatch(setClientData(data));
           createClient.hide();
         },
@@ -58,7 +62,15 @@ export default function ModalCreateClient() {
             name: "",
             phone: "",
           }}
-          onSubmit={(userValues) => onSubmit(userValues)}
+          onSubmit={(userValues, actions) => {
+            onSubmit({
+              userValues,
+              resetForm: () =>
+                actions.resetForm({
+                  values: { name: "", phone: "" },
+                }),
+            });
+          }}
           validationSchema={ClientSchema}
         >
           {({ errors, touched }) => (
@@ -86,18 +98,10 @@ export default function ModalCreateClient() {
                 ) : null}
               </div>
 
-              <div className="create-client-buttons">
-                <button
-                  className="create-client-close"
-                  type="button"
-                  onClick={createClient.hide}
-                >
-                  Закрыть
-                </button>
-                <button className="create-client-submit" type="submit">
-                  Добавить
-                </button>
-              </div>
+              <ModalButtons>
+                <ButtonOk title="Добавить" type="submit" />
+                <ButtonClose title="Закрыть" onClose={createClient.hide} />
+              </ModalButtons>
             </Form>
           )}
         </Formik>

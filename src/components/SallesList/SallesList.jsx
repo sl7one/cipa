@@ -8,7 +8,7 @@ import { Toast } from "../../context/toast-context";
 import { unsalleOrder } from "../../store/ordersActions";
 import { animationsHelper } from "../../utils/animationsHelper";
 import DialogModal from "../DialogModal/DialogModal";
-import OrderInfoModal from "../OrderInfoModal/OrderInfoModal";
+import ModalOrderInfo from "../ModalOrderInfo/ModalOrderInfo";
 
 export default function SallesList() {
   const [order, setOrder] = useState({});
@@ -104,7 +104,7 @@ export default function SallesList() {
             ))}
         </ul>
       </div>
-      <OrderInfoModal _id={id} />
+      <ModalOrderInfo _id={id} />
       <DialogModal
         title="Подтвердите отменение продажи"
         onClickYes={() => onClickYes({ _id: order._id })}

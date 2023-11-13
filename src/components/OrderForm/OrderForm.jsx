@@ -10,7 +10,11 @@ import BackBtn from "../BackBtn/BackBtn";
 import AddNewProduct from "../AddNewProduct/AddNewProduct";
 import { initFormData } from "../../store/ordersSlice";
 
-export default function OrderForm({ productsSelected, onSubmit }) {
+export default function OrderForm({
+  productsSelected,
+  onSubmit,
+  renderButton,
+}) {
   const { ordersData } = useSelector((state) => state.orders.orderForm);
 
   const dispatch = useDispatch();
@@ -29,12 +33,12 @@ export default function OrderForm({ productsSelected, onSubmit }) {
   return (
     <>
       <form onSubmit={onSubmit} className="form">
-        <OrderFormHeader />
+        <OrderFormHeader>{renderButton}</OrderFormHeader>
         <>
           {!productsSelected.length ? (
             <div className="back-block">
               <AddNewProduct />
-              <BackBtn path="/orders" title="Верунться к заказам" />
+              <BackBtn path="/purchases" title="Верунться к закупкам" />
             </div>
           ) : (
             <div className="form-body">

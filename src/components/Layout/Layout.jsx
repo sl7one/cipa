@@ -13,6 +13,7 @@ import { getAllSub2Categories } from "../../store/sub2CategoriesActions";
 import ModalRoutes from "../ModalRoutes/ModalRoutes";
 import HelloUser from "../HelloUser/HelloUser";
 import RouteNavigationButton from "../RouteNavigationButton/RouteNavigationButton";
+import { getAllPurchases } from "../../store/purchasesActions";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ export default function Layout() {
       try {
         await dispatch(getAllProducts());
         await dispatch(getAllOrders());
+        await dispatch(getAllPurchases());
         await dispatch(getAllClients());
         await dispatch(getAllLocations());
         await dispatch(getAllCategories());

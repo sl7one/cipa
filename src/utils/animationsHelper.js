@@ -165,4 +165,17 @@ export const animationsHelper = {
         visibility: "hidden",
       }),
   },
+
+  purchaseModal: {
+    show: () =>
+      gsap.to(".purchase-modal-backdrop", {
+        opacity: 1,
+        visibility: "visible",
+      }),
+    hide: () =>
+      gsap.to(".purchase-modal-backdrop", {
+        opacity: 0,
+        visibility: "hidden",
+      }),
+  },
 };

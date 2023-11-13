@@ -6,7 +6,7 @@ import moment from "moment";
 import SummaryStats from "../SummaryStats/SummaryStats";
 import Icons from "../Icons/Icons";
 
-export default function OrderInfoModal({ _id }) {
+export default function ModalOrderInfo({ _id }) {
   const { orderInfo } = animationsHelper;
   const orders = useSelector((state) => state.orders.orders);
   const item = useMemo(

@@ -58,7 +58,7 @@ const selectStyles = () => ({
   container: (base) => ({ ...base, flex: 1 }),
 });
 
-const SelectComponent = forwardRef(
+const SelectComponent000 = forwardRef(
   ({ placeholder, onChange, options }, ref) => {
     return (
       <CreatableSelect
@@ -74,4 +74,4 @@ const SelectComponent = forwardRef(
   }
 );
 
-export default SelectComponent;
+export default SelectComponent000;

@@ -14,37 +14,27 @@ import gsap from "gsap";
 import Icons from "../Icons/Icons";
 import ModalCreateClient from "../ModalCreateClient/ModalCreateClient";
 import ModalCreateLocation from "../ModalCreateLocation/ModalCreateLocation";
-
-const ButtonSubmit = () => {
-  return (
-    <button className="submit-btn" type="submit">
-      Ок
-    </button>
-  );
-};
-
-const ButtonClose = () => {
-  const { clientModal } = animationsHelper;
-
-  return (
-    <button className="close-btn" type="button" onClick={clientModal.hide}>
-      Закрыть
-    </button>
-  );
-};
+import SelectClient from "../SelectClient/SelectClient";
+import ModalButtons from "../ModalButtons/ModalButtons";
+import ButtonClose from "../ButtonClose/ButtonClose";
+import ButtonOk from "../ButtonOk/ButtonOk";
 
 const Buttons = () => {
   useEffect(() => {
     gsap.fromTo(
-      ".modal-client-btns",
+      ".modal-btns",
       { bottom: "-100", opacity: 0 },
       { bottom: 0, opacity: 1 }
     );
   }, []);
+  const { clientModal } = animationsHelper;
+
   return (
-    <div className="modal-client-btns">
-      <ButtonSubmit />
-      <ButtonClose />
+    <div style={{ marginTop: "auto" }}>
+      <ModalButtons>
+        <ButtonOk type="submit" />
+        <ButtonClose title="Закрыть" onClose={clientModal.hide} />
+      </ModalButtons>
     </div>
   );
 };
@@ -54,7 +44,6 @@ const ModalClient = () => {
   const { clientData, message } = useSelector(
     (state) => state.orders.orderForm
   );
-  const clients = useSelector((state) => state.clients.clients);
   const locations = useSelector((state) => state.locations.locations);
   const { clientModal, createClient, createLocation } = animationsHelper;
 
@@ -96,23 +85,7 @@ const ModalClient = () => {
           <div>
             <div className="form__input-wrapper">
               <label htmlFor="name">*</label>
-              <Select
-                id="name"
-                isClearable
-                isSearchable
-                options={clients.map((el) => ({
-                  label: (
-                    <>
-                      <span className="select-options-name">{el.name}</span>
-                      <span className="select-options-phone">{el.phone}</span>
-                    </>
-                  ),
-                  value: el.name + "," + el.phone + "," + el._id,
-                }))}
-                placeholder="Клиент"
-                styles={selectStyles()}
-                onChange={onChangeClient}
-              />
+              <SelectClient onChange={onChangeClient} placeholder="Клиент" />
             </div>
           </div>
           <button type="button" onClick={createClient.show}>

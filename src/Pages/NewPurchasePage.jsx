@@ -1,11 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import OrderForm from "../components/OrderForm/OrderForm";
-import ModalProduct from "../components/ModalProduct/ModalProduct";
-import ModalClient from "../components/ModalClient/ModalClient";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { animationsHelper } from "../utils/animationsHelper";
+import { useDispatch, useSelector } from "react-redux";
 import useSelectedProducts from "../hooks/useSelectedProducts";
-import { addNewOrder } from "../store/ordersActions";
+import { Toast } from "../context/toast-context";
 import {
   resetClienData,
   resetDate,
@@ -14,11 +12,13 @@ import {
   resetOrder,
 } from "../store/ordersSlice";
 import { resetProducts } from "../store/productsSlice";
-import { Toast } from "../context/toast-context";
-import { useNavigate } from "react-router-dom";
-import ClientButton from "../components/ClientButton/ClientButton";
+import ModalProduct from "../components/ModalProduct/ModalProduct";
+import OrderForm from "../components/OrderForm/OrderForm";
+import PurchaseButton from "../components/PurchaseButton/PurchaseButton";
+import ModalPurchase from "../components/ModalPurchase/ModalPurchase";
+import { addNewPurchase } from "../store/purchasesActions";
 
-export default function NewOrderPage() {
+export default function NewPurchasePage() {
   const navigate = useNavigate();
   const { productModal } = animationsHelper;
   const products = useSelector((state) => state.products.products);
@@ -28,11 +28,8 @@ export default function NewOrderPage() {
   const {
     clientData,
     date: dateData,
-    location: locationData,
-    message: messageData,
     ordersData,
   } = useSelector((state) => state.orders.orderForm);
-  const owner = useSelector((state) => state.auth.user._id);
 
   useEffect(() => {
     productModal.show();
@@ -53,22 +50,19 @@ export default function NewOrderPage() {
       date: dateData.toISOString(),
       client: clientData._id,
       order: orders,
-      location: locationData._id,
-      message: messageData,
-      owner,
     };
 
     dispatch(
-      addNewOrder({
+      addNewPurchase({
         data: order,
         success: () => {
-          toast.success("Заказ успешно добавлен");
+          toast.success("Закупка успешно добавлена");
           dispatch(resetOrder());
           dispatch(resetLocation());
           dispatch(resetClienData());
           dispatch(resetMessage());
           dispatch(resetProducts());
-          navigate("/orders");
+          navigate("/purchases");
         },
         failed: (message) => toast.error(message),
       })
@@ -91,11 +85,11 @@ export default function NewOrderPage() {
   return (
     <>
       <ModalProduct />
-      <ModalClient />
+      <ModalPurchase />
       <OrderForm
         onSubmit={onSubmit}
         productsSelected={productsSelected}
-        renderButton={<ClientButton />}
+        renderButton={<PurchaseButton />}
       />
     </>
   );
